@@ -1,5 +1,5 @@
-'use strict'
-const { Model } = require('sequelize')
+'use strict';
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class questionTagMap extends Model {
     /**
@@ -41,6 +41,6 @@ module.exports = (sequelize, DataTypes) => {
       tableName: 'question_tag_map',
       underscored: true,
     },
-  )
-  return questionTagMap
-}
+  );
+  return questionTagMap;
+};
