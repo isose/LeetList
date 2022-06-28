@@ -23,13 +23,13 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         unique: true,
       },
-      title: {
-        type: DataTypes.STRING,
+      questionId: {
+        type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,
       },
-      questionId: {
-        type: DataTypes.INTEGER,
+      title: {
+        type: DataTypes.STRING,
         allowNull: false,
         unique: true,
       },
