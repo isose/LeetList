@@ -168,7 +168,7 @@ async function scrapeQuestionData() {
   await bluebird.map(
     urls,
     async (url: string) => {
-      await withPage(browser)(async (page) => {
+      await withPage(browser)(async (page: any) => {
         try {
           await page.goto(url);
           await page.waitForSelector('[data-cy="question-title"]');
