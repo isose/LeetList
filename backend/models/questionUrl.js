@@ -1,7 +1,7 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class questionTagMap extends Model {
+  class questionUrl extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,36 +11,25 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  questionTagMap.init(
+  questionUrl.init(
     {
       id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
       },
-      questionId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'question',
-          key: 'question_id',
-        },
-      },
-      tagId: {
+      url: {
         type: DataTypes.STRING,
         allowNull: false,
-        references: {
-          model: 'tag',
-          key: 'tag',
-        },
+        unique: true,
       },
     },
     {
       sequelize,
-      modelName: 'questionTagMap',
-      tableName: 'question_tag_map',
+      modelName: 'questionUrl',
+      tableName: 'question_url',
       underscored: true,
     },
   );
-  return questionTagMap;
+  return questionUrl;
 };

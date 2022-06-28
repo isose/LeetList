@@ -1,7 +1,7 @@
-import express, { Express } from 'express';
+import express from 'express';
 import { sequelize } from './models';
 
-const app: Express = express();
+const app = express();
 const port = process.env.PORT || 5000;
 
 // This displays message that the server running and listening to specified port
