@@ -77,9 +77,9 @@
     "server": "cd backend; ts-node server.ts",
     "dev": "concurrently \"npm run server\" \"npm start\"",
     "scraper": "cd backend; ts-node scraper.ts",
-    "lint": "eslint frontend/src/**/*.{js,jsx,ts,tsx,json} backend/*.{js,jsx,ts,tsx,json} backend/routes/**/*.{js,jsx,ts,tsx,json}",
-    "lint:fix": "eslint --fix 'frontend/src/**/*.{js,jsx,ts,tsx,json}' backend/*.{js,jsx,ts,tsx,json} backend/routes/**/*.{js,jsx,ts,tsx,json}",
-    "format": "prettier --write 'frontend/src/**/*.{js,jsx,ts,tsx,css,md,json}' backend/**/*.{js,jsx,ts,tsx,json} --config ./.prettierrc"
+    "lint": "eslint 'frontend/**/*.{js,jsx,ts,tsx,css,md,json}' 'backend/**/*.{js,jsx,ts,tsx,json}'",
+    "lint:fix": "eslint --fix 'frontend/**/*.{js,jsx,ts,tsx,css,md,json}' 'backend/**/*.{js,jsx,ts,tsx,json}'",
+    "format": "prettier --write 'frontend/**/*.{js,jsx,ts,tsx,css,md,json}' 'backend/**/*.{js,jsx,ts,tsx,json}' --config ./.prettierrc"
   },
   "proxy": "http://localhost:5000",
   "eslintConfig": {
