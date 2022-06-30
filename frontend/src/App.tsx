@@ -1,23 +1,13 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import QuestionItem from '../components/QuestionItem/QuestionItem';
 
-class App extends Component {
-  state = {
-    data: null,
-  };
-
-  render() {
-    return (
-      <div className='App'>
-        <header className='App-header'>
-          <img src={logo} className='App-logo' alt='logo' />
-          <h1 className='App-title'>Welcome to React</h1>
-        </header>
-        <p className='App-intro'>{this.state.data}</p>
-      </div>
-    );
-  }
-}
+const App = () => {
+  return (
+    <div className='App'>
+      <h1>Leetlist</h1>
+      <QuestionItem />
+    </div>
+  );
+};
 
 export default App;
