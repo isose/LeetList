@@ -7,9 +7,9 @@ const port = process.env.PORT || 5000;
 require('./routes/routes')(app);
 
 // create database tables
-async () => {
+(async () => {
   await sequelize.sync();
-};
+})();
 
 // This displays message that the server running and listening to specified port
 app.listen(port, async () => {
