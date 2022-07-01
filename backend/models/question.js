@@ -8,7 +8,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.hasMany(models.questionTagMap, { as: 'tags' });
+      this.hasMany(models.questionTagMap, {
+        foreignKey: 'questionId',
+        sourceKey: 'questionId',
+        as: 'tags',
+      });
     }
 
     toJSON() {
