@@ -1,11 +1,14 @@
 import express from 'express';
-const { question } = require('../models');
+const { question, questionTagMap, tag } = require('../models');
 
 const router = express.Router();
 
 router.get('/questions', async (req, res) => {
   try {
-    const questions = await question.findAll({ order: [['questionId', 'ASC']] });
+    const questions = await question.findAll({
+      include: [{ model: questionTagMap, as: 'tags' }],
+      order: [['questionId', 'ASC']],
+    });
     return res.json(questions);
   } catch (err) {
     console.log(err);
