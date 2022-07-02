@@ -104,10 +104,6 @@ async function getQuestions() {
       questionId: questionObj.frontendQuestionId,
       title: questionObj.title,
       difficulty: questionObj.difficulty,
-      upVotes: null,
-      downVotes: null,
-      numberOfAccepted: null,
-      numberOfSubmissions: null,
     };
 
     // add question slug to database
@@ -122,8 +118,6 @@ async function getQuestions() {
     });
     if (!doesQuestionExist) {
       await question.create(questionJson);
-    } else {
-      await question.update(questionJson, { where: { questionId: questionJson.questionId } });
     }
 
     for (const tagObj of questionObj.topicTags) {

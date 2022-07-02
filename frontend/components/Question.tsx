@@ -4,8 +4,8 @@ import TagList from './TagList';
 const COMMA_SEPARATED_NUMBER_REGEX = /\B(?=(\d{3})+(?!\d))/g;
 
 const Question = (question: any) => {
-  const upVotes = question.upVotes.toString().replace(COMMA_SEPARATED_NUMBER_REGEX, ',');
-  const downVotes = question.downVotes.toString().replace(COMMA_SEPARATED_NUMBER_REGEX, ',');
+  const upVotes = question.upVotes?.toString().replace(COMMA_SEPARATED_NUMBER_REGEX, ',');
+  const downVotes = question.downVotes?.toString().replace(COMMA_SEPARATED_NUMBER_REGEX, ',');
   const acceptance = ((question.numberOfAccepted / question.numberOfSubmissions) * 100).toFixed(2);
 
   return (
