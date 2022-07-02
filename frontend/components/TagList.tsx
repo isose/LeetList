@@ -3,7 +3,7 @@ import Tag from './Tag';
 
 const TagList = ({ tags }: any) => {
   return (
-    <div>
+    <div className='tag-list'>
       {tags.map((tag: any, index: number) => {
         return <Tag key={index} {...tag} />;
       })}

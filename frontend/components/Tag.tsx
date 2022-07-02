@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Tag = (tag: any) => {
-  return <span className='Tag'>{tag.tagId}</span>;
+  return <div className='tag'>{tag.tagId}</div>;
 };
 
 export default Tag;
