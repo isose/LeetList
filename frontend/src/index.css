@@ -10,11 +10,24 @@ h1 {
   text-align: center;
 }
 
+svg {
+  display: block;
+  margin: auto;
+}
+
+.svg-container {
+  display: flex;
+}
+
+.question-module {
+  margin: 0 auto 100px auto;
+  width: 60%;
+}
+
 .question {
-  margin: 2px auto;
+  margin: 2px 0;
   padding: 5px 10px;
   outline: 2px solid black;
-  width: 60%;
 }
 
 .question-container {
@@ -70,4 +83,20 @@ h1 {
   padding: 0 3px;
   border-radius: 5px;
   border: 2px solid black;
+}
+
+.pagination-dropdown-wrapper {
+  width: 105px;
+}
+
+.pagination-dropdown-list {
+  width: 105px;
+  position: absolute;
+}
+
+.pagination-dropdown-header,
+.pagination-dropdown-item {
+  padding: 2px 0 3px 5px;
+  outline: 2px solid black;
+  cursor: pointer;
 }
