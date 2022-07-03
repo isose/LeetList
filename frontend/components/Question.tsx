@@ -26,8 +26,8 @@ const Question = (question: any) => {
             {question.difficulty}{' '}
           </div>
           <div className='votes'>
-            <div>🠉{upVotes}</div>
-            <div>🠋{downVotes}</div>
+            <div>▲{upVotes}</div>
+            <div>▼{downVotes}</div>
           </div>
           <div className='submissions'>
             <div>acceptance: </div>
