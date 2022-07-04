@@ -22,8 +22,9 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "preserve"
+    "noEmit": false,
+    "jsx": "react",
+    "outDir": "./dist/"
   },
   "include": [
         "frontend/src/*",
