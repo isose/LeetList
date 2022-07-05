@@ -24,17 +24,21 @@ const PaginationDropdown = ({ items, selected, onClick }: any) => {
 
   return (
     <div className='pagination-dropdown-wrapper' ref={paginationDropdown}>
-      <div className='pagination-dropdown-header svg-container' onClick={() => toggleState()}>
+      <button className='pagination-dropdown-header svg-container' onClick={() => toggleState()}>
         {selected}
         {DROPDOWN_TEXT} <FaChevronDown />
-      </div>
+      </button>
       {open && (
         <div className='pagination-dropdown-list'>
           {items.map((item: any, index: any) => (
-            <div className='pagination-dropdown-item' key={index} onClick={() => handleClick(item)}>
+            <button
+              className='pagination-dropdown-item'
+              key={index}
+              onClick={() => handleClick(item)}
+            >
               {item.value}
               {DROPDOWN_TEXT}
-            </div>
+            </button>
           ))}
         </div>
       )}
