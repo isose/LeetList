@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import QuestionList from '../components/QuestionList';
 import PaginationNavigation from '../components/pagination/PaginationNavigation';
 
@@ -6,15 +7,21 @@ const App = () => {
   let localStorageLimit = localStorage.getItem('limit');
   localStorageLimit = localStorageLimit ? JSON.parse(localStorageLimit) : 50;
 
+  const navigate = useNavigate();
+  let currentUrlParams = new URLSearchParams(window.location.search);
+  const pageParam = currentUrlParams.get('page');
+
   const [questions, setQuestions] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [page, setPage] = useState(pageParam ? Number(pageParam) : 1);
+  const [totalPages, setTotalPages] = useState<number | null>(null);
   const [limit, setLimit] = useState(localStorageLimit);
 
   const paginationOptions = [{ value: 20 }, { value: 50 }, { value: 100 }, { value: 200 }];
 
   useEffect(() => {
     getQuestions();
+    currentUrlParams.set('page', page.toString());
+    navigate(window.location.pathname + '?' + currentUrlParams.toString());
   }, [limit, page]);
 
   useEffect(() => {
@@ -37,7 +44,7 @@ const App = () => {
   };
 
   const handlePageBounds = () => {
-    if (page > totalPages) {
+    if (totalPages !== null && page > totalPages) {
       setPage(totalPages);
     }
   };
