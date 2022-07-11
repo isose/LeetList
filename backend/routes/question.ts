@@ -1,16 +1,18 @@
 import express from 'express';
+const Op = require('sequelize').Op;
 const { question, questionTagMap } = require('../models');
 
 const router = express.Router();
 
-router.get('/questions', async (req, res) => {
-  const offset = Number(req.query.offset);
-  const limit = Number(req.query.limit);
-
+const getQuestionQuery = (req: any) => {
   let query: any = {
     include: [{ model: questionTagMap, as: 'tags' }],
     order: [['questionId', 'ASC']],
+    where: {},
   };
+
+  const offset = Number(req.query.offset);
+  const limit = Number(req.query.limit);
 
   if (!Number.isNaN(offset) && Number.isInteger(offset)) {
     query.offset = offset;
@@ -19,8 +21,31 @@ router.get('/questions', async (req, res) => {
     query.limit = limit;
   }
 
+  queryAddDifficuty(query, req);
+
+  return query;
+};
+
+const getQuestionCountQuery = (req: any) => {
+  let query: any = {
+    where: {},
+  };
+  queryAddDifficuty(query, req);
+  return query;
+};
+
+const queryAddDifficuty = (query: any, req: any) => {
+  const difficulty = req.query.difficulty;
+  if (difficulty) {
+    query.where.difficulty = {
+      [Op.or]: [(difficulty as string).split(',')],
+    };
+  }
+};
+
+router.get('/questions', async (req, res) => {
   try {
-    const questions = await question.findAll(query);
+    const questions = await question.findAll(getQuestionQuery(req));
     return res.status(200).json(questions);
   } catch (err) {
     console.log(err);
@@ -30,7 +55,7 @@ router.get('/questions', async (req, res) => {
 
 router.get('/questions/count', async (req, res) => {
   try {
-    const count = await question.count();
+    const count = await question.count(getQuestionCountQuery(req));
     return res.status(200).json(count);
   } catch (err) {
     console.log(err);

@@ -11,8 +11,10 @@ h1 {
 }
 
 button {
+  padding: 0;
   background-color: white;
   font-family: 'Roboto', sans-serif;
+  cursor: pointer;
 }
 
 button:hover {
@@ -27,11 +29,13 @@ svg {
 .svg-container {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .question-module {
   margin: 0 auto 100px auto;
   width: 60%;
+  min-width: 400px;
 }
 
 .question {
@@ -110,7 +114,6 @@ svg {
   padding: 2px 0;
   width: 105px;
   border: 2px solid black;
-  cursor: pointer;
 }
 
 .pagination-button-wrapper {
@@ -123,11 +126,28 @@ svg {
   padding: 0;
   border: 2px solid black;
   border-radius: 5px;
-  cursor: pointer;
   width: 25px;
   height: 25px;
 }
 
 .pagination-button-current {
   background-color: #eeeeee;
+}
+
+.basic-search-wrapper {
+  height: 25px;
+  display: flex;
+  column-gap: 5px;
+}
+
+.difficulty-dropdown-header,
+.difficulty-dropdown-item {
+  width: 150px;
+  height: 25px;
+  border: 2px solid black;
+}
+
+.difficulty-dropdown-list {
+  width: 150px;
+  position: absolute;
 }
