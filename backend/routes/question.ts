@@ -1,5 +1,6 @@
 import express from 'express';
 import Sequelize, { Op } from 'sequelize';
+import { sequelize } from '../models';
 const { question, questionTagMap } = require('../models');
 
 const questionRouter = express.Router();
@@ -7,7 +8,7 @@ const questionRouter = express.Router();
 const getQuestionQuery = (req: any) => {
   const query: any = {
     include: [{ model: questionTagMap, as: 'tags' }],
-    order: [['questionId', 'ASC']],
+    order: [[sequelize.cast(sequelize.col('question_id'), 'BIGINT'), 'ASC']],
   };
 
   const offset = Number(req.query.offset);
@@ -44,16 +45,8 @@ const addQueryParams = (query: any, req: any) => {
 
     const searchQuery = {
       [Op.or]: [
-        {
-          questionId: {
-            [Op.or]: searchQueryArray,
-          },
-        },
-        {
-          title: {
-            [Op.or]: searchQueryArray,
-          },
-        },
+        { questionId: { [Op.or]: searchQueryArray } },
+        { title: { [Op.or]: searchQueryArray } },
       ],
     };
     queries.push(searchQuery);
