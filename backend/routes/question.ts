@@ -2,10 +2,10 @@ import express from 'express';
 import Sequelize, { Op } from 'sequelize';
 const { question, questionTagMap } = require('../models');
 
-const router = express.Router();
+const questionRouter = express.Router();
 
 const getQuestionQuery = (req: any) => {
-  let query: any = {
+  const query: any = {
     include: [{ model: questionTagMap, as: 'tags' }],
     order: [['questionId', 'ASC']],
   };
@@ -25,7 +25,7 @@ const getQuestionQuery = (req: any) => {
 };
 
 const getQuestionCountQuery = (req: any) => {
-  let query: any = {};
+  const query: any = {};
   addQueryParams(query, req);
   return query;
 };
@@ -73,7 +73,7 @@ const addQueryParams = (query: any, req: any) => {
   };
 };
 
-router.get('/questions', async (req, res) => {
+questionRouter.get('/questions', async (req, res) => {
   try {
     const questions = await question.findAll(getQuestionQuery(req));
     return res.status(200).json(questions);
@@ -83,7 +83,7 @@ router.get('/questions', async (req, res) => {
   }
 });
 
-router.get('/questions/count', async (req, res) => {
+questionRouter.get('/questions/count', async (req, res) => {
   try {
     const count = await question.count(getQuestionCountQuery(req));
     return res.status(200).json(count);
@@ -93,7 +93,7 @@ router.get('/questions/count', async (req, res) => {
   }
 });
 
-router.get('/question/:id', async (req, res) => {
+questionRouter.get('/question/:id', async (req, res) => {
   try {
     const questions = await question.findAll({
       where: { questionId: req.params.id },
@@ -107,4 +107,4 @@ router.get('/question/:id', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default questionRouter;

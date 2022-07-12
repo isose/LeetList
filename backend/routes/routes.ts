@@ -1,8 +1,9 @@
 import express from 'express';
-const questionRouter = require('./question');
+import questionRouter from './question';
 
-module.exports = function (app: any) {
-  app.use(express.json());
+const routes = express.Router();
 
-  app.use('/', questionRouter);
-};
+routes.use(express.json());
+routes.use('/', questionRouter);
+
+export default routes;

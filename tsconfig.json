@@ -6,12 +6,9 @@
   },
   "compilerOptions": {
     "target": "esnext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
+    "sourceMap": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -25,9 +22,5 @@
     "noEmit": false,
     "jsx": "react",
     "outDir": "./dist/"
-  },
-  "include": [
-        "frontend/src/*",
-        "backend/*"
-    ]
+  }
 }
