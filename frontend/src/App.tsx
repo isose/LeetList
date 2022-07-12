@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useStateDebounced } from '../hooks/useStateDebounced';
 import PaginationNavigation from '../components/pagination/PaginationNavigation';
 import QuestionList from '../components/QuestionList';
 import BasicSearch from '../components/search/BasicSearch';
+import { useStateDebounced } from '../hooks/useStateDebounced';
 
 const App = () => {
   const navigate = useNavigate();

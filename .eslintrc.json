@@ -1,49 +1,41 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true,
-        "jest": true
-    },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:@typescript-eslint/recommended",
-        "prettier"
-    ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": "latest",
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react",
-        "react-hooks",
-        "@typescript-eslint",
-        "prettier"
-    ],
-    "ignorePatterns": [
-        "react-app-env.d.ts"
-    ],
-    "rules": {
-        "react/react-in-jsx-scope": "off",
-        "camelcase": "error",
-        "spaced-comment": "error",
-        "quotes": [
-            "error",
-            "single"
-        ],
-        "no-duplicate-imports": "error"
-    },
-    "settings": {
-        "import/resolver": {
-            "typescript": {}
-            
-        },
-        "react": {
-            "version": "detect"
-        }
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "jest": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
     }
+  },
+  "plugins": ["prettier", "react", "react-hooks", "@typescript-eslint"],
+  "ignorePatterns": ["*.css", "react-app-env.d.ts", ".eslintrc.json", "tsconfig.json"],
+  "rules": {
+    "camelcase": "error",
+    "no-console": "warn",
+    "no-duplicate-imports": "error",
+    "prettier/prettier": "error",
+    "quotes": ["error", "single"],
+    "react/react-in-jsx-scope": "off",
+    "spaced-comment": "error",
+    "@typescript-eslint/no-explicit-any": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    },
+    "react": {
+      "version": "detect"
+    }
+  }
 }
