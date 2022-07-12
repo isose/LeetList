@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
       },
       questionId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
         unique: true,
       },

@@ -1,5 +1,5 @@
 import express from 'express';
-const Op = require('sequelize').Op;
+import Sequelize, { Op } from 'sequelize';
 const { question, questionTagMap } = require('../models');
 
 const router = express.Router();
@@ -8,7 +8,6 @@ const getQuestionQuery = (req: any) => {
   let query: any = {
     include: [{ model: questionTagMap, as: 'tags' }],
     order: [['questionId', 'ASC']],
-    where: {},
   };
 
   const offset = Number(req.query.offset);
@@ -21,26 +20,57 @@ const getQuestionQuery = (req: any) => {
     query.limit = limit;
   }
 
-  queryAddDifficuty(query, req);
-
+  addQueryParams(query, req);
   return query;
 };
 
 const getQuestionCountQuery = (req: any) => {
-  let query: any = {
-    where: {},
-  };
-  queryAddDifficuty(query, req);
+  let query: any = {};
+  addQueryParams(query, req);
   return query;
 };
 
-const queryAddDifficuty = (query: any, req: any) => {
+const addQueryParams = (query: any, req: any) => {
   const difficulty = req.query.difficulty;
-  if (difficulty) {
-    query.where.difficulty = {
-      [Op.or]: [(difficulty as string).split(',')],
+  const search = req.query.search;
+  const queries: any[] = [];
+
+  if (search) {
+    const searchQueryArray: any[] = [];
+    const searchArray = (search as string).trim().split(' ');
+    searchArray.forEach((search: string) => {
+      searchQueryArray.push({ [Sequelize.Op.iLike]: '%' + search + '%' });
+    });
+
+    const searchQuery = {
+      [Op.or]: [
+        {
+          questionId: {
+            [Op.or]: searchQueryArray,
+          },
+        },
+        {
+          title: {
+            [Op.or]: searchQueryArray,
+          },
+        },
+      ],
     };
+    queries.push(searchQuery);
   }
+
+  if (difficulty) {
+    const difficultyQuery = {
+      difficulty: {
+        [Op.or]: [(difficulty as string).split(',')],
+      },
+    };
+    queries.push(difficultyQuery);
+  }
+
+  query.where = {
+    [Op.and]: queries,
+  };
 };
 
 router.get('/questions', async (req, res) => {

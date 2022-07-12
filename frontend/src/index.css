@@ -140,6 +140,18 @@ svg {
   column-gap: 5px;
 }
 
+.search-bar {
+  width: 40%;
+  min-width: 200px;
+  max-width: 350px;
+  height: 20px;
+  border: 1px solid black;
+}
+
+.search-bar:focus {
+  background-color: #eeeeee;
+}
+
 .difficulty-dropdown-header,
 .difficulty-dropdown-item {
   width: 150px;
