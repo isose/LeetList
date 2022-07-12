@@ -10,11 +10,34 @@ h1 {
   text-align: center;
 }
 
+button {
+  background-color: white;
+  font-family: 'Roboto', sans-serif;
+}
+
+button:hover {
+  background-color: #eeeeee;
+}
+
+svg {
+  display: block;
+  margin: auto 3px;
+}
+
+.svg-container {
+  display: flex;
+  justify-content: center;
+}
+
+.question-module {
+  margin: 0 auto 100px auto;
+  width: 60%;
+}
+
 .question {
-  margin: 2px auto;
+  margin: 2px 0;
   padding: 5px 10px;
   outline: 2px solid black;
-  width: 60%;
 }
 
 .question-container {
@@ -70,4 +93,41 @@ h1 {
   padding: 0 3px;
   border-radius: 5px;
   border: 2px solid black;
+}
+
+.pagination-navigation {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pagination-dropdown-list {
+  width: 105px;
+  position: absolute;
+}
+
+.pagination-dropdown-header,
+.pagination-dropdown-item {
+  padding: 2px 0;
+  width: 105px;
+  border: 2px solid black;
+  cursor: pointer;
+}
+
+.pagination-button-wrapper {
+  display: flex;
+  column-gap: 5px;
+}
+
+.pagination-button {
+  font-size: 12px;
+  padding: 0;
+  border: 2px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+}
+
+.pagination-button-current {
+  background-color: #eeeeee;
 }

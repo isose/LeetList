@@ -1,4 +1,5 @@
 import React from 'react';
+import { TiArrowDownThick, TiArrowUpThick } from 'react-icons/ti';
 import TagList from './TagList';
 
 const COMMA_SEPARATED_NUMBER_REGEX = /\B(?=(\d{3})+(?!\d))/g;
@@ -26,8 +27,14 @@ const Question = (question: any) => {
             {question.difficulty}{' '}
           </div>
           <div className='votes'>
-            <div>▲{upVotes}</div>
-            <div>▼{downVotes}</div>
+            <div className='svg-container'>
+              <TiArrowUpThick />
+              {upVotes}
+            </div>
+            <div className='svg-container'>
+              <TiArrowDownThick />
+              {downVotes}
+            </div>
           </div>
           <div className='submissions'>
             <div>acceptance: </div>
