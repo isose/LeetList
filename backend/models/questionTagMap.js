@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
       },
       questionId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
         references: {
           model: 'question',
