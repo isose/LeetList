@@ -27,6 +27,11 @@ const App = () => {
     return searchParam ? searchParam : '';
   };
 
+  const getUrlTagsParam = () => {
+    const tagsParam = currentUrlParams.get('tags');
+    return tagsParam ? tagsParam.split(',') : [];
+  };
+
   const getUrlDifficultyParam = () => {
     const difficultyParam = currentUrlParams.get('difficulty');
     return difficultyParam ? difficultyParam.split(',') : [];
@@ -37,22 +42,23 @@ const App = () => {
   const [page, setPage] = useState(getUrlPageParam());
   const [totalPages, setTotalPages] = useState<number | null>(null);
   const [search, debouncedSearch, setSearch] = useStateDebounced(getUrlSearchParam(), 250);
+  const [tags, setTags] = useState<string[]>(getUrlTagsParam());
   const [difficulty, setDifficulty] = useState<string[]>(getUrlDifficultyParam());
 
   const paginationOptions = [{ value: 20 }, { value: 50 }, { value: 100 }, { value: 200 }];
 
   const queryParams = `/?offset=${
     (page - 1) * Number(limit)
-  }&limit=${limit}&search=${debouncedSearch}&difficulty=${difficulty}`;
+  }&limit=${limit}&search=${debouncedSearch}&tags=${tags}&difficulty=${difficulty}`;
 
   useEffect(() => {
     getQuestions();
     updateUrlParams();
-  }, [limit, page, debouncedSearch, difficulty]);
+  }, [limit, page, debouncedSearch, tags, difficulty]);
 
   useEffect(() => {
     getTotalPages();
-  }, [limit, debouncedSearch, difficulty]);
+  }, [limit, debouncedSearch, tags, difficulty]);
 
   useEffect(() => {
     handlePageBounds();
@@ -85,16 +91,22 @@ const App = () => {
   const updateUrlParams = () => {
     currentUrlParams.set('page', page.toString());
 
-    if (difficulty.length === 0) {
-      currentUrlParams.delete('difficulty');
-    } else {
-      currentUrlParams.set('difficulty', difficulty.toString());
-    }
-
     if (debouncedSearch.length === 0) {
       currentUrlParams.delete('search');
     } else {
       currentUrlParams.set('search', debouncedSearch);
+    }
+
+    if (tags.length === 0) {
+      currentUrlParams.delete('tags');
+    } else {
+      currentUrlParams.set('tags', tags.toString());
+    }
+
+    if (difficulty.length === 0) {
+      currentUrlParams.delete('difficulty');
+    } else {
+      currentUrlParams.set('difficulty', difficulty.toString());
     }
 
     navigate(window.location.pathname + '?' + currentUrlParams.toString());
@@ -107,6 +119,8 @@ const App = () => {
         <BasicSearch
           search={search}
           setSearch={setSearch}
+          tagsSelected={tags}
+          setTagsSelected={setTags}
           difficultySelected={difficulty}
           setDifficultySelected={setDifficulty}
         />
