@@ -18,7 +18,7 @@ button {
 }
 
 button:hover {
-  background-color: #eeeeee;
+  filter: brightness(90%);
 }
 
 svg {
@@ -35,7 +35,7 @@ svg {
 .question-module {
   margin: 0 auto 100px auto;
   width: 60%;
-  min-width: 400px;
+  min-width: 450px;
 }
 
 .question {
@@ -131,25 +131,27 @@ svg {
 }
 
 .pagination-button-current {
-  background-color: #eeeeee;
+  filter: brightness(90%)
 }
 
 .basic-search-wrapper {
   height: 25px;
+  min-width: 400px;
   display: flex;
   column-gap: 5px;
 }
 
 .search-bar {
-  width: 40%;
-  min-width: 200px;
-  max-width: 350px;
-  height: 20px;
-  border: 1px solid black;
+  padding: 0 0 0 2px;
+  width: 100%;
+  min-width: 184px;
+  max-width: 40%;
+  height: 21px;
+  border: 2px solid black;
 }
 
 .search-bar:focus {
-  background-color: #eeeeee;
+  filter: brightness(90%);
 }
 
 .difficulty-dropdown-header,
@@ -162,4 +164,34 @@ svg {
 .difficulty-dropdown-list {
   width: 150px;
   position: absolute;
+}
+
+.tags-dropdown-header {
+  width: 100px;
+  height: 25px;
+  border: 2px solid black;
+}
+
+.tags-dropdown-container {
+  padding: 2px;
+  width: 350px;
+  height: auto;
+  position: absolute;
+  display: flex;
+  background-color: white;
+  border: 2px solid black;
+}
+
+.tags-dropdown-container .tag {
+  font-size: 14px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.tags-dropdown-container .tag.selected {
+  background-color: #bef9f9;
+}
+
+.tags-dropdown-container .tag:hover {
+  filter: brightness(90%);
 }

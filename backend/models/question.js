@@ -13,6 +13,11 @@ module.exports = (sequelize, DataTypes) => {
         sourceKey: 'questionId',
         as: 'tags',
       });
+      this.hasMany(models.questionTagMap, {
+        foreignKey: 'questionId',
+        sourceKey: 'questionId',
+        as: 'tagsFilter',
+      });
     }
 
     toJSON() {
@@ -54,7 +59,6 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: 'question',
       tableName: 'question',
-      underscored: true,
     },
   );
   return question;

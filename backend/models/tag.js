@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
         sourceKey: 'tag',
       });
     }
+
+    toJSON() {
+      return { ...this.get(), id: undefined, createdAt: undefined, updatedAt: undefined };
+    }
   }
   tag.init(
     {
@@ -31,7 +35,6 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: 'tag',
       tableName: 'tag',
-      underscored: true,
     },
   );
   return tag;

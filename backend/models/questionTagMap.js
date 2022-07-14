@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         references: {
           model: 'question',
-          key: 'question_id',
+          key: 'questionId',
         },
       },
       tagId: {
@@ -49,8 +49,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'questionTagMap',
-      tableName: 'question_tag_map',
-      underscored: true,
+      tableName: 'questionTagMap',
     },
   );
   return questionTagMap;
