@@ -30,6 +30,7 @@ exports.up = function (knex) {
       table.increments('id').primary();
       table.string('questionId').references('questionId').inTable('question').notNullable();
       table.string('tagId').references('tag').inTable('tag').notNullable();
+      table.unique(['questionId', 'tagId']);
       table.timestamps(true, true);
     });
 };
