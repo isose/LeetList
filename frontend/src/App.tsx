@@ -47,32 +47,25 @@ const App = () => {
 
   const paginationOptions = [{ value: 20 }, { value: 50 }, { value: 100 }, { value: 200 }];
 
-  const queryParams = `/?offset=${
-    (page - 1) * Number(limit)
+  const queryParams = `/?page=${
+    page - 1
   }&limit=${limit}&search=${debouncedSearch}&tags=${tags}&difficulty=${difficulty}`;
 
   useEffect(() => {
-    getQuestions();
+    fetchQuestions();
     updateUrlParams();
   }, [limit, page, debouncedSearch, tags, difficulty]);
-
-  useEffect(() => {
-    getTotalPages();
-  }, [limit, debouncedSearch, tags, difficulty]);
 
   useEffect(() => {
     handlePageBounds();
   }, [totalPages]);
 
-  const getQuestions = async () => {
-    const questions = await fetchQuestions();
-    setQuestions(questions);
-  };
-
-  const getTotalPages = async () => {
-    const res = await fetch('/questions/count' + queryParams);
+  const fetchQuestions = async () => {
+    const res = await fetch('/questions' + queryParams);
     const data = await res.json();
-    const pages = Math.ceil(data / Number(limit));
+    setQuestions(data.results);
+
+    const pages = Math.ceil(data.total / Number(limit));
     setTotalPages(pages > 0 ? pages : 1);
   };
 
@@ -80,12 +73,6 @@ const App = () => {
     if (totalPages !== null && page > totalPages) {
       setPage(totalPages);
     }
-  };
-
-  const fetchQuestions = async () => {
-    const res = await fetch('/questions' + queryParams);
-    const data = await res.json();
-    return data;
   };
 
   const updateUrlParams = () => {

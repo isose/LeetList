@@ -5,6 +5,16 @@ class QuestionTagMap extends Model {
     return 'questionTagMap';
   }
 
+  $formatJson(json) {
+    return {
+      ...super.$formatJson(json),
+      id: undefined,
+      questionId: undefined,
+      createdAt: undefined,
+      updatedAt: undefined,
+    };
+  }
+
   static get relationMappings() {
     const Question = require('./question');
     const Tag = require('./tag');
@@ -21,8 +31,8 @@ class QuestionTagMap extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: Tag,
         join: {
-          from: 'questionTagMap.tagId',
-          to: 'tag.tag',
+          from: 'questionTagMap.tagName',
+          to: 'tag.tagName',
         },
       },
     };

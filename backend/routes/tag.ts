@@ -1,11 +1,13 @@
 import express from 'express';
-const { tag } = require('../models');
+import Tag from '../database/models/tag';
+
+require('../database/knex');
 
 const tagRouter = express.Router();
 
 tagRouter.get('/tags', async (req, res) => {
   try {
-    const tags = await tag.findAll({ order: [['tag', 'ASC']] });
+    const tags = await Tag.query().orderBy('tagName', 'asc');
     return res.status(200).json(tags);
   } catch (err) {
     console.log(err);

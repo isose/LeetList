@@ -23,14 +23,14 @@ exports.up = function (knex) {
     })
     .createTable('tag', (table) => {
       table.increments('id').primary();
-      table.string('tag').unique().notNullable();
+      table.string('tagName').unique().notNullable();
       table.timestamps(true, true);
     })
     .createTable('questionTagMap', (table) => {
       table.increments('id').primary();
       table.string('questionId').references('questionId').inTable('question').notNullable();
-      table.string('tagId').references('tag').inTable('tag').notNullable();
-      table.unique(['questionId', 'tagId']);
+      table.string('tagName').references('tagName').inTable('tag').notNullable();
+      table.unique(['questionId', 'tagName']);
       table.timestamps(true, true);
     });
 };
