@@ -1,10 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
 
-const PaginationDropdown = ({ items, selected, onClick }: any) => {
+const PaginationDropdown = ({ selected, onClick }: any) => {
   const [open, setOpen] = useState(false);
   const paginationDropdown = useRef<any>();
   const DROPDOWN_TEXT = ' / page';
+  const paginationOptions = [{ value: 20 }, { value: 50 }, { value: 100 }, { value: 200 }];
 
   const toggleState = () => setOpen(!open);
 
@@ -30,7 +31,7 @@ const PaginationDropdown = ({ items, selected, onClick }: any) => {
       </button>
       {open && (
         <div className='pagination-dropdown-list'>
-          {items.map((item: any, index: any) => (
+          {paginationOptions.map((item: any, index: any) => (
             <button
               className='pagination-dropdown-item'
               key={index}
