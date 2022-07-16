@@ -34,7 +34,7 @@ const TagsDropdown = ({ selected, setSelected }: any) => {
   };
 
   const getStyleName = (tag: any) => {
-    return selected.includes(tag.tag) ? ' selected' : '';
+    return selected.includes(tag.tagName) ? ' selected' : '';
   };
 
   document.addEventListener('mousedown', clickOutside);

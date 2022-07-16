@@ -5,6 +5,15 @@ class Question extends Model {
     return 'question';
   }
 
+  $formatJson(json) {
+    return {
+      ...super.$formatJson(json),
+      id: undefined,
+      createdAt: undefined,
+      updatedAt: undefined,
+    };
+  }
+
   static get relationMappings() {
     const QuestionTagMap = require('./questionTagMap');
     return {

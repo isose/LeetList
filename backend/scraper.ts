@@ -6,7 +6,7 @@ import QuestionSlug from './database/models/questionSlug';
 import QuestionTagMap from './database/models/questionTagMap';
 import Tag from './database/models/tag';
 
-const knex = require('./database/knexConnection');
+const knex = require('./database/knex');
 
 const jar = new CookieJar();
 const client = wrapper(axios.create({ jar }));
@@ -126,7 +126,7 @@ async function getQuestions() {
       // add question tags to question tap map array
       const questionTag = {
         questionId: questionObj.frontendQuestionId,
-        tagId: tagObj.name,
+        tagName: tagObj.name,
       };
       questionTagMapArray.push(questionTag);
     }
@@ -140,14 +140,14 @@ async function getQuestions() {
 
   // batch insert tags to database
   await Tag.query()
-    .insert([...tagSet].map((tag) => ({ tag: tag })))
-    .onConflict('tag')
+    .insert([...tagSet].map((tag) => ({ tagName: tag })))
+    .onConflict('tagName')
     .ignore();
 
   // batch insert question tag maps to database
   await QuestionTagMap.query()
     .insert(questionTagMapArray)
-    .onConflict(['questionId', 'tagId'])
+    .onConflict(['questionId', 'tagName'])
     .ignore();
 }
 

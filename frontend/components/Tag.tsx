@@ -5,10 +5,10 @@ const Tag = ({ tag, onClick, styleName }: any) => {
     <div
       className={`tag${styleName || ''}`}
       onClick={() => {
-        onClick && onClick(tag.tag);
+        onClick && onClick(tag.tagName);
       }}
     >
-      {tag.tag}
+      {tag.tagName}
     </div>
   );
 };
