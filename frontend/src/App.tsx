@@ -45,8 +45,6 @@ const App = () => {
   const [tags, setTags] = useState<string[]>(getUrlTagsParam());
   const [difficulty, setDifficulty] = useState<string[]>(getUrlDifficultyParam());
 
-  const paginationOptions = [{ value: 20 }, { value: 50 }, { value: 100 }, { value: 200 }];
-
   const queryParams = `/?page=${
     page - 1
   }&limit=${limit}&search=${debouncedSearch}&tags=${tags}&difficulty=${difficulty}`;
@@ -113,7 +111,6 @@ const App = () => {
         />
         <QuestionList questions={questions} />
         <PaginationNavigation
-          items={paginationOptions}
           selected={limit}
           setLimit={setLimit}
           page={page}
