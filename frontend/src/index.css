@@ -123,6 +123,7 @@ svg {
 .pagination-dropdown-list {
   width: 105px;
   position: absolute;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .pagination-dropdown-header,
@@ -189,6 +190,7 @@ svg {
 .difficulty-dropdown-list {
   width: 150px;
   position: absolute;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .tags-dropdown-button {
@@ -204,6 +206,7 @@ svg {
   z-index: 1;
   background-color: white;
   border: 2px solid black;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .tags-dropdown-header {
