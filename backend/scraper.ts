@@ -122,7 +122,7 @@ async function getQuestions() {
       // add tags to tag set
       tagSet.add(tagObj.name);
 
-      // add question tags to question tap map array
+      // add question tags to question tag map array
       const questionTag = {
         questionId: questionObj.frontendQuestionId,
         tagName: tagObj.name,
