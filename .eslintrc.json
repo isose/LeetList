@@ -19,7 +19,7 @@
     }
   },
   "plugins": ["prettier", "react", "react-hooks", "@typescript-eslint"],
-  "ignorePatterns": ["*.css", "react-app-env.d.ts", ".eslintrc.json", "tsconfig.json"],
+  "ignorePatterns": ["*.css", "react-app-env.d.ts", "webpack.config.js", ".eslintrc.json", "tsconfig.json"],
   "rules": {
     "camelcase": "error",
     "no-console": "warn",

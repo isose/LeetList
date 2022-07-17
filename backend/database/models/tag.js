@@ -1,4 +1,4 @@
-const { Model } = require('objection');
+import { Model } from 'objection';
 
 class Tag extends Model {
   static get tableName() {
@@ -15,7 +15,7 @@ class Tag extends Model {
   }
 
   static get relationMappings() {
-    const QuestionTagMap = require('./questionTagMap');
+    const QuestionTagMap = require('./questionTagMap').default;
     return {
       questions: {
         relation: Model.HasManyRelation,
@@ -29,4 +29,4 @@ class Tag extends Model {
   }
 }
 
-module.exports = Tag;
+export default Tag;

@@ -1,8 +1,7 @@
 import express from 'express';
 import { raw } from 'objection';
+import '../database/knex';
 import Question from '../database/models/question';
-
-require('../database/knex');
 
 const questionRouter = express.Router();
 

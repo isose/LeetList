@@ -1,12 +1,11 @@
 import axios from 'axios';
 import { wrapper } from 'axios-cookiejar-support';
 import { CookieJar } from 'tough-cookie';
+import knex from './database/knex';
 import Question from './database/models/question';
 import QuestionSlug from './database/models/questionSlug';
 import QuestionTagMap from './database/models/questionTagMap';
 import Tag from './database/models/tag';
-
-const knex = require('./database/knex');
 
 const jar = new CookieJar();
 const client = wrapper(axios.create({ jar }));
