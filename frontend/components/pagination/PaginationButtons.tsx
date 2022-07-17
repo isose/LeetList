@@ -9,7 +9,7 @@ const PaginationButtons = ({ page, totalPages, setPage, numberOfButtons }: any) 
   };
 
   const currentPageCss = (pageNumber: number) => {
-    return pageNumber == page ? 'pagination-button-current' : '';
+    return pageNumber == page ? ' pagination-button-current' : '';
   };
 
   const buttonWindowSize = Math.min(numberOfButtons, Math.max(totalPages - 2, 0));
@@ -35,7 +35,7 @@ const PaginationButtons = ({ page, totalPages, setPage, numberOfButtons }: any) 
         const pageNumber = page + i + pageNumberOffset;
         return (
           <UiButton
-            className={'pagination-button ' + currentPageCss(pageNumber)}
+            className={'pagination-button' + currentPageCss(pageNumber)}
             key={i}
             text={pageNumber}
             onClick={() => goToPage(pageNumber)}

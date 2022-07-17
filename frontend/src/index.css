@@ -1,3 +1,19 @@
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
 }
@@ -11,12 +27,14 @@ h1 {
 }
 
 button {
+  padding: 0;
   background-color: white;
   font-family: 'Roboto', sans-serif;
+  cursor: pointer;
 }
 
 button:hover {
-  background-color: #eeeeee;
+  filter: brightness(90%);
 }
 
 svg {
@@ -27,11 +45,13 @@ svg {
 .svg-container {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .question-module {
   margin: 0 auto 100px auto;
   width: 60%;
+  min-width: 450px;
 }
 
 .question {
@@ -110,7 +130,6 @@ svg {
   padding: 2px 0;
   width: 105px;
   border: 2px solid black;
-  cursor: pointer;
 }
 
 .pagination-button-wrapper {
@@ -123,11 +142,101 @@ svg {
   padding: 0;
   border: 2px solid black;
   border-radius: 5px;
-  cursor: pointer;
   width: 25px;
   height: 25px;
 }
 
 .pagination-button-current {
-  background-color: #eeeeee;
+  filter: brightness(90%);
+}
+
+.basic-search-wrapper {
+  height: 25px;
+  min-width: 400px;
+  display: flex;
+  column-gap: 5px;
+}
+
+.basic-search-wrapper > .search-bar {
+  width: 100%;
+  min-width: 184px;
+  max-width: 40%;
+  height: 21px;
+}
+
+.tags-dropdown-container .search-bar {
+  margin: 2px 2px 0 2px;
+  height: 20px;
+  width: 97%;
+}
+
+.search-bar {
+  padding: 0 0 0 2px;
+  border: 2px solid black;
+}
+
+.search-bar:focus {
+  filter: brightness(90%);
+}
+
+.difficulty-dropdown-header,
+.difficulty-dropdown-item {
+  width: 150px;
+  height: 25px;
+  border: 2px solid black;
+}
+
+.difficulty-dropdown-list {
+  width: 150px;
+  position: absolute;
+}
+
+.tags-dropdown-button {
+  width: 100px;
+  height: 25px;
+  border: 2px solid black;
+}
+
+.tags-dropdown-container {
+  width: 350px;
+  height: auto;
+  position: absolute;
+  z-index: 1;
+  background-color: white;
+  border: 2px solid black;
+}
+
+.tags-dropdown-header {
+  margin-bottom: 10px;
+}
+
+.tags-dropdown-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin: 10px 5px 2px 5px;
+}
+
+.tags-dropdown-container .tag-list {
+  padding: 2px;
+  max-height: 256px;
+  overflow-y: scroll;
+}
+
+.tags-dropdown-container .tag {
+  font-size: 14px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.tags-dropdown-container .tag.selected {
+  background-color: #bef9f9;
+}
+
+.tags-dropdown-container .tag:hover {
+  filter: brightness(90%);
+}
+
+.reset-tags-button {
+  padding: 0 2px;
+  border-radius: 5px;
 }

@@ -1,4 +1,4 @@
-#  LeetList
+# LeetList
 
 A LeetCode Playlist generator
 
@@ -8,11 +8,12 @@ We are creating a web app that makes it convenient and easy to put Leetcode ques
 
 ### Installing
 
-``` 
-npm install 
+```
+npm install
 ```
 
 ### Executing program
+
 ```
 npm start
 ```

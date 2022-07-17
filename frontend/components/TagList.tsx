@@ -5,7 +5,7 @@ const TagList = ({ tags }: any) => {
   return (
     <div className='tag-list'>
       {tags.map((tag: any, index: number) => {
-        return <Tag key={index} {...tag} />;
+        return <Tag key={index} tag={tag} />;
       })}
     </div>
   );

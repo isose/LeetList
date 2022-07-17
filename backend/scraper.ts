@@ -1,8 +1,11 @@
 import axios from 'axios';
 import { wrapper } from 'axios-cookiejar-support';
 import { CookieJar } from 'tough-cookie';
-
-const { question, questionTagMap, questionSlug, tag } = require('./models');
+import knex from './database/knex';
+import Question from './database/models/question';
+import QuestionSlug from './database/models/questionSlug';
+import QuestionTagMap from './database/models/questionTagMap';
+import Tag from './database/models/tag';
 
 const jar = new CookieJar();
 const client = wrapper(axios.create({ jar }));
@@ -60,24 +63,23 @@ async function getQuestionData(slug: string) {
   const numberOfSubmissions = stats.totalSubmissionRaw;
 
   // update question data in database
-  await question.update(
-    {
+  await Question.query()
+    .patch({
       upVotes: upVotes,
       downVotes: downVotes,
       numberOfAccepted: numberOfAccepted,
       numberOfSubmissions: numberOfSubmissions,
-    },
-    { where: { questionId: questionObj.questionFrontendId } },
-  );
+    })
+    .where('questionId', questionObj.questionFrontendId);
 }
 
 async function getAllQuestionData() {
   // get slugs from question_slugs
-  const slugs = (await questionSlug.findAll()).map((slug: any) => slug.slug);
+  const slugs = (await QuestionSlug.query()).map((slug: any) => slug.slug);
   for (const slug of slugs) {
     await getQuestionData(slug);
     // delete slug from question_slugs
-    await questionSlug.destroy({ where: { slug: slug } });
+    await QuestionSlug.query().delete().where('slug', slug);
   }
 }
 
@@ -92,6 +94,11 @@ async function getQuestions() {
     },
   });
 
+  const questionSlugArray = [];
+  const questionArray = [];
+  const questionTagMapArray = [];
+  const tagSet = new Set();
+
   const data = res.data;
   for (const questionObj of data.data.problemsetQuestionList.questions) {
     // skip premium questions
@@ -99,45 +106,48 @@ async function getQuestions() {
       continue;
     }
 
+    // add slug to slug array
+    questionSlugArray.push({ slug: questionObj.titleSlug });
+
+    // add question to question array
     const questionJson = {
       url: QUESTION_URL + questionObj.titleSlug,
       questionId: questionObj.frontendQuestionId,
       title: questionObj.title,
       difficulty: questionObj.difficulty,
     };
-
-    // add question slug to database
-    const doesSlugExist = await questionSlug.findOne({ where: { slug: questionObj.titleSlug } });
-    if (!doesSlugExist) {
-      await questionSlug.create({ slug: questionObj.titleSlug });
-    }
-
-    // add question to database
-    const doesQuestionExist = await question.findOne({
-      where: { questionId: questionJson.questionId },
-    });
-    if (!doesQuestionExist) {
-      await question.create(questionJson);
-    }
+    questionArray.push(questionJson);
 
     for (const tagObj of questionObj.topicTags) {
-      // add tag to database
-      const doesTagExist = await tag.findOne({ where: { tag: tagObj.name } });
-      if (!doesTagExist) {
-        await tag.create({ tag: tagObj.name });
-      }
+      // add tags to tag set
+      tagSet.add(tagObj.name);
 
-      // add to question_tag_map in database
+      // add question tags to question tap map array
       const questionTag = {
         questionId: questionObj.frontendQuestionId,
-        tagId: tagObj.name,
+        tagName: tagObj.name,
       };
-      const doesQuestionTagExist = await questionTagMap.findOne({ where: questionTag });
-      if (!doesQuestionTagExist) {
-        await questionTagMap.create(questionTag);
-      }
+      questionTagMapArray.push(questionTag);
     }
   }
+
+  // batch insert question slugs to database
+  await QuestionSlug.query().insert(questionSlugArray).onConflict('slug').ignore();
+
+  // batch insert questions to database
+  await Question.query().insert(questionArray).onConflict('questionId').ignore();
+
+  // batch insert tags to database
+  await Tag.query()
+    .insert([...tagSet].map((tag) => ({ tagName: tag })))
+    .onConflict('tagName')
+    .ignore();
+
+  // batch insert question tag maps to database
+  await QuestionTagMap.query()
+    .insert(questionTagMapArray)
+    .onConflict(['questionId', 'tagName'])
+    .ignore();
 }
 
 async function main() {
@@ -155,4 +165,8 @@ async function main() {
   }
 }
 
-main();
+main()
+  .then(() => knex.destroy())
+  .catch((err) => {
+    console.error(err);
+  });

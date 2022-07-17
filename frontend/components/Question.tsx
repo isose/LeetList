@@ -14,7 +14,7 @@ const Question = (question: any) => {
       <div className='question-container'>
         <div>
           <div className='question-title'>
-            <a href={question.url} target='_blank'>
+            <a href={question.url} target='_blank' rel='noreferrer'>
               {question.questionId}
               {'. '}
               {question.title}

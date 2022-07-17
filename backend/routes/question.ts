@@ -1,26 +1,52 @@
 import express from 'express';
-const { question, questionTagMap } = require('../models');
+import { raw } from 'objection';
+import '../database/knex';
+import Question from '../database/models/question';
 
-const router = express.Router();
+const questionRouter = express.Router();
 
-router.get('/questions', async (req, res) => {
-  const offset = Number(req.query.offset);
+const questionQuery = async (req: any) => {
+  const page = Number(req.query.page);
   const limit = Number(req.query.limit);
+  const search = req.query.search;
+  const tags = req.query.tags;
+  const difficulty = req.query.difficulty;
 
-  let query: any = {
-    include: [{ model: questionTagMap, as: 'tags' }],
-    order: [['questionId', 'ASC']],
-  };
+  return await Question.query()
+    .withGraphFetched('tags')
+    .where((builder) => {
+      if (search) {
+        search
+          .trim()
+          .split(' ')
+          .forEach((string: string) => {
+            builder.orWhereRaw('question_id ILIKE ?', '%' + string + '%');
+            builder.orWhereRaw('question.title ILIKE ?', '%' + string + '%');
+          });
+      }
+    })
+    .where((builder) => {
+      if (tags) {
+        const tagsArray = tags.split(',');
+        tagsArray.forEach((tag: string) => {
+          builder.whereExists(Question.relatedQuery('tags').where('tagName', '=', tag));
+        });
+      }
+    })
+    .where((builder) => {
+      if (difficulty) {
+        difficulty.split(',').forEach((diff: string) => {
+          builder.orWhere('difficulty', '=', diff);
+        });
+      }
+    })
+    .orderBy(raw('question_id::integer'), 'ASC')
+    .page(page, limit);
+};
 
-  if (!Number.isNaN(offset) && Number.isInteger(offset)) {
-    query.offset = offset;
-  }
-  if (!Number.isNaN(limit) && Number.isInteger(limit)) {
-    query.limit = limit;
-  }
-
+questionRouter.get('/questions', async (req, res) => {
   try {
-    const questions = await question.findAll(query);
+    const questions = await questionQuery(req);
     return res.status(200).json(questions);
   } catch (err) {
     console.log(err);
@@ -28,28 +54,4 @@ router.get('/questions', async (req, res) => {
   }
 });
 
-router.get('/questions/count', async (req, res) => {
-  try {
-    const count = await question.count();
-    return res.status(200).json(count);
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json({ error: 'Something went wrong' });
-  }
-});
-
-router.get('/question/:id', async (req, res) => {
-  try {
-    const questions = await question.findAll({
-      where: { questionId: req.params.id },
-      include: [{ model: questionTagMap, as: 'tags' }],
-      order: [['questionId', 'ASC']],
-    });
-    return res.status(200).json(questions);
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json({ error: 'Something went wrong' });
-  }
-});
-
-module.exports = router;
+export default questionRouter;
