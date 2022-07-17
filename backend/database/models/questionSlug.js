@@ -1,4 +1,4 @@
-const { Model } = require('objection');
+import { Model } from 'objection';
 
 class QuestionSlug extends Model {
   static get tableName() {
@@ -6,4 +6,4 @@ class QuestionSlug extends Model {
   }
 }
 
-module.exports = QuestionSlug;
+export default QuestionSlug;

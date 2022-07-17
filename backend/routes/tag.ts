@@ -1,7 +1,6 @@
 import express from 'express';
+import '../database/knex';
 import Tag from '../database/models/tag';
-
-require('../database/knex');
 
 const tagRouter = express.Router();
 
