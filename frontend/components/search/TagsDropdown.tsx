@@ -13,7 +13,7 @@ const TagsDropdown = ({ selected, setSelected }: any) => {
   const tagsDropdown = useRef<any>();
 
   const getTags = async () => {
-    const res = await fetch('/tags');
+    const res = await fetch('/api/tags');
     const data = await res.json();
     setTags(data);
   };

@@ -5,6 +5,7 @@
       "rules": {
         "no-console": "off",
         "no-undef": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
         "@typescript-eslint/no-var-requires": "off"
       }
     }

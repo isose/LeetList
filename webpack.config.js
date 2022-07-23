@@ -32,9 +32,11 @@ module.exports = {
     port: 3000,
     open: true,
     static: true,
+    historyApiFallback: true,
     proxy: {
-      '/': {
+      '/api': {
         target: 'http://localhost:5000/',
+        secure: false,
       },
     },
   },
