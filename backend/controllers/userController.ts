@@ -9,17 +9,16 @@ dotenv.config({ path: __dirname + '/./../.env' });
 
 const validateRegisterInput = async (req: any) => {
   const result: any = { isValid: true, errors: {} };
-  // TODO validate username, password, and email are valid and meet requirements
 
   const usernameExists = await User.query().findOne('username', req.body.username);
   if (usernameExists) {
-    result.errors.username = 'Username already taken';
+    result.errors.username = 'Username already taken.';
     result.isValid = false;
   }
 
   const emailExists = await User.query().findOne('email', req.body.email);
   if (emailExists) {
-    result.errors.email = 'Email already exists';
+    result.errors.email = 'Email already exists.';
     result.isValid = false;
   }
 

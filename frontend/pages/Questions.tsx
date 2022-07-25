@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PaginationNavigation from '../components/pagination/PaginationNavigation';
@@ -59,8 +60,8 @@ const Questions = () => {
   }, [totalPages]);
 
   const fetchQuestions = async () => {
-    const res = await fetch('/api/questions' + queryParams);
-    const data = await res.json();
+    const res = await axios.get('/api/questions' + queryParams);
+    const data = await res.data;
     setQuestions(data.results);
 
     const pages = Math.ceil(data.total / Number(limit));
