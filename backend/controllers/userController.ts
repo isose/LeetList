@@ -52,12 +52,12 @@ export const register = async (req: any, res: any) => {
 export const login = async (req: any, res: any) => {
   const user: any = await User.query().findOne('username', req.body.username);
   if (!user) {
-    return res.status(400).json({ error: 'Username not found' });
+    return res.status(400).json({ username: 'Username not found.' });
   }
 
   bcrypt.compare(req.body.password, user.password).then((isMatch) => {
     if (!isMatch) {
-      return res.status(400).json({ error: 'Password incorrect' });
+      return res.status(400).json({ password: 'Password incorrect.' });
     }
 
     const payload = { userId: user.id, username: user.username };
@@ -68,7 +68,7 @@ export const login = async (req: any, res: any) => {
     );
     return res
       .status(200)
-      .json({ success: true, token: 'Bearer ' + authenticate.createAccessToken(payload) });
+      .json({ success: true, accessToken: authenticate.createAccessToken(payload) });
   });
 };
 

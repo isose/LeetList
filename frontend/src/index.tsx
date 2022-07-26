@@ -2,6 +2,7 @@ require('file-loader?name=[name].[ext]!../public/index.html');
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import { AuthProvider } from '../context/AuthProvider';
 import App from './App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
@@ -9,9 +10,11 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </AuthProvider>
   </React.StrictMode>,
 );
 

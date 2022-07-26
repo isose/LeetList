@@ -4,11 +4,9 @@ import passport from 'passport';
 
 dotenv.config({ path: __dirname + '/./../.env' });
 
-const dev = process.env.NODE_ENV !== 'production';
-
 export const COOKIE_OPTIONS: any = {
   httpOnly: true,
-  secure: !dev,
+  secure: true,
   signed: true,
   maxAge: eval(process.env.REFRESH_TOKEN_EXPIRY!) * 1000,
   sameSite: 'none',
