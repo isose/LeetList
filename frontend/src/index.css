@@ -30,6 +30,7 @@ button {
   padding: 0;
   background-color: white;
   font-family: 'Roboto', sans-serif;
+  cursor: pointer;
 }
 
 button:enabled {
