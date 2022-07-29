@@ -66,21 +66,23 @@ export const login = async (req: any, res: any) => {
       authenticate.createRefreshToken(payload),
       authenticate.COOKIE_OPTIONS,
     );
-    return res
-      .status(200)
-      .json({ success: true, accessToken: authenticate.createAccessToken(payload) });
+    return res.status(200).json({
+      success: true,
+      username: user.username,
+      accessToken: authenticate.createAccessToken(payload),
+    });
   });
 };
 
 export const logout = (req: any, res: any) => {
-  res.clearCookie('refreshToken', authenticate.COOKIE_OPTIONS);
-  return res.status(200).json({ success: true });
+  res.clearCookie('refreshToken', { httpOnly: true, sameSite: 'None', secure: true });
+  return res.status(204).json({ success: true });
 };
 
 export const refreshToken = async (req: any, res: any) => {
   const refreshToken = req.signedCookies.refreshToken;
   if (!refreshToken) {
-    return res.status(500).json({ success: false, accessToken: '' });
+    return res.status(403).json({ success: false, accessToken: '' });
   }
 
   let payload: any = null;
@@ -88,17 +90,19 @@ export const refreshToken = async (req: any, res: any) => {
     payload = verify(refreshToken, process.env.REFRESH_TOKEN_SECRET!);
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ success: false, accessToken: '' });
+    return res.status(403).json({ success: false, accessToken: '' });
   }
 
   const user: any = await User.query().findById(payload.userId);
   if (!user) {
-    return res.status(500).json({ success: false, accessToken: '' });
+    return res.status(403).json({ success: false, accessToken: '' });
   }
 
   payload = { userId: user.id, username: user.username };
   res.cookie('refreshToken', authenticate.createRefreshToken(payload), authenticate.COOKIE_OPTIONS);
-  return res
-    .status(200)
-    .json({ success: true, accessToken: authenticate.createAccessToken(payload) });
+  return res.status(200).json({
+    success: true,
+    username: user.username,
+    accessToken: authenticate.createAccessToken(payload),
+  });
 };

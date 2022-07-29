@@ -1,5 +1,5 @@
-import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
+import axios from '../../api/axios';
 import Tag from '../Tag';
 
 const TagsDropdown = ({ selected, setSelected }: any) => {

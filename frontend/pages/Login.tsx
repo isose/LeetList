@@ -1,12 +1,14 @@
-import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import AuthContext from '../context/AuthProvider';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import axios from '../api/axios';
+import useAuth from '../hooks/useAuth';
 
 const Login = () => {
-  const navigate = useNavigate();
+  const { setAuth } = useAuth();
 
-  const { setAuth } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location: any = useLocation();
+  const from = location.state?.from?.pathname || '/';
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -31,7 +33,7 @@ const Login = () => {
       });
       const accessToken = response.data.accessToken;
       setAuth({ username, accessToken });
-      navigate('/');
+      navigate(from, { replace: true });
     } catch (err: any) {
       if (err?.response) {
         const data = err.response.data;

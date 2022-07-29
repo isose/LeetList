@@ -1,6 +1,6 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from '../api/axios';
 import PaginationNavigation from '../components/pagination/PaginationNavigation';
 import QuestionList from '../components/QuestionList';
 import BasicSearch from '../components/search/BasicSearch';
@@ -100,7 +100,7 @@ const Questions = () => {
 
   return (
     <div className='question-module'>
-      <h1>Leetlist</h1>
+      <h1>Questions</h1>
       <BasicSearch
         search={search}
         setSearch={setSearch}

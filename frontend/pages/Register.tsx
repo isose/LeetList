@@ -1,7 +1,7 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import isEmail from 'validator/es/lib/isEmail';
+import axios from '../api/axios';
 
 const USERNAME_REGEX = /^[a-zA-Z][a-zA-Z0-9_]{2,30}$/;
 const PASSWORD_REGEX = /^(?=.*\d)(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,60}$/;
