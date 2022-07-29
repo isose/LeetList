@@ -6,6 +6,7 @@ const useLogout = () => {
 
   const logout = async () => {
     setAuth({});
+    window.localStorage.setItem('logout', Date.now().toString());
     await axios.get('/api/logout', { withCredentials: true });
   };
   return logout;

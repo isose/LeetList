@@ -15,6 +15,12 @@ export const AuthProvider = ({ children }: any) => {
     return auth.username !== undefined;
   };
 
+  window.addEventListener('storage', (event) => {
+    if (event.key === 'logout') {
+      setAuth({});
+    }
+  });
+
   return (
     <AuthContext.Provider value={{ auth, setAuth, isLoggedIn }}>{children}</AuthContext.Provider>
   );
