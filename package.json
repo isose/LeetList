@@ -70,7 +70,6 @@
     "lint:fix": "eslint --fix 'frontend/**/*.{js,jsx,ts,tsx,css,md,json}' 'backend/**/*.{js,jsx,ts,tsx,json}'",
     "format": "prettier --write 'frontend/**/*.{js,jsx,ts,tsx,css,md,json}' 'backend/**/*.{js,jsx,ts,tsx,json}' --config ./.prettierrc"
   },
-  "proxy": "http://localhost:5000",
   "eslintConfig": {
     "extends": [
       "react-app",
