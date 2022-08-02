@@ -7,7 +7,7 @@ const SearchBar = ({ input, setInput }: any) => {
       placeholder='Search questions'
       value={input}
       onInput={(e) => setInput((e.target as HTMLInputElement).value)}
-    ></input>
+    />
   );
 };
 

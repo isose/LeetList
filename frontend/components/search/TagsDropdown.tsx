@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import axios from '../../api/axios';
 import Tag from '../Tag';
 
 const TagsDropdown = ({ selected, setSelected }: any) => {
@@ -13,9 +14,8 @@ const TagsDropdown = ({ selected, setSelected }: any) => {
   const tagsDropdown = useRef<any>();
 
   const getTags = async () => {
-    const res = await fetch('/tags');
-    const data = await res.json();
-    setTags(data);
+    const res = await axios.get('/api/tags');
+    setTags(res.data);
   };
 
   const toggleState = () => setOpen(!open);
@@ -53,7 +53,7 @@ const TagsDropdown = ({ selected, setSelected }: any) => {
               placeholder='Filter tags'
               value={tagFilter}
               onInput={(e) => setTagFilter((e.target as HTMLInputElement).value)}
-            ></input>
+            />
           </div>
           <div className='tag-list'>
             {tags
