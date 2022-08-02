@@ -14,6 +14,8 @@ const PersistLogin = () => {
     const verifyRefreshToken = async () => {
       try {
         await refresh();
+      } catch (err) {
+        // Ignore error
       } finally {
         isMounted && setIsLoading(false);
       }
