@@ -1,5 +1,4 @@
-import * as dotenv from 'dotenv';
-dotenv.config({ path: __dirname + '/./../../.env' });
+require('dotenv').config({ path: __dirname + '/./../../.env' });
 
 const { knexSnakeCaseMappers } = require('objection');
 
