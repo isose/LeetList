@@ -21,8 +21,8 @@ const UserDropdown = () => {
   document.addEventListener('mousedown', clickOutside);
 
   return (
-    <div className='user-dropdown' ref={userDropdown} onClick={() => toggleState()}>
-      <div className='user-icon svg-container'>
+    <div className='user-dropdown' ref={userDropdown}>
+      <div className='user-icon svg-container' onClick={() => toggleState()}>
         <span>{auth.username}</span>
         <AiOutlineUser color='white' size={30} />
       </div>
