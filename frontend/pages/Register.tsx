@@ -109,7 +109,7 @@ const Register = () => {
               <br />
               Must contain a number.
               <br />
-              Must contain a upper case letter.
+              Must contain an upper case letter.
               <br />
               Must contain a special character.
             </p>
@@ -123,7 +123,7 @@ const Register = () => {
             placeholder='confirm password'
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          {confirmPassword && !validMatch && <p>Password must match.</p>}
+          {confirmPassword && !validMatch && <p>Passwords must match.</p>}
         </div>
         <button
           className='register-button'
