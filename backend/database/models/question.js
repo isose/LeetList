@@ -16,6 +16,7 @@ class Question extends Model {
 
   static get relationMappings() {
     const QuestionTagMap = require('./questionTagMap').default;
+    const QuestionListItem = require('./questionListItem').default;
     return {
       tags: {
         relation: Model.HasManyRelation,
@@ -23,6 +24,14 @@ class Question extends Model {
         join: {
           from: 'question.questionId',
           to: 'questionTagMap.questionId',
+        },
+      },
+      questionListItems: {
+        relation: Model.HasManyRelation,
+        modelClass: QuestionListItem,
+        join: {
+          from: 'question.questionId',
+          to: 'questionListItem.questionId',
         },
       },
     };
