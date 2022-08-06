@@ -62,6 +62,54 @@ svg {
   align-items: center;
 }
 
+.tooltip-wrapper {
+  position: relative;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 28px;
+  color: white;
+  background: black;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.tooltip::before {
+  content: ' ';
+  top: 100%;
+  left: 50%;
+  position: absolute;
+  border: solid transparent;
+  border-width: 6px;
+  margin-left: -6px;
+  border-top-color: black;
+}
+
+.tooltip-fadein {
+  animation: fadein .15s ease forwards;
+}
+
+.tooltip-fadeout {
+  animation: fadeout .15s ease forwards;
+}
+
+@keyframes fadein {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes fadeout {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .navbar {
   position: absolute;
   top: 0;
@@ -142,16 +190,27 @@ svg {
   margin: 2px 0;
   padding: 5px 10px;
   outline: 2px solid black;
-}
-
-.question-container {
   display: flex;
   justify-content: space-between;
+  gap: 5px;
+}
+
+.question-wrapper-left {
+  min-width: 0;
 }
 
 .question-title {
   font-size: 18px;
   margin-bottom: 5px;
+  display: flex;
+}
+
+.question-title > a:link, a:visited {
+  color: black;
+}
+
+.question-title > a:hover {
+  color: #737373;
 }
 
 .difficulty {
