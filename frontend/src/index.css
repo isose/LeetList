@@ -390,14 +390,16 @@ svg {
 
 .tags-dropdown-container .tag-list {
   padding: 2px;
-  height: 250px;
+  height: 248px;
   overflow-y: scroll;
+  scroll-snap-type: y proximity;
 }
 
 .tags-dropdown-container .tag {
   font-size: 14px;
   background-color: white;
   cursor: pointer;
+  scroll-snap-align: start;
 }
 
 .tags-dropdown-container .tag.selected {
