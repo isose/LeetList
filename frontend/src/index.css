@@ -206,7 +206,8 @@ svg {
   display: flex;
 }
 
-.question-title > a:link, a:visited {
+.question-title > a:link,
+.question-title > a:visited {
   color: black;
 }
 
