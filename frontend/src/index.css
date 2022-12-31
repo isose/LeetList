@@ -253,6 +253,7 @@ svg {
 .tag-list {
   display: flex;
   flex-wrap: wrap;
+  align-content: flex-start;
   overflow: hidden;
   row-gap: 3px;
   column-gap: 3px;
