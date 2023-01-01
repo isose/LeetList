@@ -45,6 +45,7 @@ const QUESTIONS_QUERY = `
     }
   }
 `;
+const API_CALLS_PER_MINUTE = 200;
 
 async function getQuestionData(slug: string) {
   const res = await client.post(URL, {
@@ -76,10 +77,21 @@ async function getQuestionData(slug: string) {
 async function getAllQuestionData() {
   // get slugs from question_slugs
   const slugs = (await QuestionSlug.query()).map((slug: any) => slug.slug);
+  let startTime = performance.now();
+  let calls = 0;
   for (const slug of slugs) {
     await getQuestionData(slug);
     // delete slug from question_slugs
     await QuestionSlug.query().delete().where('slug', slug);
+    // limit number of api calls per minute
+    if (++calls == API_CALLS_PER_MINUTE) {
+      const endTime = performance.now();
+      await new Promise((resolve) =>
+        setTimeout(resolve, Math.max(0, 60000 - (endTime - startTime))),
+      );
+      startTime = performance.now();
+      calls = 0;
+    }
   }
 }
 
