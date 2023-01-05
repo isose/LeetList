@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from '../../api/axios';
+import styles from '../../styles/components/search/TagsDropdown.module.css';
 import Tag from '../Tag';
 
 const TagsDropdown = ({ selected, setSelected }: any) => {
@@ -34,40 +35,41 @@ const TagsDropdown = ({ selected, setSelected }: any) => {
     }
   };
 
-  const getStyleName = (tag: any) => {
-    return selected.includes(tag.tagName) ? ' selected' : '';
+  const getStyle = (tag: any) => {
+    return selected.includes(tag.tagName) ? `${styles.tag} ${styles['tag--selected']}` : styles.tag;
   };
 
   document.addEventListener('mousedown', clickOutside);
 
   return (
-    <div className='tags-dropdown-wrapper' ref={tagsDropdown}>
-      <button className='tags-dropdown-button' onClick={() => toggleState()}>
+    <div ref={tagsDropdown}>
+      <button className={styles['tags-dropdown__button']} onClick={() => toggleState()}>
         Tags
       </button>
       {open && (
-        <div className='tags-dropdown-container'>
-          <div className='tags-dropdown-header'>
+        <div className={styles['tags-dropdown__container']}>
+          <div className={styles['tags-dropdown__header']}>
             <input
-              className='search-bar'
+              className={`search-bar ${styles['tags-dropdown__search-bar']}`}
               placeholder='Filter tags'
               value={tagFilter}
               onInput={(e) => setTagFilter((e.target as HTMLInputElement).value)}
             />
           </div>
-          <div className='tag-list'>
+          <div className={styles['tag-list']}>
             {tags
               .filter((tag: any) => {
                 return tag.tagName.toLowerCase().indexOf(tagFilter.toLowerCase()) !== -1;
               })
               .map((tag: any, index: number) => {
-                return (
-                  <Tag key={index} tag={tag} onClick={handleClick} styleName={getStyleName(tag)} />
-                );
+                return <Tag key={index} tag={tag} onClick={handleClick} style={getStyle(tag)} />;
               })}
           </div>
-          <div className='tags-dropdown-footer'>
-            <button className='reset-tags-button' onClick={() => setSelected([])}>
+          <div className={styles['tags-dropdown__footer']}>
+            <button
+              className={styles['tags-dropdown__reset-tags-button']}
+              onClick={() => setSelected([])}
+            >
               Reset Tags
             </button>
           </div>

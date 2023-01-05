@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../../styles/components/search/BasicSearch.module.css';
 import DifficultyDropdown from './DifficultyDropdown';
 import SearchBar from './SearchBar';
 import TagsDropdown from './TagsDropdown';
@@ -12,8 +13,8 @@ const BasicSearch = ({
   setDifficultySelected,
 }: any) => {
   return (
-    <div className='basic-search-wrapper'>
-      <SearchBar input={search} setInput={setSearch} />
+    <div className={styles.wrapper}>
+      <SearchBar input={search} setInput={setSearch} style={styles['basic-search__search-bar']} />
       <TagsDropdown selected={tagsSelected} setSelected={setTagsSelected} />
       <DifficultyDropdown selected={difficultySelected} setSelected={setDifficultySelected} />
     </div>

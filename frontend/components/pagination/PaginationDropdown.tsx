@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
+import styles from '../../styles/components/pagination/PaginationDropdown.module.css';
 
 const PaginationDropdown = ({ selected, onClick }: any) => {
   const [open, setOpen] = useState(false);
@@ -24,16 +25,19 @@ const PaginationDropdown = ({ selected, onClick }: any) => {
   document.addEventListener('mousedown', clickOutside);
 
   return (
-    <div className='pagination-dropdown-wrapper' ref={paginationDropdown}>
-      <button className='pagination-dropdown-header svg-container' onClick={() => toggleState()}>
+    <div ref={paginationDropdown}>
+      <button
+        className={`${styles['pagination-dropdown__header']} svg-container`}
+        onClick={() => toggleState()}
+      >
         {selected}
         {DROPDOWN_TEXT} <FaChevronDown />
       </button>
       {open && (
-        <div className='pagination-dropdown-list'>
+        <div className={styles['pagination-dropdown__list']}>
           {paginationOptions.map((item: any, index: any) => (
             <button
-              className='pagination-dropdown-item'
+              className={styles['pagination-dropdown__item']}
               key={index}
               onClick={() => handleClick(item)}
             >

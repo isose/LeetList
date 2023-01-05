@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { AiOutlineUser } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
+import styles from '../../styles/components/ui/UserDropdown.module.css';
 import LogoutButton from './LogoutButton';
 
 const UserDropdown = () => {
@@ -21,13 +22,16 @@ const UserDropdown = () => {
   document.addEventListener('mousedown', clickOutside);
 
   return (
-    <div className='user-dropdown' ref={userDropdown}>
-      <div className='user-icon svg-container' onClick={() => toggleState()}>
+    <div ref={userDropdown}>
+      <div
+        className={`${styles['user-dropdown__user-icon']} svg-container`}
+        onClick={() => toggleState()}
+      >
         <span>{auth.username}</span>
         <AiOutlineUser color='white' size={30} />
       </div>
       {open && (
-        <div className='user-dropdown-container'>
+        <div className={styles['user-dropdown__container']}>
           <Link to='lists'>My Lists</Link>
           <LogoutButton />
         </div>

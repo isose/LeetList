@@ -1,0 +1,28 @@
+.wrapper {
+  text-align: center;
+}
+
+.tag-list {
+  display: flex;
+  column-gap: 3px;
+  row-gap: 3px;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  height: 20px;
+  overflow: hidden;
+}
+
+.tag-list--expanded {
+  padding-bottom: 5px;
+  height: auto;
+}
+
+.tag-list__expand {
+  cursor: pointer;
+  color: blue;
+  font-size: 14px;
+}
+
+.tag-list__expand:hover {
+  text-decoration: underline;
+}

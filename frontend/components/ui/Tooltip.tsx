@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styles from '../../styles/components/ui/Tooltip.module.css';
 
 const Tooltip = ({ text, children, disabled }: any) => {
   let timeout: any;
@@ -21,10 +22,16 @@ const Tooltip = ({ text, children, disabled }: any) => {
   };
 
   return (
-    <div className='tooltip-wrapper' onMouseEnter={showTooltip} onMouseLeave={hideTooltip}>
+    <div className={styles.wrapper} onMouseEnter={showTooltip} onMouseLeave={hideTooltip}>
       {children}
       {active && !disabled && (
-        <div className={`tooltip ${fadingIn ? 'tooltip-fadein' : 'tooltip-fadeout'}`}>{text}</div>
+        <div
+          className={`${styles.tooltip} ${
+            fadingIn ? styles['tooltip--fadein'] : styles['tooltip--fadeout']
+          }`}
+        >
+          {text}
+        </div>
       )}
     </div>
   );
