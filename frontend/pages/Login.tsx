@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
 import useAuth from '../hooks/useAuth';
+import styles from '../styles/pages/RegisterLogin.module.css';
 
 const Login = () => {
   const { setAuth } = useAuth();
@@ -48,9 +49,9 @@ const Login = () => {
   };
 
   return (
-    <div className='login'>
-      <h2 className='header'>Login</h2>
-      <form className='login-form' onSubmit={handleSubmit}>
+    <div className={styles.login}>
+      <h2 className={styles['login__header']}>Login</h2>
+      <form className={styles['login__form']} onSubmit={handleSubmit}>
         <div>
           <label>Username</label>
           <input placeholder='username' onChange={(e) => setUsername(e.target.value)} />
@@ -65,7 +66,10 @@ const Login = () => {
           />
           {passwordError && <p>{passwordError}</p>}
         </div>
-        <button className='login-button' disabled={!username || !password ? true : false}>
+        <button
+          className={styles['login__button']}
+          disabled={!username || !password ? true : false}
+        >
           Login
         </button>
       </form>

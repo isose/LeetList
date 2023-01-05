@@ -1,0 +1,7 @@
+.tag {
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 0 3px;
+  height: 16px;
+  font-size: 12.5px;
+}

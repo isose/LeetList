@@ -1,0 +1,32 @@
+.user-dropdown__user-icon {
+  cursor: pointer;
+}
+
+.user-dropdown__user-icon:hover {
+  filter: brightness(85%);
+}
+
+.user-dropdown__container {
+  display: flex;
+  position: absolute;
+  right: 2px;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 1;
+  box-sizing: border-box;
+  margin-top: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: white;
+  padding: 5px 15px;
+  width: 200px;
+}
+
+.user-dropdown__container a {
+  color: black;
+}
+
+.user-dropdown__container a:hover {
+  color: #737373;
+}

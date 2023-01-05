@@ -5,6 +5,7 @@ import PaginationNavigation from '../components/pagination/PaginationNavigation'
 import QuestionList from '../components/QuestionList';
 import BasicSearch from '../components/search/BasicSearch';
 import { useStateDebounced } from '../hooks/useStateDebounced';
+import styles from '../styles/pages/Questions.module.css';
 
 const Questions = () => {
   const navigate = useNavigate();
@@ -99,7 +100,7 @@ const Questions = () => {
   };
 
   return (
-    <div className='question-module'>
+    <div className={styles.questions}>
       <h1>Questions</h1>
       <BasicSearch
         search={search}

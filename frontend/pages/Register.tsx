@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import isEmail from 'validator/es/lib/isEmail';
 import axios from '../api/axios';
+import styles from '../styles/pages/RegisterLogin.module.css';
 
 const USERNAME_REGEX = /^[a-zA-Z][a-zA-Z0-9_]{2,30}$/;
 const PASSWORD_REGEX = /^(?=.*\d)(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,60}$/;
@@ -64,13 +65,13 @@ const Register = () => {
   };
 
   return (
-    <div className='register'>
-      <h2 className='header'>Registration</h2>
-      <form className='register-form' onSubmit={handleSubmit}>
+    <div className={styles.register}>
+      <h2 className={styles['register__header']}>Registration</h2>
+      <form className={styles['register__form']} onSubmit={handleSubmit}>
         <div>
           <label>Email</label>
           <input
-            className={email && !validEmail ? 'invalid' : ''}
+            className={email && !validEmail ? `${styles.invalid}` : ''}
             placeholder='email'
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -80,7 +81,7 @@ const Register = () => {
         <div>
           <label>Username</label>
           <input
-            className={username && !validUsername ? 'invalid' : ''}
+            className={username && !validUsername ? `${styles.invalid}` : ''}
             placeholder='username'
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -98,7 +99,7 @@ const Register = () => {
         <div>
           <label>Password</label>
           <input
-            className={password && !validPassword ? 'invalid' : ''}
+            className={password && !validPassword ? `${styles.invalid}` : ''}
             type='password'
             placeholder='password'
             onChange={(e) => setPassword(e.target.value)}
@@ -118,7 +119,7 @@ const Register = () => {
         <div>
           <label>Confirm password</label>
           <input
-            className={confirmPassword && !validMatch ? 'invalid' : ''}
+            className={confirmPassword && !validMatch ? `${styles.invalid}` : ''}
             type='password'
             placeholder='confirm password'
             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -126,7 +127,7 @@ const Register = () => {
           {confirmPassword && !validMatch && <p>Passwords must match.</p>}
         </div>
         <button
-          className='register-button'
+          className={styles['register__button']}
           disabled={!validEmail || !validUsername || !validPassword || !validMatch ? true : false}
         >
           Register

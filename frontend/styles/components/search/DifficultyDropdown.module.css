@@ -1,0 +1,12 @@
+.difficulty-dropdown,
+.difficulty-dropdown__item {
+  border: 2px solid black;
+  width: 150px;
+  height: 25px;
+}
+
+.difficulty-dropdown__list {
+  position: absolute;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  width: 150px;
+}

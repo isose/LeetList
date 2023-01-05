@@ -1,0 +1,27 @@
+.navbar {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  background-color: #1d2731;
+  padding: 3px 15px;
+  width: 100%;
+  height: 35px;
+}
+
+.navbar a,
+.navbar span {
+  color: white;
+}
+
+.navbar a:hover {
+  filter: brightness(85%);
+}
+
+.navbar__login-container {
+  display: flex;
+  column-gap: 15px;
+}

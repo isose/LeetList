@@ -1,0 +1,17 @@
+.wrapper {
+  display: flex;
+  column-gap: 5px;
+}
+
+.pagination-button {
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 0;
+  width: 25px;
+  height: 25px;
+  font-size: 12px;
+}
+
+.pagination-button--current {
+  filter: brightness(90%);
+}

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import styles from '../styles/components/TagList.module.css';
 import Tag from './Tag';
 
 const TagList = ({ tags }: any) => {
@@ -24,14 +25,17 @@ const TagList = ({ tags }: any) => {
   );
 
   return (
-    <div className='tag-list-wrapper'>
-      <div className={`tag-list${expanded ? ' expanded' : ''}`} ref={elementRef}>
+    <div className={styles.wrapper}>
+      <div
+        className={`${styles['tag-list']}${expanded ? ' ' + styles['tag-list--expanded'] : ''}`}
+        ref={elementRef}
+      >
         {tags.map((tag: any, index: number) => {
           return <Tag key={index} tag={tag} />;
         })}
       </div>
       {isOverflowed && !expanded && (
-        <span className='expand-tags' onClick={() => setExpanded(true)}>
+        <span className={styles['tag-list__expand']} onClick={() => setExpanded(true)}>
           more
         </span>
       )}

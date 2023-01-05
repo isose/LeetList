@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { TiArrowDownThick, TiArrowUpThick } from 'react-icons/ti';
+import styles from '../styles/components/Question.module.css';
 import TagList from './TagList';
 import Tooltip from './ui/Tooltip';
 
@@ -31,10 +32,10 @@ const Question = (question: any) => {
   );
 
   return (
-    <div className='question'>
-      <div className='question-wrapper-left'>
+    <div className={styles.question}>
+      <div className={styles['question__wrapper-left']}>
         <Tooltip text={title} disabled={!isOverflowed}>
-          <div className='question-title'>
+          <div className={styles['question__title']}>
             <a
               className='truncate'
               href={question.url}
@@ -49,10 +50,14 @@ const Question = (question: any) => {
         <TagList tags={question.tags} />
       </div>
       <div>
-        <div className={`difficulty difficulty-${question.difficulty.toLowerCase()}`}>
+        <div
+          className={`${styles['question__difficulty']} ${
+            styles[`question__difficulty--${question.difficulty.toLowerCase()}`]
+          }`}
+        >
           {question.difficulty}
         </div>
-        <div className='votes'>
+        <div className={styles['question__votes']}>
           <div className='svg-container'>
             <TiArrowUpThick />
             {upVotes}
@@ -62,7 +67,7 @@ const Question = (question: any) => {
             {downVotes}
           </div>
         </div>
-        <div className='submissions'>
+        <div className={styles['question__submissions']}>
           <div>acceptance: </div>
           <div>{acceptance}%</div>
         </div>

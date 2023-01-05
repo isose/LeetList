@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { FaCheck } from 'react-icons/fa';
+import styles from '../../styles/components/search/DifficultyDropdown.module.css';
 
 const DifficultyDropdown = ({ selected, setSelected }: any) => {
   const [open, setOpen] = useState(false);
@@ -30,15 +31,15 @@ const DifficultyDropdown = ({ selected, setSelected }: any) => {
   };
 
   return (
-    <div className='difficulty-dropdown-wrapper' ref={difficultyDropdown}>
-      <button className='difficulty-dropdown-header' onClick={() => toggleState()}>
+    <div ref={difficultyDropdown}>
+      <button className={styles['difficulty-dropdown']} onClick={() => toggleState()}>
         Difficulty
       </button>
       {open && (
-        <div className='difficulty-dropdown-list'>
+        <div className={styles['difficulty-dropdown__list']}>
           {difficulties.map((item: any, index: any) => (
             <button
-              className='difficulty-dropdown-item svg-container'
+              className={`${styles['difficulty-dropdown__item']} svg-container`}
               key={index}
               onClick={() => handleClick(item)}
             >
