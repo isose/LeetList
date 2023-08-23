@@ -1,3 +1,8 @@
+:global(*) {
+  scrollbar-color: #888 #f1f1f1;
+  scrollbar-width: thin;
+}
+
 :global(::-webkit-scrollbar) {
   width: 8px;
 }

@@ -5,7 +5,7 @@ const QuestionList = ({ questions }: any) => {
   return (
     <div className='question-list'>
       {questions.map((question: any) => {
-        return <Question key={question.questionId} {...question} />;
+        return <Question key={question.questionId} question={question} />;
       })}
     </div>
   );

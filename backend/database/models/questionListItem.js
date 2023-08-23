@@ -5,6 +5,15 @@ class QuestionListItem extends Model {
     return 'questionListItem';
   }
 
+  $formatJson(json) {
+    return {
+      ...super.$formatJson(json),
+      id: undefined,
+      createdAt: undefined,
+      updatedAt: undefined,
+    };
+  }
+
   static get relationMappings() {
     const QuestionList = require('./questionList').default;
     const Question = require('./question').default;
@@ -14,7 +23,7 @@ class QuestionListItem extends Model {
         modelClass: QuestionList,
         join: {
           from: 'questionListItem.questionListId',
-          to: 'quesitonList.id',
+          to: 'questionList.id',
         },
       },
       question: {

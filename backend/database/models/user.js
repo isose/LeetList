@@ -6,7 +6,7 @@ class User extends Model {
   }
 
   static get relationMappings() {
-    const QuestionList = require('./quesitonList').default;
+    const QuestionList = require('./questionList').default;
     return {
       questionLists: {
         relation: Model.HasManyRelation,

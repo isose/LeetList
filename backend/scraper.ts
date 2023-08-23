@@ -45,7 +45,7 @@ const QUESTIONS_QUERY = `
     }
   }
 `;
-const API_CALLS_PER_MINUTE = 200;
+const API_CALLS_PER_MINUTE = 100;
 
 async function getQuestionData(slug: string) {
   const res = await client.post(URL, {
@@ -76,7 +76,7 @@ async function getQuestionData(slug: string) {
 
 async function getAllQuestionData() {
   // get slugs from question_slugs
-  const slugs = (await QuestionSlug.query()).map((slug: any) => slug.slug);
+  const slugs = (await QuestionSlug.query()).map((slug: any) => slug.slug).reverse();
   let startTime = performance.now();
   let calls = 0;
   for (const slug of slugs) {

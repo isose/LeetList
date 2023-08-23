@@ -27,6 +27,7 @@
     "prettier/prettier": "error",
     "quotes": ["error", "single"],
     "react/react-in-jsx-scope": "off",
+    "react-hooks/rules-of-hooks": "error",
     "spaced-comment": "error",
     "@typescript-eslint/no-explicit-any": "off"
   },

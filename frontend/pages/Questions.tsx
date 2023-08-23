@@ -1,51 +1,45 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
+import { useDebounce } from 'use-debounce';
 import axios from '../api/axios';
+import CreateListSidepanel from '../components/CreateListSidepanel';
 import PaginationNavigation from '../components/pagination/PaginationNavigation';
-import QuestionList from '../components/QuestionList';
+import QuestionListSelectable from '../components/QuestionListSelectable';
 import BasicSearch from '../components/search/BasicSearch';
-import { useStateDebounced } from '../hooks/useStateDebounced';
+import useLocalStorage from '../hooks/useLocalStorage';
+import usePagination from '../hooks/usePagination';
 import styles from '../styles/pages/Questions.module.css';
 
 const Questions = () => {
-  const navigate = useNavigate();
-  const currentUrlParams = new URLSearchParams(window.location.search);
+  const { state } = useLocation();
 
-  const getLocalStorageLimit = () => {
-    const localStorageLimit = localStorage.getItem('limit');
-    return localStorageLimit ? JSON.parse(localStorageLimit) : 50;
-  };
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const getUrlPageParam = () => {
-    const pageParam = currentUrlParams.get('page');
-    if (pageParam && Number(pageParam) > 0) {
-      return Number(pageParam);
-    }
-    return 1;
-  };
-
-  const getUrlSearchParam = () => {
-    const searchParam = currentUrlParams.get('search');
+  const getSearchUrlParam = () => {
+    const searchParam = searchParams.get('search');
     return searchParam ? searchParam : '';
   };
 
-  const getUrlTagsParam = () => {
-    const tagsParam = currentUrlParams.get('tags');
+  const getTagsUrlParam = () => {
+    const tagsParam = searchParams.get('tags');
     return tagsParam ? tagsParam.split(',') : [];
   };
 
-  const getUrlDifficultyParam = () => {
-    const difficultyParam = currentUrlParams.get('difficulty');
+  const getDifficultyUrlParam = () => {
+    const difficultyParam = searchParams.get('difficulty');
     return difficultyParam ? difficultyParam.split(',') : [];
   };
 
   const [questions, setQuestions] = useState<any[]>([]);
-  const [limit, setLimit] = useState(getLocalStorageLimit());
-  const [page, setPage] = useState(getUrlPageParam());
-  const [totalPages, setTotalPages] = useState<number | null>(null);
-  const [search, debouncedSearch, setSearch] = useStateDebounced(getUrlSearchParam(), 250);
-  const [tags, setTags] = useState<string[]>(getUrlTagsParam());
-  const [difficulty, setDifficulty] = useState<string[]>(getUrlDifficultyParam());
+  const [listState, setListState] = useState(
+    state ? state : { name: '', private: false, questions: [] },
+  );
+  const [limit, setLimit] = useLocalStorage('limit', 50);
+  const [page, setPage, totalPages, setTotalPages] = usePagination();
+  const [search, setSearch] = useState(getSearchUrlParam());
+  const [debouncedSearch] = useDebounce(search, 250);
+  const [tags, setTags] = useState<string[]>(getTagsUrlParam());
+  const [difficulty, setDifficulty] = useState<string[]>(getDifficultyUrlParam());
 
   const queryParams = `/?page=${
     page - 1
@@ -56,69 +50,71 @@ const Questions = () => {
     updateUrlParams();
   }, [limit, page, debouncedSearch, tags, difficulty]);
 
-  useEffect(() => {
-    handlePageBounds();
-  }, [totalPages]);
-
   const fetchQuestions = async () => {
-    const res = await axios.get('/api/questions' + queryParams);
-    const data = await res.data;
-    setQuestions(data.results);
+    const res = await axios.get(`/api/questions${queryParams}`);
+    setQuestions(res.data.results);
 
-    const pages = Math.ceil(data.total / Number(limit));
-    setTotalPages(pages > 0 ? pages : 1);
-  };
-
-  const handlePageBounds = () => {
-    if (totalPages !== null && page > totalPages) {
-      setPage(totalPages);
-    }
+    const pages = Math.ceil(res.data.total / limit);
+    setTotalPages(Math.max(pages, 1));
   };
 
   const updateUrlParams = () => {
-    currentUrlParams.set('page', page.toString());
+    searchParams.set('page', page.toString());
 
     if (debouncedSearch.length === 0) {
-      currentUrlParams.delete('search');
+      searchParams.delete('search');
     } else {
-      currentUrlParams.set('search', debouncedSearch);
+      searchParams.set('search', debouncedSearch);
     }
 
     if (tags.length === 0) {
-      currentUrlParams.delete('tags');
+      searchParams.delete('tags');
     } else {
-      currentUrlParams.set('tags', tags.toString());
+      searchParams.set('tags', tags.toString());
     }
 
     if (difficulty.length === 0) {
-      currentUrlParams.delete('difficulty');
+      searchParams.delete('difficulty');
     } else {
-      currentUrlParams.set('difficulty', difficulty.toString());
+      searchParams.set('difficulty', difficulty.toString());
     }
 
-    navigate(window.location.pathname + '?' + currentUrlParams.toString());
+    setSearchParams(searchParams);
+  };
+
+  const setSelectedQuestions = (questions: []) => {
+    setListState({ ...listState, questions: questions });
   };
 
   return (
-    <div className={styles.questions}>
-      <h1>Questions</h1>
-      <BasicSearch
-        search={search}
-        setSearch={setSearch}
-        tagsSelected={tags}
-        setTagsSelected={setTags}
-        difficultySelected={difficulty}
-        setDifficultySelected={setDifficulty}
-      />
-      <QuestionList questions={questions} />
-      <PaginationNavigation
-        selected={limit}
-        setLimit={setLimit}
-        page={page}
-        totalPages={totalPages}
-        setPage={setPage}
-      />
-    </div>
+    <>
+      <div className={styles.questions}>
+        <div className={styles['questions__container']}>
+          <h1>Questions</h1>
+          <BasicSearch
+            search={search}
+            setSearch={setSearch}
+            tagsSelected={tags}
+            setTagsSelected={setTags}
+            difficultySelected={difficulty}
+            setDifficultySelected={setDifficulty}
+          />
+          <QuestionListSelectable
+            questions={questions}
+            selectedQuestions={listState.questions}
+            setSelectedQuestions={setSelectedQuestions}
+          />
+          <PaginationNavigation
+            selected={limit}
+            setLimit={setLimit}
+            page={page}
+            totalPages={totalPages}
+            setPage={setPage}
+          />
+        </div>
+        <CreateListSidepanel listState={listState} setListState={setListState} />
+      </div>
+    </>
   );
 };
 

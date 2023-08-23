@@ -53,7 +53,7 @@ const TagsDropdown = ({ selected, setSelected }: any) => {
               className={`search-bar ${styles['tags-dropdown__search-bar']}`}
               placeholder='Filter tags'
               value={tagFilter}
-              onInput={(e) => setTagFilter((e.target as HTMLInputElement).value)}
+              onChange={(e) => setTagFilter(e.target.value)}
             />
           </div>
           <div className={styles['tag-list']}>

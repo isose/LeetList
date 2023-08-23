@@ -24,6 +24,11 @@ const TagList = ({ tags }: any) => {
     [],
   );
 
+  const handleClick = (e: any) => {
+    e.stopPropagation();
+    setExpanded(true);
+  };
+
   return (
     <div className={styles.wrapper}>
       <div
@@ -35,7 +40,7 @@ const TagList = ({ tags }: any) => {
         })}
       </div>
       {isOverflowed && !expanded && (
-        <span className={styles['tag-list__expand']} onClick={() => setExpanded(true)}>
+        <span className={styles['tag-list__expand']} onClick={(e) => handleClick(e)}>
           more
         </span>
       )}

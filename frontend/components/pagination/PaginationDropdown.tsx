@@ -19,7 +19,6 @@ const PaginationDropdown = ({ selected, onClick }: any) => {
   const handleClick = (item: any) => {
     toggleState();
     onClick(item.value);
-    localStorage.setItem('limit', JSON.stringify(item.value));
   };
 
   document.addEventListener('mousedown', clickOutside);

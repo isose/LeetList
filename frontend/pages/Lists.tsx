@@ -1,8 +1,144 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useDebounce } from 'use-debounce';
+import { axiosPrivate } from '../api/axios';
+import PaginationButtons from '../components/pagination/PaginationButtons';
+import VirtualList from '../components/ui/VirtualList';
+import useOverflow from '../hooks/useOverflow';
+import usePagination from '../hooks/usePagination';
+import styles from '../styles/pages/Lists.module.css';
+import { formatDate } from '../utils/utils';
+
+const List = (props: any) => {
+  const { item, style } = props;
+  const { ref } = props.props;
+
+  const [overflow, textElementRef] = useOverflow();
+
+  return (
+    <div className={styles.list} ref={ref} style={style}>
+      <div className={styles['list__name']}>
+        <Link
+          to={`../list/${item.id}`}
+          className='truncate'
+          ref={textElementRef}
+          title={overflow ? item.name : undefined}
+        >
+          {item.name}
+        </Link>
+      </div>
+      <div className={styles['list__footer']}>
+        <span>{item.username}</span>
+        <span>{formatDate(item.createdAt)}</span>
+      </div>
+    </div>
+  );
+};
 
 const Lists = () => {
-  // TODO lists page
-  return <div>Lists Page</div>;
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const getSearchUrlParam = () => {
+    const searchParam = searchParams.get('search');
+    return searchParam ? searchParam : '';
+  };
+
+  const limit = 20;
+  const [page, setPage, totalPages, setTotalPages] = usePagination();
+  const [search, setSearch] = useState(getSearchUrlParam());
+  const [debouncedSearch] = useDebounce(search, 250);
+  const [lists, setLists] = useState([]);
+
+  const queryParams = `/?page=${page - 1}&limit=${limit}&search=${debouncedSearch}`;
+
+  useEffect(() => {
+    fetchLists();
+    updateUrlParams();
+  }, [location.pathname, page, debouncedSearch]);
+
+  const fetchLists = async () => {
+    try {
+      const res = await axiosPrivate.get(`/api${location.pathname}${queryParams}`);
+      setLists(res.data.results);
+
+      const pages = Math.ceil(res.data.total / limit);
+      setTotalPages(Math.max(pages, 1));
+    } catch (err) {
+      setLists([]);
+      setTotalPages(1);
+    }
+  };
+
+  const updateUrlParams = () => {
+    searchParams.set('page', page.toString());
+
+    if (debouncedSearch.length === 0) {
+      searchParams.delete('search');
+    } else {
+      searchParams.set('search', debouncedSearch);
+    }
+
+    setSearchParams(searchParams);
+  };
+
+  const switchTabs = (path: string) => {
+    navigate(path);
+    setPage(1);
+    setSearch('');
+  };
+
+  const getTabSelectedStyle = (tab: string) => {
+    return location.pathname === tab ? ` ${styles['lists__tab--selected']}` : '';
+  };
+
+  return (
+    <div className={styles.lists}>
+      <div className={styles['lists__wrapper']}>
+        <div className={styles['lists__tabs']}>
+          <div
+            className={`${styles['lists__tab']}${getTabSelectedStyle('/lists')}`}
+            onClick={() => switchTabs('/lists')}
+          >
+            All
+          </div>
+          <div
+            className={`${styles['lists__tab']}${getTabSelectedStyle('/my-lists')}`}
+            onClick={() => switchTabs('/my-lists')}
+          >
+            My lists
+          </div>
+        </div>
+        <div
+          className={`${styles['lists__body']}${
+            location.pathname !== '/lists' ? ` ${styles['rounded-border']}` : ''
+          }`}
+        >
+          <div className={styles['lists__search-wrapper']}>
+            <input
+              placeholder='search'
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            ></input>
+            {/* TODO sorting dropdown */}
+          </div>
+          <div className={styles['lists__container']}>
+            <VirtualList items={lists} component={List} />
+          </div>
+          <div className={styles['pagination-buttons']}>
+            <PaginationButtons
+              page={page}
+              totalPages={totalPages}
+              setPage={setPage}
+              numberOfButtons={5}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Lists;
