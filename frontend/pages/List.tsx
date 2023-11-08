@@ -6,7 +6,6 @@ import ErrorModal from '../components/modal/ErrorModal';
 import QuestionList from '../components/QuestionList';
 import ToggleSwitch from '../components/ui/ToggleSwitch';
 import useAuth from '../hooks/useAuth';
-import { useIsMount } from '../hooks/useIsMount';
 import useOverflow from '../hooks/useOverflow';
 import modalStyles from '../styles/components/modal/Modal.module.css';
 import styles from '../styles/pages/List.module.css';
@@ -75,26 +74,14 @@ const List = () => {
     setDisplayEditMenu(auth.username == list.username);
   }, [list]);
 
-  const isMount = useIsMount();
-
-  useEffect(() => {
-    if (isMount) {
-      return;
+  const updateList = async (value: boolean) => {
+    try {
+      list.private = value;
+      await axiosPrivate.put(`/api/list/${id}`, { ...list });
+    } catch (err) {
+      setError(true);
     }
-    // TODO move this to the switch onclick, (bug: loading public list from other users should not prompt error)
-    const updateList = async () => {
-      try {
-        list.private = privateList;
-        await axiosPrivate.put(`/api/list/${id}`, { ...list });
-      } catch (err) {
-        setError(true);
-      }
-    };
-
-    if (Object.keys(list).length > 0) {
-      updateList();
-    }
-  }, [privateList]);
+  };
 
   const fetchList = async () => {
     try {
@@ -156,6 +143,7 @@ const List = () => {
                   value={privateList}
                   setValue={setPrivateList}
                   label='private list'
+                  onChange={updateList}
                 />
                 <button className={styles.button} onClick={handleEdit}>
                   Edit

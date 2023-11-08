@@ -1,9 +1,11 @@
 import React from 'react';
 import styles from '../../styles/components/ui/ToggleSwitch.module.css';
 
-const ToggleSwitch = ({ style, height, value, setValue, label }: any) => {
+const ToggleSwitch = ({ style, height, value, setValue, label, onChange }: any) => {
   const handleOnChange = () => {
-    setValue(!value);
+    value = !value;
+    setValue(value);
+    onChange && onChange(value);
   };
 
   const getHeight = () => {
