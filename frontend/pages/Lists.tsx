@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-do
 import { useDebounce } from 'use-debounce';
 import { axiosPrivate } from '../api/axios';
 import PaginationButtons from '../components/pagination/PaginationButtons';
+import SearchBar from '../components/search/SearchBar';
 import VirtualList from '../components/ui/VirtualList';
 import useOverflow from '../hooks/useOverflow';
 import usePagination from '../hooks/usePagination';
@@ -117,11 +118,7 @@ const Lists = () => {
           }`}
         >
           <div className={styles['lists__search-wrapper']}>
-            <input
-              placeholder='search'
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            ></input>
+            <SearchBar input={search} setInput={setSearch} placeholder='Search Lists' />
             {/* TODO sorting dropdown */}
           </div>
           <div className={styles['lists__container']}>
