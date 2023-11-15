@@ -9,6 +9,7 @@ import Tag from './database/models/tag';
 
 const jar = new CookieJar();
 const client = wrapper(axios.create({ jar }));
+const prompt = require('prompt-sync')();
 
 const URL = 'https://leetcode.com/graphql';
 const QUESTION_URL = 'https://leetcode.com/problems/';
@@ -47,6 +48,12 @@ const QUESTIONS_QUERY = `
 `;
 const API_CALLS_PER_MINUTE = 100;
 
+function printProgress(progress: string) {
+  process.stdout.clearLine(0);
+  process.stdout.cursorTo(0);
+  process.stdout.write(progress);
+}
+
 async function getQuestionData(slug: string) {
   const res = await client.post(URL, {
     query: QUESTION_DATA_QUERY,
@@ -79,10 +86,11 @@ async function getAllQuestionData() {
   const slugs = (await QuestionSlug.query()).map((slug: any) => slug.slug).reverse();
   let startTime = performance.now();
   let calls = 0;
-  for (const slug of slugs) {
-    await getQuestionData(slug);
+  for (let i = 1; i <= slugs.length; i++) {
+    await getQuestionData(slugs[i]);
     // delete slug from question_slugs
-    await QuestionSlug.query().delete().where('slug', slug);
+    await QuestionSlug.query().delete().where('slug', slugs[i]);
+    printProgress(`${i} / ${slugs.length} questions scraped`);
     // limit number of api calls per minute
     if (++calls == API_CALLS_PER_MINUTE) {
       const endTime = performance.now();
@@ -163,17 +171,16 @@ async function getQuestions() {
 }
 
 async function main() {
-  if (process.argv.length == 2) {
+  const input = prompt(
+    'Select which option to scrape:\n "Enter" to scrape both questions and data\n "1" to scrape questions only\n "2" to scrape data only\n',
+  );
+  if (input == 1) {
     await getQuestions();
+  } else if (input == 2) {
     await getAllQuestionData();
   } else {
-    for (const arg of process.argv) {
-      if (arg == 'questions') {
-        await getQuestions();
-      } else if (arg == 'data') {
-        await getAllQuestionData();
-      }
-    }
+    await getQuestions();
+    await getAllQuestionData();
   }
 }
 
