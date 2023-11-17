@@ -34,16 +34,16 @@ const Questions = () => {
   const [listState, setListState] = useState(
     state ? state : { name: '', private: false, questions: [] },
   );
-  const [limit, setLimit] = useLocalStorage('limit', 50);
+  const [limit, setLimit] = useLocalStorage('limit', { text: '50 / page', value: 50 });
   const [page, setPage, totalPages, setTotalPages] = usePagination();
   const [search, setSearch] = useState(getSearchUrlParam());
   const [debouncedSearch] = useDebounce(search, 250);
   const [tags, setTags] = useState<string[]>(getTagsUrlParam());
   const [difficulty, setDifficulty] = useState<string[]>(getDifficultyUrlParam());
 
-  const queryParams = `/?page=${
-    page - 1
-  }&limit=${limit}&search=${debouncedSearch}&tags=${tags}&difficulty=${difficulty}`;
+  const queryParams = `/?page=${page - 1}&limit=${
+    limit.value
+  }&search=${debouncedSearch}&tags=${tags}&difficulty=${difficulty}`;
 
   useEffect(() => {
     fetchQuestions();
@@ -54,7 +54,7 @@ const Questions = () => {
     const res = await axios.get(`/api/questions${queryParams}`);
     setQuestions(res.data.results);
 
-    const pages = Math.ceil(res.data.total / limit);
+    const pages = Math.ceil(res.data.total / limit.value);
     setTotalPages(Math.max(pages, 1));
   };
 
