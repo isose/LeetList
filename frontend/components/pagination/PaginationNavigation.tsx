@@ -13,7 +13,12 @@ const PaginationNavigation = ({ selected, setLimit, page, totalPages, setPage }:
 
   return (
     <div className={styles['pagination-navigation']}>
-      <Dropdown selected={selected} setSelected={setLimit} options={PAGINATION_OPTIONS} />
+      <Dropdown
+        selected={selected}
+        setSelected={setLimit}
+        options={PAGINATION_OPTIONS}
+        width={110}
+      />
       <PaginationButtons
         page={page}
         totalPages={totalPages}

@@ -2,9 +2,17 @@ import React, { useRef, useState } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
 import styles from '../../styles/components/ui/Dropdown.module.css';
 
-const Dropdown = ({ selected, setSelected, options }: any) => {
+const Dropdown = ({ selected, setSelected, options, optionsEnum, width }: any) => {
+  const style = width ? { width: width } : undefined;
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<any>();
+
+  if (optionsEnum) {
+    options = [];
+    for (const [, value] of Object.entries(optionsEnum)) {
+      options.push({ text: value, value: value });
+    }
+  }
 
   const toggleOpen = () => setOpen(!open);
 
@@ -24,16 +32,21 @@ const Dropdown = ({ selected, setSelected, options }: any) => {
   return (
     <div ref={dropdownRef}>
       <button
-        className={`${styles['dropdown__header']} svg-container`}
+        className={`${styles['dropdown__button']} svg-container`}
+        style={style}
         onClick={() => toggleOpen()}
       >
-        {selected.text} <FaChevronDown />
+        <div className={styles['dropdown__button-content']}>
+          <div className={styles['dropdown__button-text']}>{selected.text}</div>
+          <FaChevronDown />
+        </div>
       </button>
       {open && (
         <div className={styles['dropdown__list']}>
           {options.map((item: any, index: any) => (
             <button
               className={styles['dropdown__item']}
+              style={style}
               key={index}
               onClick={() => handleClick(item)}
             >

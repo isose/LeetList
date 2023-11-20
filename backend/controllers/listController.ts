@@ -1,5 +1,6 @@
 import * as dotenv from 'dotenv';
 import { verify } from 'jsonwebtoken';
+import { LISTS_SORT_ORDER } from '../../frontend/pages/ListsEnum';
 import QuestionList from '../database/models/questionList';
 import QuestionListItem from '../database/models/questionListItem';
 
@@ -179,10 +180,31 @@ export const deleteList = async (req: any, res: any) => {
   return res.status(204).json({ success: true });
 };
 
+const getListsSortOrder = (sort: any): { column: string; order: 'ASC' | 'DESC' } => {
+  switch (sort) {
+    case LISTS_SORT_ORDER.NEW: {
+      return { column: 'created_at', order: 'DESC' };
+    }
+    case LISTS_SORT_ORDER.OLD: {
+      return { column: 'created_at', order: 'ASC' };
+    }
+    case LISTS_SORT_ORDER.NAME_ASCENDING: {
+      return { column: 'name', order: 'ASC' };
+    }
+    case LISTS_SORT_ORDER.NAME_DESCENDING: {
+      return { column: 'name', order: 'DESC' };
+    }
+    default: {
+      return { column: 'created_at', order: 'DESC' };
+    }
+  }
+};
+
 export const lists = async (req: any, res: any) => {
   const page = Number(req.query.page);
   const limit = Number(req.query.limit);
   const search = req.query.search;
+  const sort = getListsSortOrder(req.query.sort);
 
   const questionLists: any = await QuestionList.query()
     .where('private', false)
@@ -196,6 +218,7 @@ export const lists = async (req: any, res: any) => {
           });
       }
     })
+    .orderBy(sort.column, sort.order)
     .page(page, limit);
   // convert id to base36
   questionLists.results.forEach((questionList: any) => {
@@ -208,6 +231,7 @@ export const myLists = async (req: any, res: any) => {
   const page = Number(req.query.page);
   const limit = Number(req.query.limit);
   const search = req.query.search;
+  const sort = getListsSortOrder(req.query.sort);
 
   let payload: any = null;
   try {
@@ -228,6 +252,7 @@ export const myLists = async (req: any, res: any) => {
           });
       }
     })
+    .orderBy(sort.column, sort.order)
     .page(page, limit);
   // convert id to base36
   questionLists.results.forEach((questionList: any) => {

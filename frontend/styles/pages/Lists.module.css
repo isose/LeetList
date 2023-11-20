@@ -26,6 +26,7 @@
 
 .lists__search-wrapper {
   display: flex;
+  column-gap: 5px;
   margin: 5px 0;
   width: 95%;
 }

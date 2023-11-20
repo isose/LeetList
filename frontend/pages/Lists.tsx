@@ -4,11 +4,13 @@ import { useDebounce } from 'use-debounce';
 import { axiosPrivate } from '../api/axios';
 import PaginationButtons from '../components/pagination/PaginationButtons';
 import SearchBar from '../components/search/SearchBar';
+import Dropdown from '../components/ui/Dropdown';
 import VirtualList from '../components/ui/VirtualList';
 import useOverflow from '../hooks/useOverflow';
 import usePagination from '../hooks/usePagination';
 import styles from '../styles/pages/Lists.module.css';
 import { formatDate } from '../utils/utils';
+import { LISTS_SORT_ORDER } from './ListsEnum';
 
 const List = (props: any) => {
   const { item, style } = props;
@@ -51,14 +53,20 @@ const Lists = () => {
   const [page, setPage, totalPages, setTotalPages] = usePagination();
   const [search, setSearch] = useState(getSearchUrlParam());
   const [debouncedSearch] = useDebounce(search, 250);
+  const [sortOrder, setSortOrder] = useState({
+    text: LISTS_SORT_ORDER.NEW,
+    value: LISTS_SORT_ORDER.NEW,
+  });
   const [lists, setLists] = useState([]);
 
-  const queryParams = `/?page=${page - 1}&limit=${limit}&search=${debouncedSearch}`;
+  const queryParams = `/?page=${page - 1}&limit=${limit}&search=${debouncedSearch}&sort=${
+    sortOrder.value
+  }`;
 
   useEffect(() => {
     fetchLists();
     updateUrlParams();
-  }, [location.pathname, page, debouncedSearch]);
+  }, [location.pathname, page, debouncedSearch, sortOrder]);
 
   const fetchLists = async () => {
     try {
@@ -81,6 +89,8 @@ const Lists = () => {
     } else {
       searchParams.set('search', debouncedSearch);
     }
+
+    searchParams.set('sort', sortOrder.value);
 
     setSearchParams(searchParams);
   };
@@ -119,7 +129,12 @@ const Lists = () => {
         >
           <div className={styles['lists__search-wrapper']}>
             <SearchBar input={search} setInput={setSearch} placeholder='Search Lists' />
-            {/* TODO sorting dropdown */}
+            <Dropdown
+              selected={sortOrder}
+              setSelected={setSortOrder}
+              optionsEnum={LISTS_SORT_ORDER}
+              width={165}
+            />
           </div>
           <div className={styles['lists__container']}>
             <VirtualList items={lists} component={List} />
