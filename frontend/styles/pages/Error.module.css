@@ -1,0 +1,24 @@
+.error {
+  display: flex;
+  height: 100%;
+}
+
+.error__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 25vh auto 0px auto;
+  width: 60%;
+  min-width: 450px;
+}
+
+.error__container > p {
+  text-align: center;
+}
+
+.error__container > button {
+  margin-top: 20px;
+  border-radius: 10px;
+  width: 150px;
+  height: 50px;
+}

@@ -1,12 +1,12 @@
 import React from 'react';
 
-const SearchBar = ({ input, setInput, style }: any) => {
+const SearchBar = ({ input, setInput, placeholder, style }: any) => {
   return (
     <input
-      className={`search-bar${style != undefined ? ' ' + style : ''}`}
-      placeholder='Search questions'
+      className={`search-bar${style !== undefined ? ' ' + style : ''}`}
+      placeholder={placeholder}
       value={input}
-      onInput={(e) => setInput((e.target as HTMLInputElement).value)}
+      onChange={(e) => setInput(e.target.value)}
     />
   );
 };

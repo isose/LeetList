@@ -80,16 +80,10 @@ export const logout = (req: any, res: any) => {
 };
 
 export const refreshToken = async (req: any, res: any) => {
-  const refreshToken = req.signedCookies.refreshToken;
-  if (!refreshToken) {
-    return res.status(403).json({ success: false, accessToken: '' });
-  }
-
   let payload: any = null;
   try {
-    payload = verify(refreshToken, process.env.REFRESH_TOKEN_SECRET!);
+    payload = verify(req.signedCookies.refreshToken, process.env.REFRESH_TOKEN_SECRET!);
   } catch (err) {
-    console.log(err);
     return res.status(403).json({ success: false, accessToken: '' });
   }
 

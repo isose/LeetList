@@ -4,7 +4,7 @@ import styles from '../styles/components/Tag.module.css';
 const Tag = ({ tag, onClick, style }: any) => {
   return (
     <div
-      className={`${style != undefined ? style + ' ' : ''}${styles.tag}`}
+      className={`${styles.tag}${style !== undefined ? ' ' + style : ''}`}
       onClick={() => {
         onClick && onClick(tag.tagName);
       }}

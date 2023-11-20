@@ -8,13 +8,15 @@ exports.up = function (knex) {
       table.increments('id').primary();
       table.string('username').references('username').inTable('user').notNullable();
       table.string('name').notNullable();
-      table.boolean('public').notNullable();
+      table.boolean('private').notNullable();
+      table.unique(['username', 'name']);
       table.timestamps(true, true);
     })
     .createTable('questionListItem', (table) => {
       table.increments('id').primary();
       table.integer('questionListId').references('id').inTable('questionList').notNullable();
       table.string('questionId').references('questionId').inTable('question').notNullable();
+      table.integer('index').notNullable();
       table.unique(['questionListId', 'questionId']);
       table.timestamps(true, true);
     });

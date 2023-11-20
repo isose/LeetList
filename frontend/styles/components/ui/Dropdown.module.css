@@ -1,0 +1,26 @@
+.dropdown__button,
+.dropdown__item {
+  text-wrap: nowrap;
+  border: 2px solid black;
+  padding: 2px 0px;
+  min-width: 105px;
+}
+
+.dropdown__button-content {
+  display: flex;
+  width: 100%;
+}
+
+.dropdown__button-text {
+  flex-grow: 1;
+  padding-left: 20px;
+}
+
+.dropdown__list {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  z-index: 1;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  min-width: 105px;
+}

@@ -32,7 +32,7 @@ const UserDropdown = () => {
       </div>
       {open && (
         <div className={styles['user-dropdown__container']}>
-          <Link to='lists'>My Lists</Link>
+          <Link to='my-lists'>My Lists</Link>
           <LogoutButton />
         </div>
       )}

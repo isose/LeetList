@@ -5,6 +5,13 @@ class QuestionList extends Model {
     return 'questionList';
   }
 
+  $formatJson(json) {
+    return {
+      ...super.$formatJson(json),
+      updatedAt: undefined,
+    };
+  }
+
   static get relationMappings() {
     const User = require('./user').default;
     const QuestionListItem = require('./questionListItem').default;

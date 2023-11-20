@@ -14,7 +14,12 @@ const BasicSearch = ({
 }: any) => {
   return (
     <div className={styles.wrapper}>
-      <SearchBar input={search} setInput={setSearch} style={styles['basic-search__search-bar']} />
+      <SearchBar
+        input={search}
+        setInput={setSearch}
+        placeholder='Search Questions'
+        style={styles['basic-search__search-bar']}
+      />
       <TagsDropdown selected={tagsSelected} setSelected={setTagsSelected} />
       <DifficultyDropdown selected={difficultySelected} setSelected={setDifficultySelected} />
     </div>

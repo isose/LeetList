@@ -1,52 +1,40 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { TiArrowDownThick, TiArrowUpThick } from 'react-icons/ti';
+import useOverflow from '../hooks/useOverflow';
 import styles from '../styles/components/Question.module.css';
 import TagList from './TagList';
-import Tooltip from './ui/Tooltip';
 
 const COMMA_SEPARATED_NUMBER_REGEX = /\B(?=(\d{3})+(?!\d))/g;
 
-const Question = (question: any) => {
+const Question = ({ question, style, onClick }: any) => {
   const title = `${question.questionId}. ${question.title}`;
   const upVotes = question.upVotes?.toString().replace(COMMA_SEPARATED_NUMBER_REGEX, ',');
   const downVotes = question.downVotes?.toString().replace(COMMA_SEPARATED_NUMBER_REGEX, ',');
   const acceptance = ((question.numberOfAccepted / question.numberOfSubmissions) * 100).toFixed(2);
 
-  const [isOverflowed, setIsOverflowed] = useState(false);
-  const textElementRef = useRef<any>();
-
-  const checkOverflow = () => {
-    setIsOverflowed(textElementRef.current.scrollWidth > textElementRef.current.clientWidth);
-  };
-
-  useEffect(() => {
-    checkOverflow();
-    window.addEventListener('resize', checkOverflow);
-  }, []);
-
-  useEffect(
-    () => () => {
-      window.removeEventListener('resize', checkOverflow);
-    },
-    [],
-  );
+  const [overflow, textElementRef] = useOverflow();
 
   return (
-    <div className={styles.question}>
+    <div
+      className={`${styles.question}${style !== undefined ? ' ' + style : ''}`}
+      onClick={() => {
+        onClick && onClick(question);
+      }}
+    >
       <div className={styles['question__wrapper-left']}>
-        <Tooltip text={title} disabled={!isOverflowed}>
-          <div className={styles['question__title']}>
-            <a
-              className='truncate'
-              href={question.url}
-              target='_blank'
-              rel='noreferrer'
-              ref={textElementRef}
-            >
-              {title}
-            </a>
-          </div>
-        </Tooltip>
+        <div className={styles['question__title']}>
+          <a
+            className='truncate'
+            href={question.url}
+            target='_blank'
+            rel='noreferrer'
+            ref={textElementRef}
+            title={overflow ? title : undefined}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {title}
+          </a>
+        </div>
         <TagList tags={question.tags} />
       </div>
       <div>

@@ -1,12 +1,24 @@
 import React from 'react';
 import styles from '../../styles/components/pagination/PaginationNavigation.module.css';
+import Dropdown from '../ui/Dropdown';
 import PaginationButtons from './PaginationButtons';
-import PaginationDropdown from './PaginationDropdown';
 
 const PaginationNavigation = ({ selected, setLimit, page, totalPages, setPage }: any) => {
+  const PAGINATION_OPTIONS = [
+    { text: '20 / page', value: 20 },
+    { text: '50 / page', value: 50 },
+    { text: '100 / page', value: 100 },
+    { text: '200 / page', value: 200 },
+  ];
+
   return (
     <div className={styles['pagination-navigation']}>
-      <PaginationDropdown selected={selected} onClick={setLimit} />
+      <Dropdown
+        selected={selected}
+        setSelected={setLimit}
+        options={PAGINATION_OPTIONS}
+        width={110}
+      />
       <PaginationButtons
         page={page}
         totalPages={totalPages}

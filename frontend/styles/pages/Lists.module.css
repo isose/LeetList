@@ -1,0 +1,102 @@
+.lists {
+  display: flex;
+  height: 100%;
+}
+
+.lists__wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 5px auto;
+  width: 60%;
+  min-width: 450px;
+}
+
+.lists__tabs {
+  display: flex;
+  column-gap: 5px;
+}
+
+.lists__tab {
+  cursor: pointer;
+  border-radius: 5px 5px 0 0;
+  width: 80px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.lists__search-wrapper {
+  display: flex;
+  column-gap: 5px;
+  margin: 5px 0;
+  width: 95%;
+}
+
+.lists__tab--selected {
+  background: linear-gradient(to bottom, #eeeeee 0%, #e8e8e8 100%);
+}
+
+.lists__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 0 10px 10px 10px;
+  background: linear-gradient(to bottom, #e8e8e8 0%, #e0e0e0 100%);
+  min-height: 97%;
+}
+
+.lists__container {
+  outline: 2px solid black;
+  background-color: white;
+  width: 95%;
+  height: 100%;
+}
+
+.lists__container ::-webkit-scrollbar {
+  width: 5px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  outline: 1px solid black;
+}
+
+.list:last-of-type {
+  border-bottom: 1px solid black;
+}
+
+.list__name {
+  margin: 5px 5px 3px 5px;
+  max-width: fit-content;
+  font-size: 18px;
+}
+
+.list__name > a {
+  display: block;
+}
+
+.list__name > a:link,
+.list__name > a:visited {
+  color: black;
+}
+
+.list__name > a:hover {
+  color: #737373;
+}
+
+.list__footer {
+  display: flex;
+  column-gap: 10px;
+  margin: 0 5px;
+  padding-bottom: 5px;
+  font-size: 12.5px;
+}
+
+.pagination-buttons {
+  margin: 5px 0 3px 0;
+}
+
+.rounded-border {
+  border-radius: 10px;
+}

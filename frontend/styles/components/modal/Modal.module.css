@@ -1,0 +1,27 @@
+.modal {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid black;
+  padding: 10px;
+  width: 400px;
+  min-width: 300px;
+  height: fit-content;
+}
+
+.modal > h2,
+.modal > p {
+  margin: 5px 10px;
+}
+
+.modal__footer {
+  display: flex;
+  column-gap: 5px;
+  justify-content: end;
+  margin-top: 15px;
+}
+
+.button {
+  border: 1px solid black;
+  background-color: #f1f1f1;
+  padding: 2.5px 10px;
+}
