@@ -171,9 +171,10 @@ async function getQuestions() {
 }
 
 async function main() {
-  const input = prompt(
-    'Select which option to scrape:\n "Enter" to scrape both questions and data\n "1" to scrape questions only\n "2" to scrape data only\n',
+  console.log(
+    'Select which option to scrape:\n "Enter" to scrape both questions and data\n "1" to scrape questions only\n "2" to scrape data only',
   );
+  const input = prompt('> ');
   if (input == 1) {
     await getQuestions();
   } else if (input == 2) {
