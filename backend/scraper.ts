@@ -86,11 +86,11 @@ async function getAllQuestionData() {
   const slugs = (await QuestionSlug.query()).map((slug: any) => slug.slug).reverse();
   let startTime = performance.now();
   let calls = 0;
-  for (let i = 1; i <= slugs.length; i++) {
+  for (let i = 0; i < slugs.length; i++) {
     await getQuestionData(slugs[i]);
     // delete slug from question_slugs
     await QuestionSlug.query().delete().where('slug', slugs[i]);
-    printProgress(`${i} / ${slugs.length} questions scraped`);
+    printProgress(`${i + 1} / ${slugs.length} questions scraped`);
     // limit number of api calls per minute
     if (++calls == API_CALLS_PER_MINUTE) {
       const endTime = performance.now();
