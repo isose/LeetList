@@ -1,6 +1,7 @@
 .lists {
   display: flex;
-  height: 100%;
+  flex-grow: 1;
+  height: calc(100vh - 35px);
 }
 
 .lists__wrapper {

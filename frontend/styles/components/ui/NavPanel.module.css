@@ -1,0 +1,19 @@
+.nav-panel {
+  display: flex;
+  position: sticky;
+  top: 0;
+  flex-direction: column;
+  border-right: 2px solid black;
+  height: calc(100vh - 35px);
+}
+
+.nav-panel a,
+.nav-panel span {
+  padding: 2px 20px;
+  color: black;
+  font-size: 18px;
+}
+
+.nav-panel a:hover {
+  background-color: #e0e0e0;
+}

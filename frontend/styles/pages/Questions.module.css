@@ -1,5 +1,6 @@
 .questions {
   display: flex;
+  flex-grow: 1;
 }
 
 .questions__container {
