@@ -8,7 +8,7 @@ import {
 import LoggedInRedirect from '../components/auth/LoggedInRedirect';
 import PersistLogin from '../components/auth/PersistLogin';
 import RequireAuth from '../components/auth/RequireAuth';
-import Navbar from '../components/ui/Navbar';
+import AppLayout from '../components/ui/AppLayout';
 import { AuthProvider } from '../context/AuthProvider';
 import List from '../pages/List';
 import Lists from '../pages/Lists';
@@ -19,7 +19,7 @@ import Questions from '../pages/Questions';
 const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route element={<Navbar />}>
+      <Route element={<AppLayout />}>
         <Route element={<PersistLogin />}>
           {/* public routes */}
           <Route path='/' element={<Questions />} />

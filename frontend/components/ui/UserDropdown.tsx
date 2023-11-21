@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
 import { AiOutlineUser } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import styles from '../../styles/components/ui/UserDropdown.module.css';
 import LogoutButton from './LogoutButton';
@@ -32,7 +31,6 @@ const UserDropdown = () => {
       </div>
       {open && (
         <div className={styles['user-dropdown__container']}>
-          <Link to='my-lists'>My Lists</Link>
           <LogoutButton />
         </div>
       )}

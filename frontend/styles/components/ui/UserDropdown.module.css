@@ -22,11 +22,3 @@
   padding: 5px 15px;
   width: 200px;
 }
-
-.user-dropdown__container a {
-  color: black;
-}
-
-.user-dropdown__container a:hover {
-  color: #737373;
-}

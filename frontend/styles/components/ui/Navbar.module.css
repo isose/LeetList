@@ -7,7 +7,7 @@
   align-items: center;
   box-sizing: border-box;
   background-color: #1d2731;
-  padding: 3px 15px;
+  padding: 3px 5px;
   width: 100%;
   height: 35px;
 }
@@ -18,6 +18,20 @@
 }
 
 .navbar a:hover {
+  filter: brightness(85%);
+}
+
+.navbar__left-container {
+  display: flex;
+  column-gap: 5px;
+  align-items: center;
+}
+
+.navbar__nav-panel-icon {
+  cursor: pointer;
+}
+
+.navbar__nav-panel-icon:hover {
   filter: brightness(85%);
 }
 
