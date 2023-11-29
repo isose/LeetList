@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv';
 import { verify } from 'jsonwebtoken';
-import { LISTS_SORT_ORDER } from '../../frontend/pages/ListsEnum';
+import { LISTS_SORT_ORDER } from '../../frontend/pages/Lists/ListsEnum';
 import QuestionList from '../database/models/questionList';
 import QuestionListItem from '../database/models/questionListItem';
 

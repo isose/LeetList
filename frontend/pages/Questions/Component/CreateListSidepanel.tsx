@@ -8,7 +8,6 @@ import {
   type DropResult,
 } from '@hello-pangea/dnd';
 import { axiosPrivate } from 'api/axios';
-import LoginForm from 'components/LoginForm';
 import ButtonModal from 'components/modal/ButtonModal';
 import CustomButtonModal from 'components/modal/CustomButtonModal';
 import UnsavedChangesModal from 'components/modal/UnsavedChangesModal';
@@ -16,13 +15,14 @@ import ToggleSwitch from 'components/ui/ToggleSwitch';
 import VirtualList from 'components/ui/VirtualList';
 import useAuth from 'hooks/useAuth';
 import useOverflow from 'hooks/useOverflow';
+import LoginForm from 'pages/Login/Component/LoginForm';
 import React, { useCallback, useEffect, useState } from 'react';
 import { BsXSquareFill } from 'react-icons/bs';
 import { HiOutlineTrash } from 'react-icons/hi';
 import { IoMdListBox } from 'react-icons/io';
 import { RxDragHandleHorizontal } from 'react-icons/rx';
 import { useNavigate } from 'react-router-dom';
-import styles from 'styles/components/CreateListSidepanel.module.css';
+import styles from 'styles/pages/Questions/Component/CreateListSidepanel.module.css';
 import { reorder } from 'utils/utils';
 
 const CreateListPanelHeader = ({ listState, setListState, toggleCollapsed }: any) => {

@@ -2,7 +2,7 @@ import { axiosPrivate } from 'api/axios';
 import useAuth from 'hooks/useAuth';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import styles from 'styles/components/LoginForm.module.css';
+import styles from 'styles/pages/Login/Component/LoginForm.module.css';
 import isEmail from 'validator/es/lib/isEmail';
 
 const USERNAME_REGEX = /^[a-zA-Z][a-zA-Z0-9_]{2,30}$/;

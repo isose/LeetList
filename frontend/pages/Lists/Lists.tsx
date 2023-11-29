@@ -5,10 +5,10 @@ import Dropdown from 'components/ui/Dropdown';
 import VirtualList from 'components/ui/VirtualList';
 import useOverflow from 'hooks/useOverflow';
 import usePagination from 'hooks/usePagination';
-import { LISTS_SORT_ORDER } from 'pages/ListsEnum';
+import { LISTS_SORT_ORDER } from 'pages/Lists/ListsEnum';
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import styles from 'styles/pages/Lists.module.css';
+import styles from 'styles/pages/Lists/Lists.module.css';
 import { useDebounce } from 'use-debounce';
 import { formatDate } from 'utils/utils';
 

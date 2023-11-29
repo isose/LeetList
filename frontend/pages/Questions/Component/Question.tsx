@@ -1,8 +1,8 @@
-import TagList from 'components/TagList';
 import useOverflow from 'hooks/useOverflow';
+import TagList from 'pages/Questions/Component/TagList';
 import React from 'react';
 import { TiArrowDownThick, TiArrowUpThick } from 'react-icons/ti';
-import styles from 'styles/components/Question.module.css';
+import styles from 'styles/pages/Questions/Component/Question.module.css';
 
 const COMMA_SEPARATED_NUMBER_REGEX = /\B(?=(\d{3})+(?!\d))/g;
 

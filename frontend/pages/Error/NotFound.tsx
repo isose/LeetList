@@ -1,4 +1,4 @@
-import Error from 'pages/Error';
+import Error from 'pages/Error/Error';
 import React from 'react';
 
 const NotFound = () => {

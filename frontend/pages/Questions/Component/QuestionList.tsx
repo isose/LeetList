@@ -1,4 +1,4 @@
-import Question from 'components/Question';
+import Question from 'pages/Questions/Component/Question';
 import React from 'react';
 
 const QuestionList = ({ questions }: any) => {

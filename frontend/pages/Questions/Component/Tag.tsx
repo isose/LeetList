@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from 'styles/components/Tag.module.css';
+import styles from 'styles/pages/Questions/Component/Tag.module.css';
 
 const Tag = ({ tag, onClick, style }: any) => {
   return (

@@ -1,5 +1,5 @@
 import axios from 'api/axios';
-import Tag from 'components/Tag';
+import Tag from 'pages/Questions/Component/Tag';
 import React, { useEffect, useRef, useState } from 'react';
 import styles from 'styles/components/search/TagsDropdown.module.css';
 
