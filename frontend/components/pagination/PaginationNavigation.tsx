@@ -1,7 +1,7 @@
+import PaginationButtons from 'components/pagination/PaginationButtons';
+import Dropdown from 'components/ui/Dropdown';
 import React from 'react';
-import styles from '../../styles/components/pagination/PaginationNavigation.module.css';
-import Dropdown from '../ui/Dropdown';
-import PaginationButtons from './PaginationButtons';
+import styles from 'styles/components/pagination/PaginationNavigation.module.css';
 
 const PaginationNavigation = ({ selected, setLimit, page, totalPages, setPage }: any) => {
   const PAGINATION_OPTIONS = [

@@ -1,5 +1,5 @@
+import Question from 'components/Question';
 import React from 'react';
-import Question from './Question';
 
 const QuestionList = ({ questions }: any) => {
   return (

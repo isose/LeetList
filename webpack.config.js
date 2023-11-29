@@ -42,6 +42,7 @@ module.exports = {
     ],
   },
   resolve: {
+    modules: [path.resolve(__dirname, 'frontend'), 'node_modules'],
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
   },
   plugins: [new MiniCssExtractPlugin(), isDevelopment && new ReactRefreshWebpackPlugin()].filter(

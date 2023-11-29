@@ -1,6 +1,6 @@
+import ModalContainer from 'components/modal/ModalContainer';
 import React from 'react';
-import styles from '../../styles/components/modal/Modal.module.css';
-import ModalContainer from './ModalContainer';
+import styles from 'styles/components/modal/Modal.module.css';
 
 const ErrorModal = ({ open, setOpen }: any) => {
   return (

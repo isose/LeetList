@@ -1,6 +1,6 @@
+import Tag from 'components/Tag';
 import React, { useEffect, useRef, useState } from 'react';
-import styles from '../styles/components/TagList.module.css';
-import Tag from './Tag';
+import styles from 'styles/components/TagList.module.css';
 
 const TagList = ({ tags }: any) => {
   const [isOverflowed, setIsOverflowed] = useState(false);

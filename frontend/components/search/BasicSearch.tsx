@@ -1,8 +1,8 @@
+import DifficultyDropdown from 'components/search/DifficultyDropdown';
+import SearchBar from 'components/search/SearchBar';
+import TagsDropdown from 'components/search/TagsDropdown';
 import React from 'react';
-import styles from '../../styles/components/search/BasicSearch.module.css';
-import DifficultyDropdown from './DifficultyDropdown';
-import SearchBar from './SearchBar';
-import TagsDropdown from './TagsDropdown';
+import styles from 'styles/components/search/BasicSearch.module.css';
 
 const BasicSearch = ({
   search,

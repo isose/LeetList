@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import axios from '../api/axios';
-import useAuth from './useAuth';
+import axios from 'api/axios';
+import useAuth from 'hooks/useAuth';
 
 const useLogout = () => {
   const { setAuth } = useAuth();

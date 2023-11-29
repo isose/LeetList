@@ -1,6 +1,6 @@
+import UiButton from 'components/ui/UiButton';
 import React from 'react';
-import styles from '../../styles/components/pagination/PaginationButtons.module.css';
-import UiButton from '../ui/UiButton';
+import styles from 'styles/components/pagination/PaginationButtons.module.css';
 
 const PaginationButtons = ({ page, totalPages, setPage, numberOfButtons }: any) => {
   const goToPage = (page: number) => {

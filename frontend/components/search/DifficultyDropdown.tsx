@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { FaCheck } from 'react-icons/fa';
-import styles from '../../styles/components/search/DifficultyDropdown.module.css';
+import styles from 'styles/components/search/DifficultyDropdown.module.css';
 
 const DifficultyDropdown = ({ selected, setSelected }: any) => {
   const [open, setOpen] = useState(false);

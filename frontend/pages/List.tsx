@@ -1,17 +1,17 @@
+import { axiosPrivate } from 'api/axios';
+import ButtonModal from 'components/modal/ButtonModal';
+import ErrorModal from 'components/modal/ErrorModal';
+import QuestionList from 'components/QuestionList';
+import ToggleSwitch from 'components/ui/ToggleSwitch';
+import useAuth from 'hooks/useAuth';
+import useOverflow from 'hooks/useOverflow';
+import Error from 'pages/Error';
+import NotFound from 'pages/NotFound';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { axiosPrivate } from '../api/axios';
-import ButtonModal from '../components/modal/ButtonModal';
-import ErrorModal from '../components/modal/ErrorModal';
-import QuestionList from '../components/QuestionList';
-import ToggleSwitch from '../components/ui/ToggleSwitch';
-import useAuth from '../hooks/useAuth';
-import useOverflow from '../hooks/useOverflow';
-import modalStyles from '../styles/components/modal/Modal.module.css';
-import styles from '../styles/pages/List.module.css';
-import { formatDate } from '../utils/utils';
-import Error from './Error';
-import NotFound from './NotFound';
+import modalStyles from 'styles/components/modal/Modal.module.css';
+import styles from 'styles/pages/List.module.css';
+import { formatDate } from 'utils/utils';
 
 const DeleteListModal = ({ setError, toggleOpen }: any) => {
   const { id } = useParams();

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styles from '../../styles/components/ui/NavPanel.module.css';
+import styles from 'styles/components/ui/NavPanel.module.css';
 
 const NavPanel = ({ open, toggleOpen }: any) => {
   return (

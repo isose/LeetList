@@ -1,9 +1,9 @@
 require('file-loader?name=[name].[ext]!../public/index.html');
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
-import './index.css';
-import reportWebVitals from './reportWebVitals';
+import App from 'src/App';
+import 'src/index.css';
+import reportWebVitals from 'src/reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(

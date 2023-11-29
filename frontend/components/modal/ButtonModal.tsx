@@ -1,5 +1,5 @@
+import ModalContainer from 'components/modal/ModalContainer';
 import React, { useState } from 'react';
-import ModalContainer from './ModalContainer';
 
 const ButtonModal = ({ children, text, style }: any) => {
   const [open, setOpen] = useState(false);

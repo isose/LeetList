@@ -1,3 +1,13 @@
+import LoggedInRedirect from 'components/auth/LoggedInRedirect';
+import PersistLogin from 'components/auth/PersistLogin';
+import RequireAuth from 'components/auth/RequireAuth';
+import AppLayout from 'components/ui/AppLayout';
+import { AuthProvider } from 'context/AuthProvider';
+import List from 'pages/List';
+import Lists from 'pages/Lists';
+import Login from 'pages/Login';
+import NotFound from 'pages/NotFound';
+import Questions from 'pages/Questions';
 import React from 'react';
 import {
   createBrowserRouter,
@@ -5,16 +15,6 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom';
-import LoggedInRedirect from '../components/auth/LoggedInRedirect';
-import PersistLogin from '../components/auth/PersistLogin';
-import RequireAuth from '../components/auth/RequireAuth';
-import AppLayout from '../components/ui/AppLayout';
-import { AuthProvider } from '../context/AuthProvider';
-import List from '../pages/List';
-import Lists from '../pages/Lists';
-import Login from '../pages/Login';
-import NotFound from '../pages/NotFound';
-import Questions from '../pages/Questions';
 
 const App = () => {
   const router = createBrowserRouter(

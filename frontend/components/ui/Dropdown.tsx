@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
-import styles from '../../styles/components/ui/Dropdown.module.css';
+import styles from 'styles/components/ui/Dropdown.module.css';
 
 const Dropdown = ({ selected, setSelected, options, optionsEnum, width }: any) => {
   const style = width ? { width: width } : undefined;

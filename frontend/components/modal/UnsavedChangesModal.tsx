@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../styles/components/modal/Modal.module.css';
+import styles from 'styles/components/modal/Modal.module.css';
 
 const UnsavedChangesModal = ({ handleDiscard, toggleOpen }: any) => {
   return (

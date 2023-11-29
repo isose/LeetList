@@ -1,6 +1,6 @@
+import Question from 'components/Question';
 import React from 'react';
-import styles from '../styles/components/Question.module.css';
-import Question from './Question';
+import styles from 'styles/components/Question.module.css';
 
 const QuestionListSelectable = ({ questions, selectedQuestions, setSelectedQuestions }: any) => {
   const isSelected = (question: any): boolean => {

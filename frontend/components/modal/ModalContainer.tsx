@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { IoClose } from 'react-icons/io5';
-import styles from '../../styles/components/modal/ModalContainer.module.css';
+import styles from 'styles/components/modal/ModalContainer.module.css';
 
 const ModalContainer = ({ children, open, setOpen }: any) => {
   const modalRef = useRef<any>();

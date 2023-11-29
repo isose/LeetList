@@ -1,7 +1,7 @@
+import axios from 'api/axios';
+import Tag from 'components/Tag';
 import React, { useEffect, useRef, useState } from 'react';
-import axios from '../../api/axios';
-import styles from '../../styles/components/search/TagsDropdown.module.css';
-import Tag from '../Tag';
+import styles from 'styles/components/search/TagsDropdown.module.css';
 
 const TagsDropdown = ({ selected, setSelected }: any) => {
   const [open, setOpen] = useState(false);

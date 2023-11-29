@@ -1,9 +1,9 @@
+import { axiosPrivate } from 'api/axios';
+import useAuth from 'hooks/useAuth';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import styles from 'styles/components/LoginForm.module.css';
 import isEmail from 'validator/es/lib/isEmail';
-import { axiosPrivate } from '../api/axios';
-import useAuth from '../hooks/useAuth';
-import styles from '../styles/components/LoginForm.module.css';
 
 const USERNAME_REGEX = /^[a-zA-Z][a-zA-Z0-9_]{2,30}$/;
 const PASSWORD_REGEX = /^(?=.*\d)(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,60}$/;

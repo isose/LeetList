@@ -1,8 +1,8 @@
+import LogoutButton from 'components/ui/LogoutButton';
+import useAuth from 'hooks/useAuth';
 import React, { useRef, useState } from 'react';
 import { AiOutlineUser } from 'react-icons/ai';
-import useAuth from '../../hooks/useAuth';
-import styles from '../../styles/components/ui/UserDropdown.module.css';
-import LogoutButton from './LogoutButton';
+import styles from 'styles/components/ui/UserDropdown.module.css';
 
 const UserDropdown = () => {
   const { auth } = useAuth();

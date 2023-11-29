@@ -1,16 +1,16 @@
+import { axiosPrivate } from 'api/axios';
+import PaginationButtons from 'components/pagination/PaginationButtons';
+import SearchBar from 'components/search/SearchBar';
+import Dropdown from 'components/ui/Dropdown';
+import VirtualList from 'components/ui/VirtualList';
+import useOverflow from 'hooks/useOverflow';
+import usePagination from 'hooks/usePagination';
+import { LISTS_SORT_ORDER } from 'pages/ListsEnum';
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import styles from 'styles/pages/Lists.module.css';
 import { useDebounce } from 'use-debounce';
-import { axiosPrivate } from '../api/axios';
-import PaginationButtons from '../components/pagination/PaginationButtons';
-import SearchBar from '../components/search/SearchBar';
-import Dropdown from '../components/ui/Dropdown';
-import VirtualList from '../components/ui/VirtualList';
-import useOverflow from '../hooks/useOverflow';
-import usePagination from '../hooks/usePagination';
-import styles from '../styles/pages/Lists.module.css';
-import { formatDate } from '../utils/utils';
-import { LISTS_SORT_ORDER } from './ListsEnum';
+import { formatDate } from 'utils/utils';
 
 const List = (props: any) => {
   const { item, style } = props;
