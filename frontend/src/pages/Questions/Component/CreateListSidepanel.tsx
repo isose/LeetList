@@ -352,7 +352,7 @@ const CreateListSidepanel = ({ listState, setListState }: any) => {
   };
 
   return (
-    <div className={styles.sidepanel}>
+    <div className={styles.sidepanel} data-testid='create-list-sidepanel'>
       <div
         className={styles['sidepanel__icon']}
         style={display(collapsed)}

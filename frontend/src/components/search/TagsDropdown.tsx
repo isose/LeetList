@@ -43,11 +43,15 @@ const TagsDropdown = ({ selected, setSelected }: any) => {
 
   return (
     <div ref={tagsDropdown}>
-      <button className={styles['tags-dropdown__button']} onClick={() => toggleState()}>
+      <button
+        className={styles['tags-dropdown__button']}
+        data-testid='tags-dropdown__button'
+        onClick={() => toggleState()}
+      >
         Tags
       </button>
       {open && (
-        <div className={styles['tags-dropdown__container']}>
+        <div className={styles['tags-dropdown__container']} data-testid='tags-dropdown__container'>
           <div className={styles['tags-dropdown__header']}>
             <input
               className={`search-bar ${styles['tags-dropdown__search-bar']}`}
@@ -56,7 +60,7 @@ const TagsDropdown = ({ selected, setSelected }: any) => {
               onChange={(e) => setTagFilter(e.target.value)}
             />
           </div>
-          <div className={styles['tag-list']}>
+          <div className={styles['tag-list']} data-testid='tag-list'>
             {tags
               .filter((tag: any) => {
                 return tag.tagName.toLowerCase().indexOf(tagFilter.toLowerCase()) !== -1;

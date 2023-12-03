@@ -9,7 +9,7 @@ const Navbar = ({ toggleNavPanel }: any) => {
   const { isLoggedIn } = useAuth();
 
   return (
-    <nav className={styles.navbar}>
+    <nav className={styles.navbar} data-testid='navbar'>
       <div className={styles['navbar__left-container']}>
         <div
           className={`${styles['navbar__nav-panel-icon']} svg-container`}

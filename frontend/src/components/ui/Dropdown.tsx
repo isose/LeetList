@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
 import styles from 'styles/components/ui/Dropdown.module.css';
 
-const Dropdown = ({ selected, setSelected, options, optionsEnum, width }: any) => {
+const Dropdown = ({ selected, setSelected, options, optionsEnum, width, testid }: any) => {
   const style = width ? { width: width } : undefined;
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<any>();
@@ -30,7 +30,7 @@ const Dropdown = ({ selected, setSelected, options, optionsEnum, width }: any) =
   document.addEventListener('mousedown', clickOutside);
 
   return (
-    <div ref={dropdownRef}>
+    <div data-testid={testid} ref={dropdownRef}>
       <button
         className={`${styles['dropdown__button']} svg-container`}
         style={style}
@@ -42,7 +42,7 @@ const Dropdown = ({ selected, setSelected, options, optionsEnum, width }: any) =
         </div>
       </button>
       {open && (
-        <div className={styles['dropdown__list']}>
+        <div className={styles['dropdown__list']} data-testid='dropdown__list'>
           {options.map((item: any, index: any) => (
             <button
               className={styles['dropdown__item']}

@@ -17,12 +17,13 @@ const Question = ({ question, style, onClick }: any) => {
   return (
     <div
       className={`${styles.question}${style !== undefined ? ' ' + style : ''}`}
+      data-testid='question'
       onClick={() => {
         onClick && onClick(question);
       }}
     >
       <div className={styles['question__wrapper-left']}>
-        <div className={styles['question__title']}>
+        <div className={styles['question__title']} data-testid='question__title'>
           <a
             className='truncate'
             href={question.url}
@@ -42,10 +43,11 @@ const Question = ({ question, style, onClick }: any) => {
           className={`${styles['question__difficulty']} ${
             styles[`question__difficulty--${question.difficulty.toLowerCase()}`]
           }`}
+          data-testid={`question__difficulty--${question.difficulty.toLowerCase()}`}
         >
           {question.difficulty}
         </div>
-        <div className={styles['question__votes']}>
+        <div className={styles['question__votes']} data-testid='question__votes'>
           <div className='svg-container'>
             <TiArrowUpThick />
             {upVotes}
@@ -55,7 +57,7 @@ const Question = ({ question, style, onClick }: any) => {
             {downVotes}
           </div>
         </div>
-        <div className={styles['question__submissions']}>
+        <div className={styles['question__submissions']} data-testid='question__submissions'>
           <div>acceptance: </div>
           <div>{acceptance}%</div>
         </div>

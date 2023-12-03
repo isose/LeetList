@@ -1,8 +1,13 @@
 import Knex from 'knex';
 import { Model } from 'objection';
-import { development } from './knexfile';
+import { development, test } from './knexfile';
 
-const knex = Knex(development);
+let env = development;
+if (process.env.NODE_ENV == 'test') {
+    env = test;
+}
+
+const knex = Knex(env);
 Model.knex(knex);
 
 export default knex;

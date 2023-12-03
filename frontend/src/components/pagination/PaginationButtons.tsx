@@ -27,36 +27,45 @@ const PaginationButtons = ({ page, totalPages, setPage, numberOfButtons }: any) 
     <div className={styles.wrapper}>
       <UiButton
         className={styles['pagination-button']}
+        testid='pagination-button'
         text={'<'}
         onClick={() => goToPage(page - 1)}
       />
       <UiButton
         className={`${styles['pagination-button']}${currentPageCss(1)}`}
+        testid='pagination-button'
         text={'1'}
         onClick={() => goToPage(1)}
       />
-      {prevPageEllipses && <UiButton className={styles['pagination-button']} text={'...'} />}
+      {prevPageEllipses && (
+        <UiButton className={styles['pagination-button']} testid='pagination-button' text={'...'} />
+      )}
       {[...Array(buttonWindowSize)].map((_, i) => {
         const pageNumber = page + i + pageNumberOffset;
         return (
           <UiButton
             className={`${styles['pagination-button']}${currentPageCss(pageNumber)}`}
+            testid='pagination-button'
             key={i}
             text={pageNumber}
             onClick={() => goToPage(pageNumber)}
           />
         );
       })}
-      {nextPageEllipses && <UiButton className={styles['pagination-button']} text={'...'} />}
+      {nextPageEllipses && (
+        <UiButton className={styles['pagination-button']} testid='pagination-button' text={'...'} />
+      )}
       {totalPages > 1 && (
         <UiButton
           className={`${styles['pagination-button']}${currentPageCss(totalPages)}`}
+          testid='pagination-button'
           text={totalPages}
           onClick={() => goToPage(totalPages)}
         />
       )}
       <UiButton
         className={styles['pagination-button']}
+        testid='pagination-button'
         text={'>'}
         onClick={() => goToPage(page + 1)}
       />

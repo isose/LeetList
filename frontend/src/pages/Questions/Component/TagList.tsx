@@ -33,6 +33,7 @@ const TagList = ({ tags }: any) => {
     <div className={styles.wrapper}>
       <div
         className={`${styles['tag-list']}${expanded ? ' ' + styles['tag-list--expanded'] : ''}`}
+        data-testid='tag-list'
         ref={elementRef}
       >
         {tags.map((tag: any, index: number) => {
