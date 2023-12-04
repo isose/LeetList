@@ -1,16 +1,11 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test } from '@playwright/test';
+import { QuestionsPage } from './questions-page';
 
-const SEARCHBAR_PLACEHOLDER = 'Search Questions';
 const TAGS = ['Divide and Conquer', 'Hash Table', 'Sorting'];
-enum PaginationOption {
-  Twenty = '20 / page',
-  Fifty = '50 / page',
-  OneHundred = '100 / page',
-  TwoHundred = '200 / page',
-}
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('http://localhost:3000');
+  const questionsPage = new QuestionsPage(page);
+  questionsPage.goto();
 });
 
 test.describe('questions page', () => {
@@ -28,36 +23,38 @@ test.describe('questions page', () => {
 
   test.describe('search bar', () => {
     test('should be able to search for questions by title', async ({ page }) => {
-      const searchBar = page.getByPlaceholder(SEARCHBAR_PLACEHOLDER);
-      await expect(searchBar).toBeVisible();
+      const questionsPage = new QuestionsPage(page);
+      await expect(questionsPage.searchBar).toBeVisible();
       // search for question title
-      await searchBar.fill('island');
+      await questionsPage.searchBar.fill('island');
       await expect(page.getByRole('link', { name: 'Number of Islands' })).toBeVisible();
     });
   });
 
   test.describe('tags dropdown', () => {
     test('open and close tags dropdown', async ({ page }) => {
-      const tagsDropdownButton = page.getByTestId('tags-dropdown__button');
-      await expect(tagsDropdownButton).toBeVisible();
-      await expect(tagsDropdownButton).toHaveText('Tags');
+      const questionsPage = new QuestionsPage(page);
+      await expect(questionsPage.tagsDropdownButton).toBeVisible();
+      await expect(questionsPage.tagsDropdownButton).toHaveText('Tags');
       // open tags dropdown
-      await tagsDropdownButton.click();
+      await questionsPage.tagsDropdownButton.click();
       await expect(page.getByTestId('tags-dropdown__container')).toBeVisible();
       // close tags dropdown
-      await tagsDropdownButton.click();
+      await questionsPage.tagsDropdownButton.click();
       await expect(page.getByTestId('tags-dropdown__container')).toBeHidden();
     });
 
     test('filter questions by tags', async ({ page }) => {
-      await applyTagsFilter(page);
+      const questionsPage = new QuestionsPage(page);
+      await questionsPage.selectTagsFilter(TAGS);
       await expect(page.getByRole('link', { name: 'Majority Element' })).toBeVisible();
     });
 
     test('reset tags button should unfilter questions', async ({ page }) => {
-      await applyTagsFilter(page);
+      const questionsPage = new QuestionsPage(page);
+      await questionsPage.selectTagsFilter(TAGS);
       const filteredQuestion = page.getByRole('link', { name: 'Majority Element' });
-      await page.getByTestId('tags-dropdown__button').click();
+      await questionsPage.tagsDropdownButton.click();
       const resetTagsButton = page.getByRole('button', { name: 'Reset Tags' });
       await expect(resetTagsButton).toBeVisible();
       await resetTagsButton.click();
@@ -65,7 +62,8 @@ test.describe('questions page', () => {
     });
 
     test('should be able to search for tags', async ({ page }) => {
-      await page.getByTestId('tags-dropdown__button').click();
+      const questionsPage = new QuestionsPage(page);
+      await questionsPage.tagsDropdownButton.click();
       const tagsSearchBar = page.getByPlaceholder('Filter tags');
       await expect(tagsSearchBar).toBeVisible();
       // search for tag
@@ -78,11 +76,11 @@ test.describe('questions page', () => {
 
   test.describe('difficulty dropdown', () => {
     test('should be able to filter questions by difficulty', async ({ page }) => {
-      const difficultyDropdownButton = page.getByRole('button', { name: 'Difficulty' });
-      await expect(difficultyDropdownButton).toBeVisible();
+      const questionsPage = new QuestionsPage(page);
+      await expect(questionsPage.difficultyDropdownButton).toBeVisible();
 
       // open diffculty dropdown
-      await difficultyDropdownButton.click();
+      await questionsPage.difficultyDropdownButton.click();
       const easyButton = page.getByRole('button', { name: 'Easy' });
       const mediumButton = page.getByRole('button', { name: 'Medium' });
       const hardButton = page.getByRole('button', { name: 'Hard' });
@@ -128,8 +126,9 @@ test.describe('questions page', () => {
     });
 
     test('question tags should collapse and expand', async ({ page }) => {
+      const questionsPage = new QuestionsPage(page);
       await page.setViewportSize({ width: 800, height: 720 });
-      await page.getByPlaceholder(SEARCHBAR_PLACEHOLDER).fill('flatten');
+      await questionsPage.searchBar.fill('flatten');
       await expect(
         page.getByRole('link', { name: 'Flatten Binary Tree to Linked List' }),
       ).toBeVisible();
@@ -147,84 +146,76 @@ test.describe('questions page', () => {
 
   test.describe('pagination', () => {
     test('should be able to set number of questions per page', async ({ page }) => {
-      const dropdown = page.getByTestId('pagination-dropdown');
-      await expect(dropdown).toBeVisible();
-      await expect(dropdown.getByRole('button', { name: '50 / page' })).toBeVisible();
+      const questionsPage = new QuestionsPage(page);
+      await expect(questionsPage.paginationDropdown).toBeVisible();
+      await expect(
+        questionsPage.paginationDropdown.getByRole('button', { name: '50 / page' }),
+      ).toBeVisible();
       // open pagination dropdown
-      await dropdown.click();
-      const dropdownList = dropdown.getByTestId('dropdown__list');
+      await questionsPage.paginationDropdown.click();
+      const dropdownList = questionsPage.paginationDropdown.getByTestId('dropdown__list');
       await expect(dropdownList).toBeVisible();
       await expect(dropdownList.getByRole('button', { name: '20 / page' })).toBeVisible();
       await expect(dropdownList.getByRole('button', { name: '50 / page' })).toBeVisible();
       await expect(dropdownList.getByRole('button', { name: '100 / page' })).toBeVisible();
       await expect(dropdownList.getByRole('button', { name: '200 / page' })).toBeVisible();
       // select 20 / page
-      await dropdownList.getByRole('button', { name: '20 / page' }).click();
+      await questionsPage.selectPaginationOption(QuestionsPage.PaginationOption.Twenty);
       await expect(dropdownList).toBeHidden();
-      await expect(dropdown.getByRole('button', { name: '20 / page' })).toBeVisible();
+      await expect(
+        questionsPage.paginationDropdown.getByRole('button', { name: '20 / page' }),
+      ).toBeVisible();
       await expect(page.getByTestId('question')).toHaveCount(20);
       // select 200 / page
-      await selectPaginationOption(page, PaginationOption.TwoHundred);
+      await questionsPage.selectPaginationOption(QuestionsPage.PaginationOption.TwoHundred);
       await expect(page.getByTestId('question')).toHaveCount(200);
     });
 
     test('should have correct number of pagination buttons', async ({ page }) => {
+      const questionsPage = new QuestionsPage(page);
       await expect(page.getByTestId('pagination-button')).toHaveCount(7);
-      await selectPaginationOption(page, PaginationOption.Twenty);
+      await questionsPage.selectPaginationOption(QuestionsPage.PaginationOption.Twenty);
       await expect(page.getByTestId('pagination-button')).toHaveCount(10);
       await expect(page.getByTestId('pagination-button').getByText('...')).toBeVisible();
-      await selectPaginationOption(page, PaginationOption.TwoHundred);
+      await questionsPage.selectPaginationOption(QuestionsPage.PaginationOption.TwoHundred);
       await expect(page.getByTestId('pagination-button')).toHaveCount(4);
     });
 
     test('next page button', async ({ page }) => {
-      const nextPageButton = page.getByTestId('pagination-button').getByText('>');
-      await expect(nextPageButton).toBeVisible();
-      await page.getByTestId('pagination-button').getByText('3').click();
+      const questionsPage = new QuestionsPage(page);
+      await expect(questionsPage.nextPageButton).toBeVisible();
+      await questionsPage.clickPaginationButton(3);
       await expect(page).toHaveURL(/.*\?page=3/);
-      await nextPageButton.click();
+      await questionsPage.nextPageButton.click();
       await expect(page).toHaveURL(/.*\?page=4/);
-      await nextPageButton.click();
+      await questionsPage.nextPageButton.click();
       await expect(page).toHaveURL(/.*\?page=5/);
-      await nextPageButton.click();
+      await questionsPage.nextPageButton.click();
       await expect(page).toHaveURL(/.*\?page=5/);
     });
 
     test('previous page button', async ({ page }) => {
-      const previousPageButton = page.getByTestId('pagination-button').getByText('<');
-      await expect(previousPageButton).toBeVisible();
-      await page.getByTestId('pagination-button').getByText('3').click();
+      const questionsPage = new QuestionsPage(page);
+      await expect(questionsPage.previousPageButton).toBeVisible();
+      await questionsPage.clickPaginationButton(3);
       await expect(page).toHaveURL(/.*\?page=3/);
-      await previousPageButton.click();
+      await questionsPage.previousPageButton.click();
       await expect(page).toHaveURL(/.*\?page=2/);
-      await previousPageButton.click();
+      await questionsPage.previousPageButton.click();
       await expect(page).toHaveURL(/.*\?page=1/);
-      await previousPageButton.click();
+      await questionsPage.previousPageButton.click();
       await expect(page).toHaveURL(/.*\?page=1/);
     });
 
     test('should be able to navigate with page buttons', async ({ page }) => {
-      await selectPaginationOption(page, PaginationOption.Twenty);
-      await page.getByTestId('pagination-button').getByText('6').click();
+      const questionsPage = new QuestionsPage(page);
+      await questionsPage.selectPaginationOption(QuestionsPage.PaginationOption.Twenty);
+      await questionsPage.clickPaginationButton(6);
       await expect(page).toHaveURL(/.*\?page=6/);
-      await page.getByTestId('pagination-button').getByText('13').click();
+      await questionsPage.clickPaginationButton(13);
       await expect(page).toHaveURL(/.*\?page=13/);
-      await page.getByTestId('pagination-button').getByText('1', { exact: true }).click();
+      await questionsPage.clickPaginationButton(1);
       await expect(page).toHaveURL(/.*\?page=1/);
     });
   });
 });
-
-async function applyTagsFilter(page: Page) {
-  const tagsDropdownButton = page.getByTestId('tags-dropdown__button');
-  await tagsDropdownButton.click();
-  for (const tag of TAGS) {
-    await page.getByTestId('tags-dropdown__container').getByText(tag).click();
-  }
-  await tagsDropdownButton.click();
-}
-
-async function selectPaginationOption(page: Page, option: PaginationOption) {
-  await page.getByTestId('pagination-dropdown').click();
-  await page.getByTestId('dropdown__list').getByRole('button', { name: option }).click();
-}
