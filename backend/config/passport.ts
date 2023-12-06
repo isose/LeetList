@@ -1,9 +1,10 @@
 import * as dotenv from 'dotenv';
 import passport from 'passport';
 import passportJwt from 'passport-jwt';
-import '../database/knex';
+import { knexSetup } from '../database/knex';
 import User from '../database/models/user';
 
+knexSetup();
 dotenv.config({ path: __dirname + '/./../../.env' });
 
 const JwtStrategy = passportJwt.Strategy;

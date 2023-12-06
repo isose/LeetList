@@ -36,6 +36,7 @@
     "server": "cd backend; nodemon server.ts",
     "dev": "concurrently \"npm run server\" \"npm start\"",
     "test": "concurrently \"NODE_ENV=test npm run server\" \"npm start\"",
+    "tests": "npx playwright test --retries=2",
     "migrate": "cd backend/database; npx knex migrate:latest",
     "rollback": "cd backend/database; npx knex migrate:rollback",
     "scraper": "cd backend; ts-node scraper.ts",

@@ -26,7 +26,7 @@ const UserDropdown = () => {
         className={`${styles['user-dropdown__user-icon']} svg-container`}
         onClick={() => toggleState()}
       >
-        <span>{auth.username}</span>
+        <span data-testid='username'>{auth.username}</span>
         <AiOutlineUser color='white' size={30} />
       </div>
       {open && (

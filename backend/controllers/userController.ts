@@ -2,9 +2,10 @@ import bcrypt from 'bcryptjs';
 import * as dotenv from 'dotenv';
 import { verify } from 'jsonwebtoken';
 import * as authenticate from '../authenticate';
-import '../database/knex';
+import { knexSetup } from '../database/knex';
 import User from '../database/models/user';
 
+knexSetup();
 dotenv.config({ path: __dirname + '/./../.env' });
 
 const validateRegisterInput = async (req: any) => {

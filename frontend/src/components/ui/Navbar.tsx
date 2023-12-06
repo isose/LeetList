@@ -13,6 +13,7 @@ const Navbar = ({ toggleNavPanel }: any) => {
       <div className={styles['navbar__left-container']}>
         <div
           className={`${styles['navbar__nav-panel-icon']} svg-container`}
+          data-testid='navbar__nav-panel-icon'
           onClick={toggleNavPanel}
         >
           <FiMenu color='white' size={25} />

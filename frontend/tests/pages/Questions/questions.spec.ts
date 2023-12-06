@@ -1,11 +1,11 @@
 import { expect, test } from '@playwright/test';
-import { QuestionsPage } from './questions-page';
+import { QuestionsPage } from 'tests/pages/Questions/questions-page';
 
 const TAGS = ['Divide and Conquer', 'Hash Table', 'Sorting'];
 
 test.beforeEach(async ({ page }) => {
   const questionsPage = new QuestionsPage(page);
-  questionsPage.goto();
+  await questionsPage.goto();
 });
 
 test.describe('questions page', () => {
@@ -13,7 +13,7 @@ test.describe('questions page', () => {
     await expect(page.getByTestId('navbar')).toBeVisible();
   });
 
-  test('should have title', async ({ page }) => {
+  test('should have header', async ({ page }) => {
     await expect(page.getByRole('heading', { name: 'Questions' })).toBeVisible();
   });
 
