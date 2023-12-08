@@ -2,7 +2,14 @@ import React, { useRef, useState } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
 import styles from 'styles/components/ui/Dropdown.module.css';
 
-const Dropdown = ({ selected, setSelected, options, optionsEnum, width, testid }: any) => {
+const Dropdown = ({
+  selected,
+  setSelected,
+  options,
+  optionsEnum,
+  width,
+  testid = 'dropdown',
+}: any) => {
   const style = width ? { width: width } : undefined;
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<any>();

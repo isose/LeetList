@@ -28,7 +28,22 @@ export class LoginPage {
 
 export namespace LoginPage {
   export class UserCredentials {
-    static readonly NO_LISTS = new UserCredentials('nolists', 'Password1!', 'nolists@gmail.com');
+    static readonly NO_LISTS = new UserCredentials('no_lists', 'Password1!', 'nolists@gmail.com');
+    static readonly PUBLIC_LIST = new UserCredentials(
+      'public_list',
+      'Password1!',
+      'publiclist@gmail.com',
+    );
+    static readonly PRIVATE_LIST = new UserCredentials(
+      'private_list',
+      'Password1!',
+      'privatelist@gmail.com',
+    );
+    static readonly LISTS_TEST = new UserCredentials(
+      'lists_test',
+      'Password1!',
+      'liststest@gmail.com',
+    );
 
     constructor(
       public readonly username: string,

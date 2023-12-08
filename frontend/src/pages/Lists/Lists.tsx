@@ -19,8 +19,8 @@ const List = (props: any) => {
   const [overflow, textElementRef] = useOverflow();
 
   return (
-    <div className={styles.list} ref={ref} style={style}>
-      <div className={styles['list__name']}>
+    <div className={styles.list} data-testid='list' ref={ref} style={style}>
+      <div className={styles['list__name']} data-testid='list__name'>
         <Link
           to={`../list/${item.id}`}
           className='truncate'
@@ -31,8 +31,8 @@ const List = (props: any) => {
         </Link>
       </div>
       <div className={styles['list__footer']}>
-        <span>{item.username}</span>
-        <span>{formatDate(item.createdAt)}</span>
+        <span data-testid='user'>{item.username}</span>
+        <span data-testid='date'>{formatDate(item.createdAt)}</span>
       </div>
     </div>
   );
@@ -108,7 +108,7 @@ const Lists = () => {
   return (
     <div className={styles.lists}>
       <div className={styles['lists__wrapper']}>
-        <div className={styles['lists__tabs']}>
+        <div className={styles['lists__tabs']} data-testid='lists__tabs'>
           <div
             className={`${styles['lists__tab']}${getTabSelectedStyle('/lists')}`}
             onClick={() => switchTabs('/lists')}

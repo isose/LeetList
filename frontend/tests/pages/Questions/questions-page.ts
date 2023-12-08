@@ -4,7 +4,7 @@ export class QuestionsPage {
   readonly page: Page;
   readonly searchBar: Locator;
   readonly tagsDropdownButton: Locator;
-  readonly difficultyDropdownButton: Locator;
+  readonly difficultyDropdown: Locator;
   readonly paginationDropdown: Locator;
   readonly nextPageButton: Locator;
   readonly previousPageButton: Locator;
@@ -13,7 +13,7 @@ export class QuestionsPage {
     this.page = page;
     this.searchBar = page.getByPlaceholder('Search Questions');
     this.tagsDropdownButton = page.getByTestId('tags-dropdown__button');
-    this.difficultyDropdownButton = page.getByRole('button', { name: 'Difficulty' });
+    this.difficultyDropdown = page.getByRole('button', { name: 'Difficulty' });
     this.paginationDropdown = page.getByTestId('pagination-dropdown');
     this.nextPageButton = page.getByTestId('pagination-button').getByText('>');
     this.previousPageButton = page.getByTestId('pagination-button').getByText('<');

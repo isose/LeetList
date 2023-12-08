@@ -77,10 +77,10 @@ test.describe('questions page', () => {
   test.describe('difficulty dropdown', () => {
     test('should be able to filter questions by difficulty', async ({ page }) => {
       const questionsPage = new QuestionsPage(page);
-      await expect(questionsPage.difficultyDropdownButton).toBeVisible();
+      await expect(questionsPage.difficultyDropdown).toBeVisible();
 
       // open diffculty dropdown
-      await questionsPage.difficultyDropdownButton.click();
+      await questionsPage.difficultyDropdown.click();
       const easyButton = page.getByRole('button', { name: 'Easy' });
       const mediumButton = page.getByRole('button', { name: 'Medium' });
       const hardButton = page.getByRole('button', { name: 'Hard' });

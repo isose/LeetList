@@ -12,7 +12,7 @@ const LoginForm = ({ toggleLoginForm }: any) => {
   const { setAuth } = useAuth();
 
   const navigate = useNavigate();
-  const location: any = useLocation();
+  const location = useLocation();
   const from = location.state?.from?.pathname || '/';
 
   const [username, setUsername] = useState('');
