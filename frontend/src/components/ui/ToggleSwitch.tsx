@@ -22,9 +22,11 @@ const ToggleSwitch = ({ style, height, value, setValue, label, onChange }: any) 
           defaultChecked={value}
           onChange={handleOnChange}
         />
-        <div className={styles['toggle-switch']} />
+        <div className={styles['toggle-switch']} data-testid='toggle-switch' />
       </label>
-      <span className={styles['toggle-label']}>{label}</span>
+      <span className={styles['toggle-label']} data-testid='toggle-label'>
+        {label}
+      </span>
     </div>
   );
 };

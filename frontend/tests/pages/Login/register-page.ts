@@ -1,4 +1,4 @@
-import { type Locator, type Page } from '@playwright/test';
+import { expect, type Locator, type Page } from '@playwright/test';
 import { LoginPage } from 'tests/pages/Login/login-page';
 
 export class RegisterPage {
@@ -36,5 +36,10 @@ export class RegisterPage {
     await this.usernameInput.fill(username);
     await this.passwordInput.fill(password);
     await this.confirmPasswordInput.fill(confirmPassword);
+  }
+
+  async clickRegisterButton() {
+    await expect(this.registerButton).toBeEnabled();
+    await this.registerButton.click();
   }
 }

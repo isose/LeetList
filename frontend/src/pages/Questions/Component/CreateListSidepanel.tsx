@@ -45,12 +45,16 @@ const CreateListPanelHeader = ({ listState, setListState, toggleCollapsed }: any
             }}
           />
         }
+        testid='close-button'
       />
       <div className={styles['create-list-panel__header-wrapper']}>
         <h1>{listState.id ? 'Edit Leetlist' : 'New Leetlist'}</h1>
         {questionCount > 0 && (
           <>
-            <div className={styles['create-list-panel__header-counter']}>
+            <div
+              className={styles['create-list-panel__header-counter']}
+              data-testid='create-list-panel__header-counter'
+            >
               <span>{questionCount}</span>
             </div>
             <div className={styles['create-list-panel__header-clear']} onClick={clearQuestions}>
@@ -168,7 +172,7 @@ const Question = (props: any) => {
       data-index={index}
       style={{ ...style, ...provided.draggableProps.style }}
     >
-      <div className={styles['question-list__item']} ref={ref}>
+      <div className={styles['question-list__item']} data-testid='question-list__item' ref={ref}>
         <div className={styles[`question-list__item--${item.difficulty.toLowerCase()}`]} />
         <div className={styles['question-list__item-handle-container']}>
           <div {...provided.dragHandleProps}>
@@ -187,7 +191,7 @@ const Question = (props: any) => {
             >
               {questionTitle}
             </a>
-            <div>
+            <div data-testid='remove-button'>
               <HiOutlineTrash
                 className={styles['pointer-cursor']}
                 size={20}
@@ -352,9 +356,10 @@ const CreateListSidepanel = ({ listState, setListState }: any) => {
   };
 
   return (
-    <div className={styles.sidepanel} data-testid='create-list-sidepanel'>
+    <div className={styles.sidepanel} data-testid='sidepanel'>
       <div
         className={styles['sidepanel__icon']}
+        data-testid='sidepanel__icon'
         style={display(collapsed)}
         onClick={() => {
           toggleCollapsed();
@@ -364,7 +369,7 @@ const CreateListSidepanel = ({ listState, setListState }: any) => {
         <span>New list</span>
       </div>
       {!collapsed && (
-        <div className={styles['create-list-panel']}>
+        <div className={styles['create-list-panel']} data-testid='create-list-panel'>
           <CreateListPanelHeader
             listState={listState}
             setListState={setListState}

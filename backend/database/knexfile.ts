@@ -1,11 +1,12 @@
-require('dotenv').config({ path: __dirname + '/./../../.env' });
+import * as dotenv from 'dotenv';
+import type { Knex } from 'knex';
+import { knexSnakeCaseMappers } from 'objection';
 
-const { knexSnakeCaseMappers } = require('objection');
+dotenv.config({ path: __dirname + '/./../../.env' });
 
-/**
- * @type { Object.<string, import("knex").Knex.Config> }
- */
-module.exports = {
+// Update with your config settings.
+
+const config: { [key: string]: Knex.Config } = {
   development: {
     client: 'postgresql',
     connection: {
@@ -60,3 +61,5 @@ module.exports = {
     ...knexSnakeCaseMappers(),
   },
 };
+
+module.exports = config;

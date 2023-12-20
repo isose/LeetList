@@ -1,4 +1,6 @@
 import { Model } from 'objection';
+import Question from './question';
+import Tag from './tag';
 
 class QuestionTagMap extends Model {
   static get tableName() {
@@ -16,8 +18,6 @@ class QuestionTagMap extends Model {
   }
 
   static get relationMappings() {
-    const Question = require('./question').default;
-    const Tag = require('./tag').default;
     return {
       question: {
         relation: Model.BelongsToOneRelation,

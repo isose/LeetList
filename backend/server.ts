@@ -5,9 +5,11 @@ import * as dotenv from 'dotenv';
 import express from 'express';
 import passport from 'passport';
 import './config/passport';
+import { knexSetup } from './database/knex';
 import routes from './routes/routes';
 
 dotenv.config({ path: __dirname + '/./../.env' });
+knexSetup();
 
 const port = process.env.PORT || 5000;
 const app = express();

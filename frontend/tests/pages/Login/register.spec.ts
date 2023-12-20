@@ -10,12 +10,6 @@ const NEW_USER_CREDENTIALS = {
   password: 'Password1!',
 };
 
-test.beforeAll(async () => {
-  // clean up registered user
-  const database = new Database();
-  await database.deleteUser(NEW_USER_CREDENTIALS.username);
-});
-
 test.beforeEach(async ({ page }) => {
   const registerPage = new RegisterPage(page);
   await registerPage.goto();
@@ -114,7 +108,7 @@ test.describe('register page', () => {
       NEW_USER_CREDENTIALS.password,
       NEW_USER_CREDENTIALS.password,
     );
-    await registerPage.registerButton.click();
+    await registerPage.clickRegisterButton();
     await expect(page.getByText('Email already exists.')).toBeVisible();
   });
 
@@ -126,11 +120,15 @@ test.describe('register page', () => {
       NEW_USER_CREDENTIALS.password,
       NEW_USER_CREDENTIALS.password,
     );
-    await registerPage.registerButton.click();
+    await registerPage.clickRegisterButton();
     await expect(page.getByText('Username already taken.')).toBeVisible();
   });
 
   test('should be able to register new user', async ({ page }) => {
+    // clean up registered user
+    const database = new Database();
+    await database.deleteUser(NEW_USER_CREDENTIALS.username);
+
     const registerPage = new RegisterPage(page);
     await registerPage.fillRegistrationForm(
       NEW_USER_CREDENTIALS.email,
@@ -138,7 +136,7 @@ test.describe('register page', () => {
       NEW_USER_CREDENTIALS.password,
       NEW_USER_CREDENTIALS.password,
     );
-    await registerPage.registerButton.click();
+    await registerPage.clickRegisterButton();
     // new registered user should be able to login
     const loginPage = new LoginPage(page);
     await loginPage.loginUser(

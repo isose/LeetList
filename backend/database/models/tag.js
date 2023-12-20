@@ -1,4 +1,5 @@
 import { Model } from 'objection';
+import QuestionTagMap from './questionTagMap';
 
 class Tag extends Model {
   static get tableName() {
@@ -15,7 +16,6 @@ class Tag extends Model {
   }
 
   static get relationMappings() {
-    const QuestionTagMap = require('./questionTagMap').default;
     return {
       questions: {
         relation: Model.HasManyRelation,

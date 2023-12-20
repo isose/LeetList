@@ -49,7 +49,7 @@ const LoginForm = ({ toggleLoginForm }: any) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid='login-form'>
       <h2 className={styles.header}>Login</h2>
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles['input-wrapper']}>
