@@ -1,4 +1,4 @@
-import { type Locator, type Page } from '@playwright/test';
+import { expect, type Locator, type Page } from '@playwright/test';
 
 export class LoginPage {
   readonly page: Page;
@@ -11,7 +11,7 @@ export class LoginPage {
     this.page = page;
     this.usernameInput = page.getByPlaceholder('username');
     this.passwordInput = page.getByPlaceholder('password');
-    this.loginButton = page.getByRole('button', { name: 'Login' });
+    this.loginButton = page.getByTestId('login-form').getByRole('button', { name: 'Login' });
     this.registerLink = page.getByText('Register');
   }
 
@@ -22,6 +22,7 @@ export class LoginPage {
   async loginUser(userCredentials: LoginPage.UserCredentials) {
     await this.usernameInput.fill(userCredentials.username);
     await this.passwordInput.fill(userCredentials.password);
+    await expect(this.loginButton).toBeEnabled();
     await this.loginButton.click();
   }
 }

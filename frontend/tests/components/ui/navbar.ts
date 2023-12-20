@@ -1,4 +1,4 @@
-import { type Locator, type Page } from '@playwright/test';
+import { expect, type Locator, type Page } from '@playwright/test';
 import { LoginPage } from 'tests/pages/Login/login-page';
 
 export class Navbar {
@@ -21,11 +21,13 @@ export class Navbar {
   async login(userCredentials: LoginPage.UserCredentials) {
     await this.loginLink.click();
     const loginPage = new LoginPage(this.page);
-    loginPage.loginUser(userCredentials);
+    await loginPage.loginUser(userCredentials);
+    await expect(this.usernameText).toHaveText(userCredentials.username);
   }
 
   async logout() {
     await this.usernameText.click();
     await this.page.getByRole('button', { name: 'Logout' }).click();
+    await expect(this.loginLink).toBeVisible();
   }
 }

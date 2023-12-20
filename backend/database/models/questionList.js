@@ -1,4 +1,6 @@
 import { Model } from 'objection';
+import QuestionListItem from './questionListItem';
+import User from './user';
 
 class QuestionList extends Model {
   static get tableName() {
@@ -13,8 +15,6 @@ class QuestionList extends Model {
   }
 
   static get relationMappings() {
-    const User = require('./user').default;
-    const QuestionListItem = require('./questionListItem').default;
     return {
       user: {
         relation: Model.BelongsToOneRelation,

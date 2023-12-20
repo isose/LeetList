@@ -122,7 +122,7 @@ const List = () => {
       {!noPrivateAccess && !notFound && (
         <div className={styles.list}>
           <div className={styles['list__wrapper']}>
-            <div className={styles['list__name']}>
+            <div className={styles['list__name']} data-testid='list__name'>
               <h1
                 className='truncate'
                 ref={textElementRef}
@@ -132,8 +132,8 @@ const List = () => {
               </h1>
             </div>
             <div className={styles['list__info']}>
-              <span>{list.username}</span>
-              <span>{formatDate(list.createdAt)}</span>
+              <span data-testid='user'>{list.username}</span>
+              <span data-testid='date'>{formatDate(list.createdAt)}</span>
             </div>
             {displayEditMenu ? (
               <div className={styles['list__edit-menu']}>

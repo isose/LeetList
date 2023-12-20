@@ -17,8 +17,8 @@ test.describe('questions page', () => {
     await expect(page.getByRole('heading', { name: 'Questions' })).toBeVisible();
   });
 
-  test('should have create list sidepanel', async ({ page }) => {
-    await expect(page.getByTestId('create-list-sidepanel')).toBeVisible();
+  test('should have sidepanel', async ({ page }) => {
+    await expect(page.getByTestId('sidepanel')).toBeVisible();
   });
 
   test.describe('search bar', () => {

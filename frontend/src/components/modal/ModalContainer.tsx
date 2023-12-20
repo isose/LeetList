@@ -21,8 +21,8 @@ const ModalContainer = ({ children, open, setOpen }: any) => {
     <>
       {open && (
         <div className={styles.background}>
-          <div className={styles['modal__container']} ref={modalRef}>
-            <div className={styles['close-button']} onClick={toggleOpen}>
+          <div className={styles['modal__container']} data-testid='modal__container' ref={modalRef}>
+            <div className={styles['close-button']} data-testid='close-button' onClick={toggleOpen}>
               <IoClose size={25} />
             </div>
             {React.cloneElement(children, { toggleOpen })}

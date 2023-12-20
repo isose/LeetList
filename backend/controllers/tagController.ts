@@ -1,7 +1,4 @@
-import { knexSetup } from '../database/knex';
 import Tag from '../database/models/tag';
-
-knexSetup();
 
 export const tags = async (req: any, res: any) => {
   try {

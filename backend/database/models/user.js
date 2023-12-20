@@ -1,4 +1,5 @@
 import { Model } from 'objection';
+import QuestionList from './questionList';
 
 class User extends Model {
   static get tableName() {
@@ -6,7 +7,6 @@ class User extends Model {
   }
 
   static get relationMappings() {
-    const QuestionList = require('./questionList').default;
     return {
       questionLists: {
         relation: Model.HasManyRelation,
