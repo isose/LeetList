@@ -1,4 +1,3 @@
-import '../database/knex';
 import Tag from '../database/models/tag';
 
 export const tags = async (req: any, res: any) => {

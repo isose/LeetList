@@ -1,5 +1,4 @@
 import { raw } from 'objection';
-import '../database/knex';
 import Question from '../database/models/question';
 
 export const questions = async (req: any, res: any) => {

@@ -5,16 +5,16 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom';
-import LoggedInRedirect from '../components/auth/LoggedInRedirect';
-import PersistLogin from '../components/auth/PersistLogin';
-import RequireAuth from '../components/auth/RequireAuth';
-import AppLayout from '../components/ui/AppLayout';
-import { AuthProvider } from '../context/AuthProvider';
-import List from '../pages/List';
-import Lists from '../pages/Lists';
-import Login from '../pages/Login';
-import NotFound from '../pages/NotFound';
-import Questions from '../pages/Questions';
+import LoggedInRedirect from 'src/components/auth/LoggedInRedirect';
+import PersistLogin from 'src/components/auth/PersistLogin';
+import RequireAuth from 'src/components/auth/RequireAuth';
+import AppLayout from 'src/components/ui/AppLayout';
+import { AuthProvider } from 'src/context/AuthProvider';
+import NotFound from 'src/pages/Error/NotFound';
+import List from 'src/pages/List/List';
+import Lists from 'src/pages/Lists/Lists';
+import Login from 'src/pages/Login/Login';
+import Questions from 'src/pages/Questions/Questions';
 
 const App = () => {
   const router = createBrowserRouter(

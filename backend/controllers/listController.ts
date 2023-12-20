@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv';
 import { verify } from 'jsonwebtoken';
-import { LISTS_SORT_ORDER } from '../../frontend/pages/ListsEnum';
+import { LISTS_SORT_ORDER } from '../../frontend/src/pages/Lists/ListsEnum';
 import QuestionList from '../database/models/questionList';
 import QuestionListItem from '../database/models/questionListItem';
 
@@ -14,9 +14,15 @@ export const getList = async (req: any, res: any) => {
     // ignore error
   }
 
-  const questionList: any = await QuestionList.query().findOne({
-    id: parseInt(req.params.id, 36), // convert id from base36
-  });
+  let questionList: any = null;
+
+  try {
+    questionList = await QuestionList.query().findOne({
+      id: parseInt(req.params.id, 36), // convert id from base36
+    });
+  } catch (err) {
+    return res.status(404).json('Not found');
+  }
 
   if (questionList == undefined) {
     return res.status(404).json('Not found');

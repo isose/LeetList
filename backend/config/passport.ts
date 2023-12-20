@@ -1,7 +1,6 @@
 import * as dotenv from 'dotenv';
 import passport from 'passport';
 import passportJwt from 'passport-jwt';
-import '../database/knex';
 import User from '../database/models/user';
 
 dotenv.config({ path: __dirname + '/./../../.env' });

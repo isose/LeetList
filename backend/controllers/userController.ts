@@ -2,7 +2,6 @@ import bcrypt from 'bcryptjs';
 import * as dotenv from 'dotenv';
 import { verify } from 'jsonwebtoken';
 import * as authenticate from '../authenticate';
-import '../database/knex';
 import User from '../database/models/user';
 
 dotenv.config({ path: __dirname + '/./../.env' });
