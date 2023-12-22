@@ -26,7 +26,7 @@ const useOverflow = () => {
     [checkOverflow],
   );
 
-  const [overflowed, setOverflowed] = useState(false);
+  const [overflowed, setOverflowed] = useState<boolean>(false);
 
   return [overflowed, setRef] as const;
 };

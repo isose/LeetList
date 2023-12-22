@@ -11,15 +11,15 @@ const usePagination = () => {
   };
 
   const [searchParams] = useSearchParams();
-  const [page, setPage] = useState(getPageUrlParam());
-  const [totalPages, setTotalPages] = useState<number | null>(null);
+  const [page, setPage] = useState<number>(getPageUrlParam());
+  const [totalPages, setTotalPages] = useState<number>(-1);
 
   useEffect(() => {
     handlePageBounds();
   }, [totalPages]);
 
   const handlePageBounds = () => {
-    if (totalPages !== null && page > totalPages) {
+    if (totalPages !== -1 && page > totalPages) {
       setPage(totalPages);
     }
   };

@@ -1,8 +1,20 @@
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import ModalContainer from 'src/components/modal/ModalContainer';
 
-const CustomButtonModal = ({ button, buttonStyle, modalContents, testid }: any) => {
-  const [open, setOpen] = useState(false);
+interface CustomButtonModalProps {
+  button: ReactNode;
+  buttonStyle?: string;
+  modalContents: ReactNode;
+  testid?: string;
+}
+
+const CustomButtonModal = ({
+  button,
+  buttonStyle,
+  modalContents,
+  testid,
+}: CustomButtonModalProps) => {
+  const [open, setOpen] = useState<boolean>(false);
 
   return (
     <>

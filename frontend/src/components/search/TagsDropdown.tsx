@@ -1,18 +1,23 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Dispatch, useEffect, useRef, useState } from 'react';
 import axios from 'src/api/axios';
-import Tag from 'src/pages/Questions/Component/Tag';
+import Tag, { ITag } from 'src/pages/Questions/Component/Tag';
 import styles from 'styles/components/search/TagsDropdown.module.css';
 
-const TagsDropdown = ({ selected, setSelected }: any) => {
-  const [open, setOpen] = useState(false);
-  const [tags, setTags] = useState([]);
-  const [tagFilter, setTagFilter] = useState('');
+interface TagsDropdownProps {
+  selected: string[];
+  setSelected: Dispatch<string[]>;
+}
+
+const TagsDropdown = ({ selected, setSelected }: TagsDropdownProps) => {
+  const [open, setOpen] = useState<boolean>(false);
+  const [tags, setTags] = useState<string[]>([]);
+  const [tagFilter, setTagFilter] = useState<string>('');
 
   useEffect(() => {
     getTags();
   }, []);
 
-  const tagsDropdown = useRef<any>();
+  const tagsDropdown = useRef<HTMLDivElement>(null);
 
   const getTags = async () => {
     const res = await axios.get('/api/tags');
@@ -21,13 +26,17 @@ const TagsDropdown = ({ selected, setSelected }: any) => {
 
   const toggleState = () => setOpen(!open);
 
-  const clickOutside = (e: any) => {
-    if (open && tagsDropdown.current && !tagsDropdown.current.contains(e.target)) {
+  const clickOutside = (e: MouseEvent) => {
+    if (
+      open &&
+      tagsDropdown.current &&
+      !tagsDropdown.current.contains(e.target as HTMLDivElement)
+    ) {
       setOpen(false);
     }
   };
 
-  const handleClick = (item: any) => {
+  const handleClick = (item: string) => {
     if (selected.includes(item)) {
       setSelected(selected.filter((tag: string) => item !== tag));
     } else {
@@ -35,7 +44,7 @@ const TagsDropdown = ({ selected, setSelected }: any) => {
     }
   };
 
-  const getStyle = (tag: any) => {
+  const getStyle = (tag: ITag): string => {
     return selected.includes(tag.tagName) ? `${styles.tag} ${styles['tag--selected']}` : styles.tag;
   };
 

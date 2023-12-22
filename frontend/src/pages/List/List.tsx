@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { axiosPrivate } from 'src/api/axios';
 import ButtonModal from 'src/components/modal/ButtonModal';
@@ -8,12 +8,18 @@ import useAuth from 'src/hooks/useAuth';
 import useOverflow from 'src/hooks/useOverflow';
 import Error from 'src/pages/Error/Error';
 import NotFound from 'src/pages/Error/NotFound';
+import { IQuestion } from 'src/pages/Questions/Component/Question';
 import QuestionList from 'src/pages/Questions/Component/QuestionList';
 import { formatDate } from 'src/utils/utils';
 import modalStyles from 'styles/components/modal/Modal.module.css';
 import styles from 'styles/pages/List/List.module.css';
 
-const DeleteListModal = ({ setError, toggleOpen }: any) => {
+interface DeleteListModalProps {
+  setError: Dispatch<boolean>;
+  toggleOpen?: () => void;
+}
+
+const DeleteListModal = ({ setError, toggleOpen }: DeleteListModalProps) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -23,7 +29,7 @@ const DeleteListModal = ({ setError, toggleOpen }: any) => {
       navigate('/my-lists');
     } catch (err) {
       setError(true);
-      toggleOpen();
+      toggleOpen!();
     }
   };
 
@@ -48,21 +54,29 @@ const DeleteListModal = ({ setError, toggleOpen }: any) => {
   );
 };
 
+export interface IList {
+  createdAt?: string;
+  id?: string;
+  name?: string;
+  private?: boolean;
+  username?: string;
+}
+
 const List = () => {
   const { id } = useParams();
   const { auth } = useAuth();
 
   const navigate = useNavigate();
 
-  const [noPrivateAccess, setNoPrivateAccess] = useState(false);
-  const [notFound, setNotFound] = useState(false);
-  const [error, setError] = useState(false);
+  const [noPrivateAccess, setNoPrivateAccess] = useState<boolean>(false);
+  const [notFound, setNotFound] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
 
-  const [list, setList] = useState<any>({});
-  const [questions, setQuestions] = useState<any[]>([]);
+  const [list, setList] = useState<IList>({});
+  const [questions, setQuestions] = useState<IQuestion[]>([]);
 
-  const [displayEditMenu, setDisplayEditMenu] = useState(false);
-  const [privateList, setPrivateList] = useState();
+  const [displayEditMenu, setDisplayEditMenu] = useState<boolean>(false);
+  const [privateList, setPrivateList] = useState<boolean>();
 
   const [overflow, textElementRef] = useOverflow();
 
@@ -71,7 +85,7 @@ const List = () => {
   }, []);
 
   useEffect(() => {
-    setDisplayEditMenu(auth.username == list.username);
+    setDisplayEditMenu(auth?.username == list.username);
   }, [list]);
 
   const updateList = async (value: boolean) => {
@@ -133,7 +147,7 @@ const List = () => {
             </div>
             <div className={styles['list__info']}>
               <span data-testid='user'>{list.username}</span>
-              <span data-testid='date'>{formatDate(list.createdAt)}</span>
+              <span data-testid='date'>{formatDate(list.createdAt!)}</span>
             </div>
             {displayEditMenu ? (
               <div className={styles['list__edit-menu']}>

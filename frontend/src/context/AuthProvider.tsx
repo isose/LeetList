@@ -1,17 +1,22 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, Dispatch, ReactNode, useState } from 'react';
 
-interface IAuthContext {
-  auth: any;
-  setAuth?: any;
-  isLoggedIn?: any;
+export interface Auth {
+  accessToken?: string;
+  username?: string;
 }
 
-const AuthContext = createContext<Partial<IAuthContext>>({});
+interface AuthContext {
+  auth: Auth;
+  setAuth: Dispatch<Auth>;
+  isLoggedIn(): boolean;
+}
 
-export const AuthProvider = ({ children }: any) => {
-  const [auth, setAuth] = useState<any>({});
+const AuthContext = createContext<Partial<AuthContext>>({});
 
-  const isLoggedIn = () => {
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const [auth, setAuth] = useState<Auth>({});
+
+  const isLoggedIn = (): boolean => {
     return auth.username !== undefined;
   };
 

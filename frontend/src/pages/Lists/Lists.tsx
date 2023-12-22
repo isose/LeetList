@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { CSSProperties, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { axiosPrivate } from 'src/api/axios';
 import PaginationButtons from 'src/components/pagination/PaginationButtons';
@@ -7,13 +7,14 @@ import Dropdown from 'src/components/ui/Dropdown';
 import VirtualList from 'src/components/ui/VirtualList';
 import useOverflow from 'src/hooks/useOverflow';
 import usePagination from 'src/hooks/usePagination';
+import { IList } from 'src/pages/List/List';
 import { LISTS_SORT_ORDER } from 'src/pages/Lists/ListsEnum';
 import { formatDate } from 'src/utils/utils';
 import styles from 'styles/pages/Lists/Lists.module.css';
 import { useDebounce } from 'use-debounce';
 
 const List = (props: any) => {
-  const { item, style } = props;
+  const { item, style }: { item: IList; style: CSSProperties } = props;
   const { ref } = props.props;
 
   const [overflow, textElementRef] = useOverflow();
@@ -44,20 +45,20 @@ const Lists = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const getSearchUrlParam = () => {
+  const getSearchUrlParam = (): string => {
     const searchParam = searchParams.get('search');
     return searchParam ? searchParam : '';
   };
 
   const limit = 20;
   const [page, setPage, totalPages, setTotalPages] = usePagination();
-  const [search, setSearch] = useState(getSearchUrlParam());
+  const [search, setSearch] = useState<string>(getSearchUrlParam());
   const [debouncedSearch] = useDebounce(search, 250);
-  const [sortOrder, setSortOrder] = useState({
+  const [sortOrder, setSortOrder] = useState<{ text: string; value: string }>({
     text: LISTS_SORT_ORDER.NEW,
     value: LISTS_SORT_ORDER.NEW,
   });
-  const [lists, setLists] = useState([]);
+  const [lists, setLists] = useState<IList[]>([]);
 
   const queryParams = `/?page=${page - 1}&limit=${limit}&search=${debouncedSearch}&sort=${
     sortOrder.value

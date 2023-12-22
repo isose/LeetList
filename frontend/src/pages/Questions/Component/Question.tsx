@@ -1,12 +1,31 @@
 import React from 'react';
 import { TiArrowDownThick, TiArrowUpThick } from 'react-icons/ti';
 import useOverflow from 'src/hooks/useOverflow';
+import { ITag } from 'src/pages/Questions/Component/Tag';
 import TagList from 'src/pages/Questions/Component/TagList';
 import styles from 'styles/pages/Questions/Component/Question.module.css';
 
 const COMMA_SEPARATED_NUMBER_REGEX = /\B(?=(\d{3})+(?!\d))/g;
 
-const Question = ({ question, style, onClick }: any) => {
+export interface IQuestion {
+  difficulty: string;
+  downVotes: number;
+  numberOfAccepted: number;
+  numberOfSubmissions: number;
+  questionId: string;
+  tags: ITag[];
+  title: string;
+  upVotes: number;
+  url: string;
+}
+
+interface QuestionProps {
+  question: IQuestion;
+  style?: string;
+  onClick?: (question: IQuestion) => void;
+}
+
+const Question = ({ question, style, onClick }: QuestionProps) => {
   const title = `${question.questionId}. ${question.title}`;
   const upVotes = question.upVotes?.toString().replace(COMMA_SEPARATED_NUMBER_REGEX, ',');
   const downVotes = question.downVotes?.toString().replace(COMMA_SEPARATED_NUMBER_REGEX, ',');

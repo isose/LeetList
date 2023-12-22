@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 import PaginationButtons from 'src/components/pagination/PaginationButtons';
 import Dropdown from 'src/components/ui/Dropdown';
 import styles from 'styles/components/pagination/PaginationNavigation.module.css';
 
-const PaginationNavigation = ({ selected, setLimit, page, totalPages, setPage }: any) => {
+interface PaginationNavigationProps {
+  selected: { text: string; value: number };
+  setLimit: Dispatch<number>;
+  page: number;
+  totalPages: number;
+  setPage: Dispatch<number>;
+}
+
+const PaginationNavigation = ({
+  selected,
+  setLimit,
+  page,
+  totalPages,
+  setPage,
+}: PaginationNavigationProps) => {
   const PAGINATION_OPTIONS = [
     { text: '20 / page', value: 20 },
     { text: '50 / page', value: 50 },

@@ -5,7 +5,7 @@ import NavPanel from 'src/components/ui/NavPanel';
 import styles from 'styles/components/ui/AppLayout.module.css';
 
 const AppLayout = () => {
-  const [openNavPanel, setOpenNavPanel] = useState(false);
+  const [openNavPanel, setOpenNavPanel] = useState<boolean>(false);
 
   const toggleNavPanel = () => {
     setOpenNavPanel(!openNavPanel);

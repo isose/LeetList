@@ -1,9 +1,21 @@
-import { Draggable, type DraggableProvided, type DraggableStateSnapshot } from '@hello-pangea/dnd';
+import {
+  Draggable,
+  DroppableProvided,
+  type DraggableProvided,
+  type DraggableStateSnapshot,
+} from '@hello-pangea/dnd';
 import React, { memo, useCallback, useEffect, useRef } from 'react';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { areEqual, VariableSizeList as List } from 'react-window';
 
-const VirtualList = ({ items, component, props, droppableProvided }: any) => {
+interface VirtualListProps {
+  items: any[];
+  component: (props: any) => JSX.Element;
+  props?: any;
+  droppableProvided?: DroppableProvided;
+}
+
+const VirtualList = ({ items, component, props, droppableProvided }: VirtualListProps) => {
   const listRef = useRef<any>({});
   const rowHeights = useRef<any>({});
 
@@ -24,7 +36,7 @@ const VirtualList = ({ items, component, props, droppableProvided }: any) => {
 
   return (
     <AutoSizer>
-      {({ height, width }: any) => (
+      {({ height, width }: { height: string | number; width: string | number }) => (
         <List
           itemData={{
             items: items,
@@ -47,10 +59,10 @@ const VirtualList = ({ items, component, props, droppableProvided }: any) => {
   );
 };
 
-const Row = ({ data, index, style }: any) => {
+const Row = ({ data, index, style }: { data: any; index: number; style: any }) => {
   const { items, component, setRowHeight, isDraggable } = data;
   const item = items[index];
-  const ref = useRef<any>({});
+  const ref = useRef<HTMLDivElement>(null);
   const props = { ref, ...data.props };
 
   useEffect(() => {

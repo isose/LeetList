@@ -8,18 +8,18 @@ import isEmail from 'validator/es/lib/isEmail';
 const USERNAME_REGEX = /^[a-zA-Z][a-zA-Z0-9_]{2,30}$/;
 const PASSWORD_REGEX = /^(?=.*\d)(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,60}$/;
 
-const LoginForm = ({ toggleLoginForm }: any) => {
+const LoginForm = ({ toggleLoginForm }: { toggleLoginForm: () => void }) => {
   const { setAuth } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
 
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
-  const [usernameError, setUsernameError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const [usernameError, setUsernameError] = useState<string>('');
+  const [passwordError, setPasswordError] = useState<string>('');
 
   useEffect(() => {
     setUsernameError('');
@@ -37,7 +37,7 @@ const LoginForm = ({ toggleLoginForm }: any) => {
         JSON.stringify({ username, password }),
       );
       const accessToken = response.data.accessToken;
-      setAuth({ username, accessToken });
+      setAuth?.({ accessToken, username });
       navigate(from, { replace: true });
     } catch (err: any) {
       if (err?.response) {
@@ -78,20 +78,20 @@ const LoginForm = ({ toggleLoginForm }: any) => {
   );
 };
 
-const RegisterForm = ({ toggleLoginForm }: any) => {
-  const [email, setEmail] = useState('');
-  const [validEmail, setValidEmail] = useState(false);
+const RegisterForm = ({ toggleLoginForm }: { toggleLoginForm: () => void }) => {
+  const [email, setEmail] = useState<string>('');
+  const [validEmail, setValidEmail] = useState<boolean>(false);
 
-  const [username, setUsername] = useState('');
-  const [validUsername, setValidUsername] = useState(false);
+  const [username, setUsername] = useState<string>('');
+  const [validUsername, setValidUsername] = useState<boolean>(false);
 
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [validPassword, setValidPassword] = useState(false);
-  const [validMatch, setValidMatch] = useState(false);
+  const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [validPassword, setValidPassword] = useState<boolean>(false);
+  const [validMatch, setValidMatch] = useState<boolean>(false);
 
-  const [emailError, setEmailError] = useState('');
-  const [usernameError, setUsernameError] = useState('');
+  const [emailError, setEmailError] = useState<string>('');
+  const [usernameError, setUsernameError] = useState<string>('');
 
   useEffect(() => {
     setValidEmail(isEmail(email));
@@ -208,7 +208,7 @@ const RegisterForm = ({ toggleLoginForm }: any) => {
 };
 
 const Login = () => {
-  const [loginForm, setLoginForm] = useState(true);
+  const [loginForm, setLoginForm] = useState<boolean>(true);
 
   const toggleLoginForm = () => {
     setLoginForm(!loginForm);

@@ -5,7 +5,8 @@ import PaginationNavigation from 'src/components/pagination/PaginationNavigation
 import BasicSearch from 'src/components/search/BasicSearch';
 import useLocalStorage from 'src/hooks/useLocalStorage';
 import usePagination from 'src/hooks/usePagination';
-import CreateListSidepanel from 'src/pages/Questions/Component/CreateListSidepanel';
+import CreateListSidepanel, { ListState } from 'src/pages/Questions/Component/CreateListSidepanel';
+import { IQuestion } from 'src/pages/Questions/Component/Question';
 import QuestionListSelectable from 'src/pages/Questions/Component/QuestionListSelectable';
 import styles from 'styles/pages/Questions/Questions.module.css';
 import { useDebounce } from 'use-debounce';
@@ -15,28 +16,28 @@ const Questions = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const getSearchUrlParam = () => {
+  const getSearchUrlParam = (): string => {
     const searchParam = searchParams.get('search');
     return searchParam ? searchParam : '';
   };
 
-  const getTagsUrlParam = () => {
+  const getTagsUrlParam = (): string[] => {
     const tagsParam = searchParams.get('tags');
     return tagsParam ? tagsParam.split(',') : [];
   };
 
-  const getDifficultyUrlParam = () => {
+  const getDifficultyUrlParam = (): string[] => {
     const difficultyParam = searchParams.get('difficulty');
     return difficultyParam ? difficultyParam.split(',') : [];
   };
 
-  const [questions, setQuestions] = useState<any[]>([]);
-  const [listState, setListState] = useState(
+  const [questions, setQuestions] = useState<IQuestion[]>([]);
+  const [listState, setListState] = useState<ListState>(
     state ? state : { name: '', private: false, questions: [] },
   );
   const [limit, setLimit] = useLocalStorage('limit', { text: '50 / page', value: 50 });
   const [page, setPage, totalPages, setTotalPages] = usePagination();
-  const [search, setSearch] = useState(getSearchUrlParam());
+  const [search, setSearch] = useState<string>(getSearchUrlParam());
   const [debouncedSearch] = useDebounce(search, 250);
   const [tags, setTags] = useState<string[]>(getTagsUrlParam());
   const [difficulty, setDifficulty] = useState<string[]>(getDifficultyUrlParam());
@@ -82,7 +83,7 @@ const Questions = () => {
     setSearchParams(searchParams);
   };
 
-  const setSelectedQuestions = (questions: []) => {
+  const setSelectedQuestions = (questions: IQuestion[]) => {
     setListState({ ...listState, questions: questions });
   };
 

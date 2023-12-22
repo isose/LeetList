@@ -1,10 +1,14 @@
 import React from 'react';
-import Question from 'src/pages/Questions/Component/Question';
+import Question, { IQuestion } from 'src/pages/Questions/Component/Question';
 
-const QuestionList = ({ questions }: any) => {
+interface QuestionListProps {
+  questions: IQuestion[];
+}
+
+const QuestionList = ({ questions }: QuestionListProps) => {
   return (
     <div className='question-list' data-testid='question-list'>
-      {questions.map((question: any) => {
+      {questions.map((question: IQuestion) => {
         return <Question key={question.questionId} question={question} />;
       })}
     </div>

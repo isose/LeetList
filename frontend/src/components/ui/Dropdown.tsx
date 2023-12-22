@@ -1,6 +1,15 @@
-import React, { useRef, useState } from 'react';
+import React, { Dispatch, useRef, useState } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
 import styles from 'styles/components/ui/Dropdown.module.css';
+
+interface DropdownProps {
+  selected: any;
+  setSelected: Dispatch<any>;
+  options?: any[];
+  optionsEnum?: any;
+  width: number;
+  testid?: string;
+}
 
 const Dropdown = ({
   selected,
@@ -9,10 +18,10 @@ const Dropdown = ({
   optionsEnum,
   width,
   testid = 'dropdown',
-}: any) => {
+}: DropdownProps) => {
   const style = width ? { width: width } : undefined;
-  const [open, setOpen] = useState(false);
-  const dropdownRef = useRef<any>();
+  const [open, setOpen] = useState<boolean>(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   if (optionsEnum) {
     options = [];
@@ -23,8 +32,8 @@ const Dropdown = ({
 
   const toggleOpen = () => setOpen(!open);
 
-  const clickOutside = (e: any) => {
-    if (open && dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+  const clickOutside = (e: MouseEvent) => {
+    if (open && dropdownRef.current && !dropdownRef.current.contains(e.target as HTMLDivElement)) {
       setOpen(false);
     }
   };
@@ -50,7 +59,7 @@ const Dropdown = ({
       </button>
       {open && (
         <div className={styles['dropdown__list']} data-testid='dropdown__list'>
-          {options.map((item: any, index: any) => (
+          {options?.map((item: any, index: number) => (
             <button
               className={styles['dropdown__item']}
               style={style}

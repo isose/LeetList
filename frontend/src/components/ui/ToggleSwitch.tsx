@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 import styles from 'styles/components/ui/ToggleSwitch.module.css';
 
-const ToggleSwitch = ({ style, height, value, setValue, label, onChange }: any) => {
+interface ToggleSwitchProps {
+  style?: string;
+  height?: number;
+  value?: boolean;
+  setValue: Dispatch<boolean>;
+  label: string;
+  onChange?: any;
+}
+
+const ToggleSwitch = ({ style, height, value, setValue, label, onChange }: ToggleSwitchProps) => {
   const handleOnChange = () => {
     value = !value;
     setValue(value);
     onChange && onChange(value);
   };
 
-  const getHeight = () => {
+  const getHeight = (): { height: string } => {
     return { height: height !== undefined ? `${height}px` : '30px' };
   };
 
@@ -18,7 +27,6 @@ const ToggleSwitch = ({ style, height, value, setValue, label, onChange }: any) 
         <input
           className={styles['toggle-checkbox']}
           type='checkbox'
-          value={value}
           defaultChecked={value}
           onChange={handleOnChange}
         />
