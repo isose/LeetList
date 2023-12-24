@@ -5,7 +5,7 @@ import useAuth from 'src/hooks/useAuth';
 const LoggedInRedirect = () => {
   const { isLoggedIn } = useAuth();
 
-  return isLoggedIn() ? <Navigate to='/' replace /> : <Outlet />;
+  return isLoggedIn?.() ? <Navigate to='/' replace /> : <Outlet />;
 };
 
 export default LoggedInRedirect;

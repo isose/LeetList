@@ -7,13 +7,17 @@ import styles from 'styles/components/ui/UserDropdown.module.css';
 const UserDropdown = () => {
   const { auth } = useAuth();
 
-  const [open, setOpen] = useState(false);
-  const userDropdown = useRef<any>();
+  const [open, setOpen] = useState<boolean>(false);
+  const userDropdown = useRef<HTMLDivElement>(null);
 
   const toggleState = () => setOpen(!open);
 
-  const clickOutside = (e: any) => {
-    if (open && userDropdown.current && !userDropdown.current.contains(e.target)) {
+  const clickOutside = (e: MouseEvent) => {
+    if (
+      open &&
+      userDropdown.current &&
+      !userDropdown.current.contains(e.target as HTMLDivElement)
+    ) {
       setOpen(false);
     }
   };
@@ -26,7 +30,7 @@ const UserDropdown = () => {
         className={`${styles['user-dropdown__user-icon']} svg-container`}
         onClick={() => toggleState()}
       >
-        <span data-testid='username'>{auth.username}</span>
+        <span data-testid='username'>{auth?.username}</span>
         <AiOutlineUser color='white' size={30} />
       </div>
       {open && (

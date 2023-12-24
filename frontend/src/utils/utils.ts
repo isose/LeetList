@@ -5,7 +5,7 @@ export const reorder = (list: any[], startIndex: number, endIndex: number): any[
   return result;
 };
 
-export const formatDate = (date: string) => {
+export const formatDate = (date: string): string => {
   if (date == undefined) {
     return '';
   }

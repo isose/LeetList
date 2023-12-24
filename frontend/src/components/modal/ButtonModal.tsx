@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import ModalContainer from 'src/components/modal/ModalContainer';
 
-const ButtonModal = ({ children, text, style }: any) => {
-  const [open, setOpen] = useState(false);
+interface ButtonModalProps {
+  children: ReactNode;
+  text: string;
+  style?: string;
+}
+
+const ButtonModal = ({ children, text, style }: ButtonModalProps) => {
+  const [open, setOpen] = useState<boolean>(false);
 
   return (
     <>

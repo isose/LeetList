@@ -4,7 +4,7 @@ import useAuth from 'src/hooks/useAuth';
 import useRefreshToken from 'src/hooks/useRefreshToken';
 
 const PersistLogin = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const refresh = useRefreshToken();
   const { auth } = useAuth();
 

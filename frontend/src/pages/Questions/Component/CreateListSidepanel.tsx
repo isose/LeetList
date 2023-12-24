@@ -7,7 +7,7 @@ import {
   type DroppableProvided,
   type DropResult,
 } from '@hello-pangea/dnd';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { Dispatch, useCallback, useEffect, useState } from 'react';
 import { BsXSquareFill } from 'react-icons/bs';
 import { HiOutlineTrash } from 'react-icons/hi';
 import { IoMdListBox } from 'react-icons/io';
@@ -22,10 +22,29 @@ import VirtualList from 'src/components/ui/VirtualList';
 import useAuth from 'src/hooks/useAuth';
 import useOverflow from 'src/hooks/useOverflow';
 import LoginForm from 'src/pages/Login/Component/LoginForm';
+import { IQuestion } from 'src/pages/Questions/Component/Question';
+import { ITag } from 'src/pages/Questions/Component/Tag';
 import { reorder } from 'src/utils/utils';
 import styles from 'styles/pages/Questions/Component/CreateListSidepanel.module.css';
 
-const CreateListPanelHeader = ({ listState, setListState, toggleCollapsed }: any) => {
+export interface ListState {
+  name: string;
+  private: boolean;
+  id?: string;
+  questions: IQuestion[];
+}
+
+interface CreateListPanelHeaderProps {
+  listState: ListState;
+  setListState: Dispatch<ListState>;
+  toggleCollapsed: () => void;
+}
+
+const CreateListPanelHeader = ({
+  listState,
+  setListState,
+  toggleCollapsed,
+}: CreateListPanelHeaderProps) => {
   const questionCount = listState.questions.length;
 
   const clearQuestions = () => {
@@ -67,13 +86,18 @@ const CreateListPanelHeader = ({ listState, setListState, toggleCollapsed }: any
   );
 };
 
-const QuestionList = ({ listState, setListState }: any) => {
+interface QuestionListProps {
+  listState: ListState;
+  setListState: Dispatch<ListState>;
+}
+
+const QuestionList = ({ listState, setListState }: QuestionListProps) => {
   const removeQuestion = useCallback(
-    (item: any) => {
+    (item: IQuestion) => {
       setListState({
         ...listState,
         questions: listState.questions.filter(
-          (question: any) => item.questionId !== question.questionId,
+          (question: IQuestion) => item.questionId !== question.questionId,
         ),
       });
     },
@@ -146,20 +170,20 @@ const Question = (props: any) => {
   const [questionTitleOverflow, questionTitleRef] = useOverflow();
   const [questionTagsOverflow, questionTagsRef] = useOverflow();
 
-  const getQuestionTitle = (question: any): string => {
+  const getQuestionTitle = (question: IQuestion): string => {
     return `${question.questionId}. ${question.title}`;
   };
 
-  const getQuestionTags = (question: any): string => {
+  const getQuestionTags = (question: IQuestion): string => {
     let tags = '';
-    question.tags.map((tag: any) => (tags = tags.concat(tag.tagName, ', ')));
+    question.tags.map((tag: ITag) => (tags = tags.concat(tag.tagName, ', ')));
     return tags.slice(0, -2);
   };
 
   const questionTitle = getQuestionTitle(item);
   const questionTags = getQuestionTags(item);
 
-  const getTitleAttribute = (title: string, enabled: boolean) => {
+  const getTitleAttribute = (title: string, enabled: boolean): string | undefined => {
     return enabled ? title : undefined;
   };
 
@@ -213,13 +237,21 @@ const Question = (props: any) => {
   );
 };
 
-const DifficultyCounter = ({ listState }: any) => {
-  const [difficultyCount, setDifficultyCount] = useState<any>({});
+interface DifficultyCount {
+  [key: string]: number;
+}
+
+interface DifficultyCounterProps {
+  listState: ListState;
+}
+
+const DifficultyCounter = ({ listState }: DifficultyCounterProps) => {
+  const [difficultyCount, setDifficultyCount] = useState<DifficultyCount>({});
 
   useEffect(() => {
     const getDifficultyCount = () => {
-      const difficultyCount: any = { easy: 0, medium: 0, hard: 0 };
-      listState.questions.map((question: any) => {
+      const difficultyCount: DifficultyCount = { easy: 0, medium: 0, hard: 0 };
+      listState.questions.map((question: IQuestion) => {
         difficultyCount[question.difficulty.toLowerCase()]++;
       });
       return difficultyCount;
@@ -246,10 +278,15 @@ const DifficultyCounter = ({ listState }: any) => {
   );
 };
 
-const CreateListForm = ({ listState, setListState }: any) => {
+interface CreateListFormProps {
+  listState: ListState;
+  setListState: Dispatch<ListState>;
+}
+
+const CreateListForm = ({ listState, setListState }: CreateListFormProps) => {
   const navigate = useNavigate();
 
-  const [listNameError, setListNameError] = useState('');
+  const [listNameError, setListNameError] = useState<string>('');
 
   useEffect(() => {
     setListNameError('');
@@ -276,7 +313,7 @@ const CreateListForm = ({ listState, setListState }: any) => {
     }
 
     try {
-      const questions = listState.questions.map((question: any, index: number) => ({
+      const questions = listState.questions.map((question: IQuestion, index: number) => ({
         questionId: question.questionId,
         index,
       }));
@@ -338,10 +375,15 @@ const CreateListLoginForm = () => {
   );
 };
 
-const CreateListSidepanel = ({ listState, setListState }: any) => {
+interface CreateListSidepanelProps {
+  listState: ListState;
+  setListState: Dispatch<ListState>;
+}
+
+const CreateListSidepanel = ({ listState, setListState }: CreateListSidepanelProps) => {
   const { isLoggedIn } = useAuth();
 
-  const [collapsed, setCollasped] = useState(true);
+  const [collapsed, setCollasped] = useState<boolean>(true);
 
   useEffect(() => {
     if (collapsed && (listState.id || listState.questions.length > 0)) {
@@ -351,7 +393,7 @@ const CreateListSidepanel = ({ listState, setListState }: any) => {
 
   const toggleCollapsed = () => setCollasped(!collapsed);
 
-  const display = (visible: boolean) => {
+  const display = (visible: boolean): { display: string } => {
     return { display: visible ? 'flex' : 'none' };
   };
 
@@ -376,7 +418,7 @@ const CreateListSidepanel = ({ listState, setListState }: any) => {
             toggleCollapsed={toggleCollapsed}
           />
           <QuestionList listState={listState} setListState={setListState} />
-          {isLoggedIn() ? (
+          {isLoggedIn?.() ? (
             <CreateListForm listState={listState} setListState={setListState} />
           ) : (
             <CreateListLoginForm />

@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import styles from 'styles/components/modal/Modal.module.css';
 
-const UnsavedChangesModal = ({ handleDiscard, toggleOpen }: any) => {
+interface UnsavedChangesModalProps {
+  handleDiscard: () => void;
+  toggleOpen?: MouseEventHandler;
+}
+
+const UnsavedChangesModal = ({ handleDiscard, toggleOpen }: UnsavedChangesModalProps) => {
   return (
     <div className={styles.modal}>
       <h2>Unsaved changes</h2>

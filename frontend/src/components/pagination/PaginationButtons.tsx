@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 import UiButton from 'src/components/ui/UiButton';
 import styles from 'styles/components/pagination/PaginationButtons.module.css';
 
-const PaginationButtons = ({ page, totalPages, setPage, numberOfButtons }: any) => {
+interface PaginationButtonsProps {
+  page: number;
+  totalPages: number;
+  setPage: Dispatch<number>;
+  numberOfButtons: number;
+}
+
+const PaginationButtons = ({
+  page,
+  totalPages,
+  setPage,
+  numberOfButtons,
+}: PaginationButtonsProps) => {
   const goToPage = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setPage(page);
     }
   };
 
-  const currentPageCss = (pageNumber: number) => {
+  const currentPageCss = (pageNumber: number): string => {
     return pageNumber == page ? ` ${styles['pagination-button--current']}` : '';
   };
 

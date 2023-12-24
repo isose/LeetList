@@ -1,22 +1,31 @@
-import React, { useRef, useState } from 'react';
+import React, { Dispatch, useRef, useState } from 'react';
 import { FaCheck } from 'react-icons/fa';
 import styles from 'styles/components/search/DifficultyDropdown.module.css';
 
-const DifficultyDropdown = ({ selected, setSelected }: any) => {
-  const [open, setOpen] = useState(false);
+interface DifficultyDropdownProps {
+  selected: string[];
+  setSelected: Dispatch<string[]>;
+}
 
-  const difficultyDropdown = useRef<any>();
+const DifficultyDropdown = ({ selected, setSelected }: DifficultyDropdownProps) => {
+  const [open, setOpen] = useState<boolean>(false);
+
+  const difficultyDropdown = useRef<HTMLDivElement>(null);
   const difficulties = ['Easy', 'Medium', 'Hard'];
 
   const toggleState = () => setOpen(!open);
 
-  const clickOutside = (e: any) => {
-    if (open && difficultyDropdown.current && !difficultyDropdown.current.contains(e.target)) {
+  const clickOutside = (e: MouseEvent) => {
+    if (
+      open &&
+      difficultyDropdown.current &&
+      !difficultyDropdown.current.contains(e.target as HTMLDivElement)
+    ) {
       setOpen(false);
     }
   };
 
-  const handleClick = (item: any) => {
+  const handleClick = (item: string) => {
     if (selected.includes(item)) {
       setSelected(selected.filter((difficulty: string) => item !== difficulty));
     } else {
@@ -26,7 +35,7 @@ const DifficultyDropdown = ({ selected, setSelected }: any) => {
 
   document.addEventListener('mousedown', clickOutside);
 
-  const isSelected = (item: any) => {
+  const isSelected = (item: string) => {
     return selected.includes(item);
   };
 
@@ -37,7 +46,7 @@ const DifficultyDropdown = ({ selected, setSelected }: any) => {
       </button>
       {open && (
         <div className={styles['difficulty-dropdown__list']}>
-          {difficulties.map((item: any, index: any) => (
+          {difficulties.map((item: string, index: number) => (
             <button
               className={`${styles['difficulty-dropdown__item']} svg-container`}
               key={index}

@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 
-const SearchBar = ({ input, setInput, placeholder, style }: any) => {
+interface SearchBarProps {
+  input: string;
+  setInput: Dispatch<string>;
+  placeholder: string;
+  style?: string;
+}
+
+const SearchBar = ({ input, setInput, placeholder, style }: SearchBarProps) => {
   return (
     <input
       className={`search-bar${style !== undefined ? ' ' + style : ''}`}

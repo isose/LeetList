@@ -2,7 +2,14 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from 'styles/pages/Error/Error.module.css';
 
-const Error = ({ title, message, buttonText, path }: any) => {
+interface ErrorProps {
+  title: string;
+  message: string;
+  buttonText: string;
+  path: string;
+}
+
+const Error = ({ title, message, buttonText, path }: ErrorProps) => {
   const navigate = useNavigate();
 
   return (

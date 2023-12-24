@@ -1,16 +1,26 @@
 import React from 'react';
-import Question from 'src/pages/Questions/Component/Question';
+import Question, { IQuestion } from 'src/pages/Questions/Component/Question';
 import styles from 'styles/pages/Questions/Component/Question.module.css';
 
-const QuestionListSelectable = ({ questions, selectedQuestions, setSelectedQuestions }: any) => {
-  const isSelected = (question: any): boolean => {
-    return selectedQuestions.some((item: any) => item.questionId === question.questionId);
+interface QuestionListSelectableProps {
+  questions: IQuestion[];
+  selectedQuestions: IQuestion[];
+  setSelectedQuestions: (questions: IQuestion[]) => void;
+}
+
+const QuestionListSelectable = ({
+  questions,
+  selectedQuestions,
+  setSelectedQuestions,
+}: QuestionListSelectableProps) => {
+  const isSelected = (question: IQuestion): boolean => {
+    return selectedQuestions.some((item: IQuestion) => item.questionId === question.questionId);
   };
 
-  const handleClick = (question: any) => {
+  const handleClick = (question: IQuestion) => {
     if (isSelected(question)) {
       setSelectedQuestions(
-        selectedQuestions.filter((item: any) => item.questionId !== question.questionId),
+        selectedQuestions.filter((item: IQuestion) => item.questionId !== question.questionId),
       );
     } else {
       setSelectedQuestions([...selectedQuestions, question]);
@@ -19,7 +29,7 @@ const QuestionListSelectable = ({ questions, selectedQuestions, setSelectedQuest
 
   return (
     <div className='question-list'>
-      {questions.map((question: any) => {
+      {questions.map((question: IQuestion) => {
         return (
           <Question
             style={`${styles['question__selectable']} ${

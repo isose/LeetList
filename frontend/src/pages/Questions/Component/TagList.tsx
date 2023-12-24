@@ -1,14 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react';
-import Tag from 'src/pages/Questions/Component/Tag';
+import React, { MouseEvent, useEffect, useRef, useState } from 'react';
+import Tag, { ITag } from 'src/pages/Questions/Component/Tag';
 import styles from 'styles/pages/Questions/Component/TagList.module.css';
 
-const TagList = ({ tags }: any) => {
-  const [isOverflowed, setIsOverflowed] = useState(false);
-  const [expanded, setExpanded] = useState(false);
-  const elementRef = useRef<any>();
+interface TagListProps {
+  tags: ITag[];
+}
+
+const TagList = ({ tags }: TagListProps) => {
+  const [isOverflowed, setIsOverflowed] = useState<boolean>(false);
+  const [expanded, setExpanded] = useState<boolean>(false);
+  const elementRef = useRef<HTMLDivElement>(null);
 
   const checkOverflow = () => {
-    const overflow = elementRef.current.scrollHeight > elementRef.current.clientHeight;
+    const overflow = elementRef!.current!.scrollHeight > elementRef!.current!.clientHeight;
     setIsOverflowed(overflow);
   };
 
@@ -24,7 +28,7 @@ const TagList = ({ tags }: any) => {
     [],
   );
 
-  const handleClick = (e: any) => {
+  const handleClick = (e: MouseEvent) => {
     e.stopPropagation();
     setExpanded(true);
   };
@@ -36,7 +40,7 @@ const TagList = ({ tags }: any) => {
         data-testid='tag-list'
         ref={elementRef}
       >
-        {tags.map((tag: any, index: number) => {
+        {tags.map((tag: ITag, index: number) => {
           return <Tag key={index} tag={tag} />;
         })}
       </div>
