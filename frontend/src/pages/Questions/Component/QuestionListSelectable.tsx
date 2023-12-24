@@ -1,6 +1,7 @@
 import React from 'react';
 import Question, { IQuestion } from 'src/pages/Questions/Component/Question';
-import styles from 'styles/pages/Questions/Component/Question.module.css';
+import questionStyle from 'styles/pages/Questions/Component/Question.module.css';
+import style from 'styles/pages/Questions/Component/QuestionList.module.css';
 
 interface QuestionListSelectableProps {
   questions: IQuestion[];
@@ -28,20 +29,32 @@ const QuestionListSelectable = ({
   };
 
   return (
-    <div className='question-list'>
-      {questions.map((question: IQuestion) => {
-        return (
-          <Question
-            style={`${styles['question__selectable']} ${
-              isSelected(question) ? styles['question--selected'] : ''
-            }`}
-            key={question.questionId}
-            question={question}
-            onClick={handleClick}
-          />
-        );
-      })}
-    </div>
+    <>
+      {questions.length > 0 ? (
+        <div className='question-list'>
+          {questions.map((question: IQuestion) => {
+            return (
+              <Question
+                style={`${questionStyle['question__selectable']} ${
+                  isSelected(question) ? questionStyle['question--selected'] : ''
+                }`}
+                key={question.questionId}
+                question={question}
+                onClick={handleClick}
+              />
+            );
+          })}
+        </div>
+      ) : (
+        <div className={style['question-list__empty-state']}>
+          <div className={style['question-list__no-results']}>
+            No results found
+            <br />
+            We couldn't find what you're looking for
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

@@ -29,6 +29,13 @@ test.describe('questions page', () => {
       await questionsPage.searchBar.fill('island');
       await expect(page.getByRole('link', { name: 'Number of Islands' })).toBeVisible();
     });
+
+    test('search with no results should show no results message', async ({ page }) => {
+      const questionsPage = new QuestionsPage(page);
+      await questionsPage.searchBar.fill('no_results');
+      await expect(page.getByText('No results found')).toBeVisible();
+      await expect(page.getByText("We couldn't find what you're looking for")).toBeVisible();
+    });
   });
 
   test.describe('tags dropdown', () => {
