@@ -169,7 +169,15 @@ const List = () => {
             ) : (
               <></>
             )}
-            <QuestionList questions={questions} />
+            {questions.length > 0 ? (
+              <QuestionList questions={questions} />
+            ) : (
+              <div className={styles['list__empty-state']}>
+                <div className={styles['list__empty-state__message']}>
+                  This list currently does not contain any questions
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}

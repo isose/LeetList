@@ -1,7 +1,7 @@
 import React from 'react';
 import Question, { IQuestion } from 'src/pages/Questions/Component/Question';
-import questionStyle from 'styles/pages/Questions/Component/Question.module.css';
-import style from 'styles/pages/Questions/Component/QuestionList.module.css';
+import questionStyles from 'styles/pages/Questions/Component/Question.module.css';
+import styles from 'styles/pages/Questions/Component/QuestionList.module.css';
 
 interface QuestionListSelectableProps {
   questions: IQuestion[];
@@ -35,8 +35,8 @@ const QuestionListSelectable = ({
           {questions.map((question: IQuestion) => {
             return (
               <Question
-                style={`${questionStyle['question__selectable']} ${
-                  isSelected(question) ? questionStyle['question--selected'] : ''
+                style={`${questionStyles['question__selectable']} ${
+                  isSelected(question) ? questionStyles['question--selected'] : ''
                 }`}
                 key={question.questionId}
                 question={question}
@@ -46,11 +46,11 @@ const QuestionListSelectable = ({
           })}
         </div>
       ) : (
-        <div className={style['question-list__empty-state']}>
-          <div className={style['question-list__no-results']}>
+        <div className={styles['question-list__empty-state']}>
+          <div className={styles['question-list__empty-state__message']}>
             No results found
             <br />
-            We couldn't find what you're looking for
+            We couldn&apos;t find what you&apos;re looking for
           </div>
         </div>
       )}

@@ -157,8 +157,12 @@ const QuestionList = ({ listState, setListState }: QuestionListProps) => {
       <DifficultyCounter listState={listState} />
     </>
   ) : (
-    <div className={styles['question-list__empty-prompt']}>
-      Your list is currently empty. Select some questions to add to your list.
+    <div className={styles['question-list__empty-state']}>
+      <div className={styles['question-list__empty-state__message']}>
+        Your list is currently empty
+        <br />
+        Select some questions to add to your list
+      </div>
     </div>
   );
 };

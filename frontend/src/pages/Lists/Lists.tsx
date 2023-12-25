@@ -1,14 +1,17 @@
 import React, { CSSProperties, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { axiosPrivate } from 'src/api/axios';
+import SpanModal from 'src/components/modal/SpanModal';
 import PaginationButtons from 'src/components/pagination/PaginationButtons';
 import SearchBar from 'src/components/search/SearchBar';
 import Dropdown from 'src/components/ui/Dropdown';
 import VirtualList from 'src/components/ui/VirtualList';
+import useAuth from 'src/hooks/useAuth';
 import useOverflow from 'src/hooks/useOverflow';
 import usePagination from 'src/hooks/usePagination';
 import { IList } from 'src/pages/List/List';
 import { LISTS_SORT_ORDER } from 'src/pages/Lists/ListsEnum';
+import LoginForm from 'src/pages/Login/Component/LoginForm';
 import { formatDate } from 'src/utils/utils';
 import styles from 'styles/pages/Lists/Lists.module.css';
 import { useDebounce } from 'use-debounce';
@@ -33,8 +36,55 @@ const List = (props: any) => {
       </div>
       <div className={styles['list__footer']}>
         <span data-testid='user'>{item.username}</span>
-        <span data-testid='date'>{formatDate(item.createdAt)}</span>
+        <span data-testid='date'>{formatDate(item.createdAt!)}</span>
       </div>
+    </div>
+  );
+};
+
+interface ListsContentsProps {
+  lists: IList[];
+  search: string;
+}
+
+const ListsContents = ({ lists, search }: ListsContentsProps): JSX.Element => {
+  const location = useLocation();
+  const { isLoggedIn } = useAuth();
+
+  if (lists.length > 0) {
+    return <VirtualList items={lists} component={List} />;
+  }
+
+  let Message = (
+    <>
+      No results found
+      <br />
+      We couldn&apos;t find what you&apos;re looking for
+    </>
+  );
+
+  if (location.pathname == '/my-lists' && !isLoggedIn?.()) {
+    Message = (
+      <>
+        <SpanModal text='Login'>
+          <LoginForm from={'/my-lists'} />
+        </SpanModal>{' '}
+        to view your lists
+      </>
+    );
+  } else if (location.pathname == '/my-lists' && search === '') {
+    Message = (
+      <>
+        You have not created any lists yet
+        <br />
+        Navigate to <Link to='/'>questions page</Link> to create a new list
+      </>
+    );
+  }
+
+  return (
+    <div className={styles['lists__container__empty-state']}>
+      <div className={styles['lists__container__empty-state__message']}>{Message}</div>
     </div>
   );
 };
@@ -42,6 +92,8 @@ const List = (props: any) => {
 const Lists = () => {
   const location = useLocation();
   const navigate = useNavigate();
+
+  const { isLoggedIn } = useAuth();
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -67,7 +119,7 @@ const Lists = () => {
   useEffect(() => {
     fetchLists();
     updateUrlParams();
-  }, [location.pathname, page, debouncedSearch, sortOrder]);
+  }, [location.pathname, page, debouncedSearch, sortOrder, isLoggedIn]);
 
   const fetchLists = async () => {
     try {
@@ -138,7 +190,7 @@ const Lists = () => {
             />
           </div>
           <div className={styles['lists__container']}>
-            <VirtualList items={lists} component={List} />
+            <ListsContents lists={lists} search={debouncedSearch} />
           </div>
           <div className={styles['pagination-buttons']}>
             <PaginationButtons

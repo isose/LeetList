@@ -9,7 +9,7 @@
   height: 80%;
 }
 
-.question-list__no-results {
+.question-list__empty-state__message {
   flex-grow: 1;
   height: fit-content;
   text-align: center;

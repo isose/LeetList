@@ -30,7 +30,7 @@ test.describe('questions page', () => {
       await expect(page.getByRole('link', { name: 'Number of Islands' })).toBeVisible();
     });
 
-    test('search with no results should show no results message', async ({ page }) => {
+    test('should have no results message', async ({ page }) => {
       const questionsPage = new QuestionsPage(page);
       await questionsPage.searchBar.fill('no_results');
       await expect(page.getByText('No results found')).toBeVisible();
