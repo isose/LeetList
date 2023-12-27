@@ -1,0 +1,16 @@
+.question-list__empty-state {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  margin: 2px 0;
+  border-width: 2px;
+  border-style: solid;
+  border-color: black;
+  height: 80%;
+}
+
+.question-list__empty-state__message {
+  flex-grow: 1;
+  height: fit-content;
+  text-align: center;
+}

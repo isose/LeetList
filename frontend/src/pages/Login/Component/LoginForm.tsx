@@ -8,12 +8,17 @@ import isEmail from 'validator/es/lib/isEmail';
 const USERNAME_REGEX = /^[a-zA-Z][a-zA-Z0-9_]{2,30}$/;
 const PASSWORD_REGEX = /^(?=.*\d)(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,60}$/;
 
-const LoginForm = ({ toggleLoginForm }: { toggleLoginForm: () => void }) => {
+interface LoginFormProps {
+  fromPath?: string;
+  toggleLoginForm: () => void;
+}
+
+const LoginForm = ({ fromPath, toggleLoginForm }: LoginFormProps) => {
   const { setAuth } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || '/';
+  const from = fromPath || location.state?.from?.pathname || '/';
 
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -207,7 +212,11 @@ const RegisterForm = ({ toggleLoginForm }: { toggleLoginForm: () => void }) => {
   );
 };
 
-const Login = () => {
+interface LoginProps {
+  from?: string;
+}
+
+const Login = ({ from }: LoginProps) => {
   const [loginForm, setLoginForm] = useState<boolean>(true);
 
   const toggleLoginForm = () => {
@@ -215,7 +224,7 @@ const Login = () => {
   };
 
   return loginForm ? (
-    <LoginForm toggleLoginForm={toggleLoginForm} />
+    <LoginForm fromPath={from} toggleLoginForm={toggleLoginForm} />
   ) : (
     <RegisterForm toggleLoginForm={toggleLoginForm} />
   );

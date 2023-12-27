@@ -48,6 +48,13 @@ test.describe('lists page', () => {
     await expect(list.getByTestId('date')).toHaveText('Dec 07, 2023');
   });
 
+  test('should have no results message', async ({ page }) => {
+    const listsPage = new ListsPage(page);
+    await listsPage.searchBar.fill('no_results');
+    await expect(page.getByText('No results found')).toBeVisible();
+    await expect(page.getByText("We couldn't find what you're looking for")).toBeVisible();
+  });
+
   test('should be able to sort lists', async ({ page }) => {
     const listsPage = new ListsPage(page);
     await listsPage.selectSortingOption(ListsPage.SortingOption.New);
@@ -83,10 +90,27 @@ test.describe('my lists page', () => {
     await expect(listsPage.sortingDropdown).toBeVisible();
   });
 
+  test('should have login message', async ({ page }) => {
+    await expect(page.getByText('Login to view your lists')).toBeVisible();
+    await page.locator('span').getByText('Login').click();
+    const loginPage = new LoginPage(page);
+    await loginPage.loginUser(LoginPage.UserCredentials.LISTS_TEST);
+    await expect(page.getByTestId('list')).not.toHaveCount(0);
+  });
+
   test('should have pagination buttons', async ({ page }) => {
     const listsPage = new ListsPage(page);
     await expect(listsPage.nextPageButton).toBeVisible();
     await expect(listsPage.previousPageButton).toBeVisible();
+  });
+
+  test('should have no lists created message', async ({ page }) => {
+    const navbar = new Navbar(page);
+    await navbar.login(LoginPage.UserCredentials.NO_LISTS);
+    await expect(page.getByText('You have not created any lists yet')).toBeVisible();
+    await expect(page.getByText('Navigate to questions page to create a new list')).toBeVisible();
+    await page.getByRole('link', { name: 'questions page' }).click();
+    await expect(page).not.toHaveURL(/.*my-lists.*/);
   });
 
   test('list should have information', async ({ page }) => {
@@ -108,6 +132,15 @@ test.describe('my lists page', () => {
     await expect(list.getByTestId('list__name')).toHaveText('search_private');
     await expect(list.getByTestId('user')).toHaveText('lists_test');
     await expect(list.getByTestId('date')).toHaveText('Dec 07, 2023');
+  });
+
+  test('should have no results message', async ({ page }) => {
+    const navbar = new Navbar(page);
+    await navbar.login(LoginPage.UserCredentials.LISTS_TEST);
+    const listsPage = new ListsPage(page);
+    await listsPage.searchBar.fill('no_results');
+    await expect(page.getByText('No results found')).toBeVisible();
+    await expect(page.getByText("We couldn't find what you're looking for")).toBeVisible();
   });
 
   test('should be able to sort lists', async ({ page }) => {

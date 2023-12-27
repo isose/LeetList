@@ -115,7 +115,9 @@
   width: 5px;
 }
 
-.question-list__empty-prompt {
+.question-list__empty-state {
+  display: flex;
+  align-items: center;
   box-sizing: border-box;
   margin-top: 10px;
   outline: 2px solid black;
@@ -123,6 +125,11 @@
   padding: 10px;
   width: 95%;
   height: 100%;
+}
+
+.question-list__empty-state__message {
+  flex-grow: 1;
+  text-align: center;
 }
 
 .question-list__item-border {

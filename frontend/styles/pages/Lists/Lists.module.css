@@ -56,6 +56,28 @@
   width: 5px;
 }
 
+.lists__container__empty-state {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.lists__container__empty-state__message {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.lists__container__empty-state__message a,
+.lists__container__empty-state__message span {
+  cursor: pointer;
+  color: blue;
+}
+
+.lists__container__empty-state__message a:hover,
+.lists__container__empty-state__message span:hover {
+  filter: brightness(75%);
+}
+
 .list {
   display: flex;
   flex-direction: column;

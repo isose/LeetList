@@ -36,6 +36,14 @@ test.describe('logged out', async () => {
   test("should not be able to view other's private list", async ({ page }) => {
     await testViewOthersPrivateList(page);
   });
+
+  test('should have empty list message', async ({ page }) => {
+    const listPage = new ListPage(page);
+    await listPage.goto('3h');
+    await expect(
+      page.getByText('This list currently does not contain any questions'),
+    ).toBeVisible();
+  });
 });
 
 test.describe('logged in', async () => {

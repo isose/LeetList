@@ -18,10 +18,9 @@ test.describe('logged out', async () => {
     await expect(createListSidepanel.closeButton).toBeVisible();
     const createListPanel = page.getByTestId('create-list-panel');
     await expect(createListPanel.getByRole('heading', { name: 'New Leetlist' })).toBeVisible();
+    await expect(createListPanel.getByText('Your list is currently empty')).toBeVisible();
     await expect(
-      createListPanel.getByText(
-        'Your list is currently empty. Select some questions to add to your list.',
-      ),
+      createListPanel.getByText('Select some questions to add to your list'),
     ).toBeVisible();
     await expect(createListPanel.getByText('Login to create a list.')).toBeVisible();
     await expect(createListSidepanel.loginButton).toBeVisible();
@@ -103,10 +102,9 @@ test.describe('logged in', async () => {
     await expect(createListSidepanel.closeButton).toBeVisible();
     const createListPanel = page.getByTestId('create-list-panel');
     await expect(createListPanel.getByRole('heading', { name: 'New Leetlist' })).toBeVisible();
+    await expect(createListPanel.getByText('Your list is currently empty')).toBeVisible();
     await expect(
-      createListPanel.getByText(
-        'Your list is currently empty. Select some questions to add to your list.',
-      ),
+      createListPanel.getByText('Select some questions to add to your list'),
     ).toBeVisible();
     await expect(createListPanel.getByText('List name')).toBeVisible();
     await expect(createListSidepanel.listNameInput).toBeVisible();
