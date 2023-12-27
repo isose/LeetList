@@ -23,7 +23,7 @@ const Navbar = ({ toggleNavPanel }: NavbarProps) => {
         >
           <FiMenu color='white' size={25} />
         </div>
-        <Link to='/'>Leetlist</Link>
+        <Link to='/'>LeetList</Link>
       </div>
       {isLoggedIn?.() ? (
         <UserDropdown />

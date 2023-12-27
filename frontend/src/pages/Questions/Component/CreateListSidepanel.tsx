@@ -67,7 +67,7 @@ const CreateListPanelHeader = ({
         testid='close-button'
       />
       <div className={styles['create-list-panel__header-wrapper']}>
-        <h1>{listState.id ? 'Edit Leetlist' : 'New Leetlist'}</h1>
+        <h1>{listState.id ? 'Edit LeetList' : 'New LeetList'}</h1>
         {questionCount > 0 && (
           <>
             <div

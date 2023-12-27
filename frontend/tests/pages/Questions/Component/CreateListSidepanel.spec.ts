@@ -17,7 +17,7 @@ test.describe('logged out', async () => {
     await createListSidepanel.newListButton.click();
     await expect(createListSidepanel.closeButton).toBeVisible();
     const createListPanel = page.getByTestId('create-list-panel');
-    await expect(createListPanel.getByRole('heading', { name: 'New Leetlist' })).toBeVisible();
+    await expect(createListPanel.getByRole('heading', { name: 'New LeetList' })).toBeVisible();
     await expect(createListPanel.getByText('Your list is currently empty')).toBeVisible();
     await expect(
       createListPanel.getByText('Select some questions to add to your list'),
@@ -101,7 +101,7 @@ test.describe('logged in', async () => {
     await createListSidepanel.newListButton.click();
     await expect(createListSidepanel.closeButton).toBeVisible();
     const createListPanel = page.getByTestId('create-list-panel');
-    await expect(createListPanel.getByRole('heading', { name: 'New Leetlist' })).toBeVisible();
+    await expect(createListPanel.getByRole('heading', { name: 'New LeetList' })).toBeVisible();
     await expect(createListPanel.getByText('Your list is currently empty')).toBeVisible();
     await expect(
       createListPanel.getByText('Select some questions to add to your list'),
@@ -120,7 +120,7 @@ test.describe('logged in', async () => {
     const createListSidepanel = new CreateListSidepanel(page);
     await expect(createListSidepanel.closeButton).toBeVisible();
     const createListPanel = page.getByTestId('create-list-panel');
-    await expect(createListPanel.getByRole('heading', { name: 'Edit Leetlist' })).toBeVisible();
+    await expect(createListPanel.getByRole('heading', { name: 'Edit LeetList' })).toBeVisible();
     await expect(createListPanel.getByTestId('create-list-panel__header-counter')).toHaveText('4');
     await expect(createListSidepanel.clearButton).toBeVisible();
     await expect(createListPanel.getByTestId('question-list__item')).toHaveCount(4);

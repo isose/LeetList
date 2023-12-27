@@ -13,7 +13,7 @@ export class Navbar {
     this.page = page;
     this.navbar = page.getByTestId('navbar');
     this.navPanelButton = this.navbar.getByTestId('navbar__nav-panel-icon');
-    this.leetlistLink = this.navbar.getByRole('link', { name: 'Leetlist' });
+    this.leetlistLink = this.navbar.getByRole('link', { name: 'LeetList' });
     this.loginLink = this.navbar.getByRole('link', { name: 'Login' });
     this.usernameText = this.navbar.getByTestId('username');
   }

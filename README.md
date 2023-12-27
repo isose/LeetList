@@ -1,22 +1,10 @@
 # LeetList
 
-A LeetCode Playlist generator
+A web application to create and browse LeetCode question lists.
 
 ## Description
 
-We are creating a web app that makes it convenient and easy to put Leetcode questions into a playlist and share it with other friends.
-
-### Installing
-
-```
-npm install
-```
-
-### Executing program
-
-```
-npm start
-```
+Users can browse LeetCode question lists created by others, or register an account to create their own question lists to share with others.
 
 ## License
 
