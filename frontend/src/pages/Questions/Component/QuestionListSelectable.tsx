@@ -1,15 +1,18 @@
 import React from 'react';
+import Spinner from 'src/components/ui/Spinner';
 import Question, { IQuestion } from 'src/pages/Questions/Component/Question';
 import questionStyles from 'styles/pages/Questions/Component/Question.module.css';
 import styles from 'styles/pages/Questions/Component/QuestionList.module.css';
 
 interface QuestionListSelectableProps {
+  loading: boolean;
   questions: IQuestion[];
   selectedQuestions: IQuestion[];
   setSelectedQuestions: (questions: IQuestion[]) => void;
 }
 
 const QuestionListSelectable = ({
+  loading,
   questions,
   selectedQuestions,
   setSelectedQuestions,
@@ -31,7 +34,8 @@ const QuestionListSelectable = ({
   return (
     <>
       {questions.length > 0 ? (
-        <div className='question-list'>
+        <div className={styles['question-list']}>
+          {loading && <Spinner />}
           {questions.map((question: IQuestion) => {
             return (
               <Question
@@ -47,6 +51,7 @@ const QuestionListSelectable = ({
         </div>
       ) : (
         <div className={styles['question-list__empty-state']}>
+          {loading && <Spinner />}
           <div className={styles['question-list__empty-state__message']}>
             No results found
             <br />

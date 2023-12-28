@@ -46,6 +46,7 @@
 }
 
 .lists__container {
+  position: relative;
   outline: 2px solid black;
   background-color: white;
   width: 95%;

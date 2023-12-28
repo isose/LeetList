@@ -37,6 +37,7 @@
 
 .list__empty-state {
   display: flex;
+  position: relative;
   align-items: center;
   box-sizing: border-box;
   margin: 2px 0;

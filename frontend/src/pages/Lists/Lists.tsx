@@ -5,6 +5,7 @@ import SpanModal from 'src/components/modal/SpanModal';
 import PaginationButtons from 'src/components/pagination/PaginationButtons';
 import SearchBar from 'src/components/search/SearchBar';
 import Dropdown from 'src/components/ui/Dropdown';
+import Spinner from 'src/components/ui/Spinner';
 import VirtualList from 'src/components/ui/VirtualList';
 import useAuth from 'src/hooks/useAuth';
 import useOverflow from 'src/hooks/useOverflow';
@@ -111,6 +112,7 @@ const Lists = () => {
     value: LISTS_SORT_ORDER.NEW,
   });
   const [lists, setLists] = useState<IList[]>([]);
+  const [listsLoading, setListsLoading] = useState<boolean>(true);
 
   const queryParams = `/?page=${page - 1}&limit=${limit}&search=${debouncedSearch}&sort=${
     sortOrder.value
@@ -122,16 +124,21 @@ const Lists = () => {
   }, [location.pathname, page, debouncedSearch, sortOrder, isLoggedIn]);
 
   const fetchLists = async () => {
-    try {
-      const res = await axiosPrivate.get(`/api${location.pathname}${queryParams}`);
-      setLists(res.data.results);
+    setListsLoading(true);
+    axiosPrivate
+      .get(`/api${location.pathname}${queryParams}`)
+      .then((res) => {
+        setLists(res.data.results);
+        setListsLoading(false);
 
-      const pages = Math.ceil(res.data.total / limit);
-      setTotalPages(Math.max(pages, 1));
-    } catch (err) {
-      setLists([]);
-      setTotalPages(1);
-    }
+        const pages = Math.ceil(res.data.total / limit);
+        setTotalPages(Math.max(pages, 1));
+      })
+      .catch((err) => {
+        setLists([]);
+        setListsLoading(false);
+        setTotalPages(1);
+      });
   };
 
   const updateUrlParams = () => {
@@ -190,6 +197,7 @@ const Lists = () => {
             />
           </div>
           <div className={styles['lists__container']}>
+            {listsLoading && <Spinner />}
             <ListsContents lists={lists} search={debouncedSearch} />
           </div>
           <div className={styles['pagination-buttons']}>

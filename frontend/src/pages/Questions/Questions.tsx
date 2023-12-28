@@ -32,6 +32,7 @@ const Questions = () => {
   };
 
   const [questions, setQuestions] = useState<IQuestion[]>([]);
+  const [questionsLoading, setQuestionsLoading] = useState<boolean>(true);
   const [listState, setListState] = useState<ListState>(
     state ? state : { name: '', private: false, questions: [] },
   );
@@ -52,11 +53,13 @@ const Questions = () => {
   }, [limit, page, debouncedSearch, tags, difficulty]);
 
   const fetchQuestions = async () => {
-    const res = await axios.get(`/api/questions${queryParams}`);
-    setQuestions(res.data.results);
-
-    const pages = Math.ceil(res.data.total / limit.value);
-    setTotalPages(Math.max(pages, 1));
+    setQuestionsLoading(true);
+    axios.get(`/api/questions${queryParams}`).then((res) => {
+      setQuestions(res.data.results);
+      setQuestionsLoading(false);
+      const pages = Math.ceil(res.data.total / limit.value);
+      setTotalPages(Math.max(pages, 1));
+    });
   };
 
   const updateUrlParams = () => {
@@ -101,6 +104,7 @@ const Questions = () => {
             setDifficultySelected={setDifficulty}
           />
           <QuestionListSelectable
+            loading={questionsLoading}
             questions={questions}
             selectedQuestions={listState.questions}
             setSelectedQuestions={setSelectedQuestions}

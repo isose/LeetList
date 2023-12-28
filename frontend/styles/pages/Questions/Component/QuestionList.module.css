@@ -1,5 +1,15 @@
+.question-list {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .question-list__empty-state {
   display: flex;
+  position: relative;
+  justify-content: center;
   align-items: center;
   box-sizing: border-box;
   margin: 2px 0;

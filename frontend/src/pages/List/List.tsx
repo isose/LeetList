@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { axiosPrivate } from 'src/api/axios';
 import ButtonModal from 'src/components/modal/ButtonModal';
 import ErrorModal from 'src/components/modal/ErrorModal';
+import Spinner from 'src/components/ui/Spinner';
 import ToggleSwitch from 'src/components/ui/ToggleSwitch';
 import useAuth from 'src/hooks/useAuth';
 import useOverflow from 'src/hooks/useOverflow';
@@ -68,6 +69,7 @@ const List = () => {
 
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState<boolean>(true);
   const [noPrivateAccess, setNoPrivateAccess] = useState<boolean>(false);
   const [notFound, setNotFound] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
@@ -85,7 +87,7 @@ const List = () => {
   }, []);
 
   useEffect(() => {
-    setDisplayEditMenu(auth?.username == list.username);
+    setDisplayEditMenu(list.username != undefined && auth?.username == list.username);
   }, [list]);
 
   const updateList = async (value: boolean) => {
@@ -98,23 +100,28 @@ const List = () => {
   };
 
   const fetchList = async () => {
-    try {
-      const res = await axiosPrivate.get(`/api/list/${id}`);
-      setList(res.data.questionList);
-      setPrivateList(res.data.questionList.private);
-      setQuestions(res.data.questions);
-    } catch (err: any) {
-      const status = err.response.status;
-      switch (status) {
-        case 403:
-          setNoPrivateAccess(true);
-          break;
-        case 404:
-          setNotFound(true);
-          break;
-        default:
-      }
-    }
+    setLoading(true);
+    axiosPrivate
+      .get(`/api/list/${id}`)
+      .then((res) => {
+        setList(res.data.questionList);
+        setPrivateList(res.data.questionList.private);
+        setQuestions(res.data.questions);
+        setLoading(false);
+      })
+      .catch((err) => {
+        const status = err.response.status;
+        switch (status) {
+          case 403:
+            setNoPrivateAccess(true);
+            break;
+          case 404:
+            setNotFound(true);
+            break;
+          default:
+        }
+        setLoading(false);
+      });
   };
 
   const handleEdit = () => {
@@ -173,6 +180,7 @@ const List = () => {
               <QuestionList questions={questions} />
             ) : (
               <div className={styles['list__empty-state']}>
+                {loading && <Spinner />}
                 <div className={styles['list__empty-state__message']}>
                   This list currently does not contain any questions
                 </div>
