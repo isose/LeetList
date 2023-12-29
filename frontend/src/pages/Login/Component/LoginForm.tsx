@@ -85,33 +85,26 @@ const LoginForm = ({ fromPath, toggleLoginForm }: LoginFormProps) => {
 
 const RegisterForm = ({ toggleLoginForm }: { toggleLoginForm: () => void }) => {
   const [email, setEmail] = useState<string>('');
-  const [validEmail, setValidEmail] = useState<boolean>(false);
+  const validEmail = isEmail(email);
 
   const [username, setUsername] = useState<string>('');
-  const [validUsername, setValidUsername] = useState<boolean>(false);
+  const validUsername = USERNAME_REGEX.test(username);
 
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
-  const [validPassword, setValidPassword] = useState<boolean>(false);
-  const [validMatch, setValidMatch] = useState<boolean>(false);
+  const validPassword = PASSWORD_REGEX.test(password);
+  const validMatch = password === confirmPassword;
 
   const [emailError, setEmailError] = useState<string>('');
   const [usernameError, setUsernameError] = useState<string>('');
 
   useEffect(() => {
-    setValidEmail(isEmail(email));
     setEmailError('');
   }, [email]);
 
   useEffect(() => {
-    setValidUsername(USERNAME_REGEX.test(username));
     setUsernameError('');
   }, [username]);
-
-  useEffect(() => {
-    setValidPassword(PASSWORD_REGEX.test(password));
-    setValidMatch(password === confirmPassword);
-  }, [password, confirmPassword]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
